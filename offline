@@ -1,0 +1,188 @@
+#!/bin/sh
+#
+# Usage: see the help using the -h option
+#
+#-- block size when need to be specified --
+blk=10240
+#
+#-- number of child processes (will be set 1 for the case making dst)
+nc=1
+#
+# Option for rootfile, 0 by default
+rootopt=""
+#
+# Flags
+shm_flag=""
+help_flag=""
+dst_flag=""
+root_flag=""
+adddef=""
+#
+#
+while getopts hsd:12DR OPT
+do
+  case $OPT in
+    "s" ) shm_flag="TRUE" ;;
+    "h" ) help_flag="TRUE" ;;
+    "d" ) adddef="$adddef $OPTARG" ;;
+    "1" ) adddef="$adddef run/back1.def" ;;
+    "2" ) adddef="$adddef run/back2.def" ;;
+    "D" ) dst_flag="TRUE" ;;
+    "R" ) root_flag="TRUE" ;;
+  esac
+done
+
+shift $(( $OPTIND - 1 ))
+
+if [ -n "$help_flag" -o $# -lt 3 ]
+then
+  echo "Usage: $0 [-hsd12DRT] [-d filename.def] from_name to_name run_numbers"
+  echo "  -h: show this help"
+  echo "  -s: use shared memory"
+  echo "  -d: add the specified definition file"
+  echo "  -1: add run/back1.def in the definition files"
+  echo "  -2: add run/back2.def in the definition files"
+  echo "  -D: create a DST file"
+  echo "  -R: create a ROOT file"
+  exit
+fi
+
+src=$1; shift
+dst=$1; shift
+
+#------------  directories and files -----------
+blddir=./datatest/
+dstindir=./dst
+dstoutdir=./dst
+hbdir=./hb
+alidir=./alias
+defdir=./def
+scadir=./sca
+rundir=./run
+#
+PID=$$
+deffilep="$defdir/analyzer_p_$PID.def"
+deffilef="$defdir/analyzer_d_$PID.def"
+#-------------------------------------
+
+#
+#---------- analyzer command  ----------
+anacmd="./analyzer/bin/analyzer"
+anaopt=""
+#
+if [ "$blk" != "" ]
+then
+ anaopt="$anaopt -b $blk";
+fi
+#
+if [ -z "$dst_flag" -a "$nc" != "" ]
+then
+ anaopt="$anaopt -p $nc";
+fi
+#
+if [ -n "$root_flag" ]
+then
+ rootopt="-r";
+fi
+#---------------------------------------
+
+#-------------------------------------------
+echo "Analysis from '$src' to '$dst'"
+#-------------------------------------------
+
+if [ "$src" = "" -o "$src" = "bld" -o "$src" = "BLD" ]
+then
+  src=""
+else
+  src="_$src"
+fi
+dst=$src"_"$dst
+
+#----- make a copy of the hist.def file -----
+cp -f hist.def $deffilep
+#---------------------------------------------
+
+#----------------  RUN loop ----------------
+#for run in $*
+for run in `./analyzer/bin/mknum $*`
+do
+  date
+  echo "run $run"
+
+  #------------ create file names ------------
+  hbfile="$hbdir/run$run$dst.hb"
+  deffile="$defdir/run$run$dst.def"
+  dstfile="$dstoutdir/run$run$dst.dst"
+  alifile="$alidir/run$run$dst.kumac"
+  scafile="$scadir/run$run$dst.sca"
+  #-------------------------------------
+
+  # clear files
+  rm -f $hbfile
+  rm -f $deffile
+  rm -f $deffilef
+  rm -f $alifile
+  rm -f $scafile
+  ln -fs $alifile alias.kumac
+  if [ -n "$dst_flag" ]
+  then
+    rm -f $dstfile
+  fi
+
+  # copy the definition file
+  cp -f $deffilep $deffile
+
+  # add definition file specified in the command line
+  for file in $adddef 
+  do
+    echo "Include the file: $file"
+    echo "#--- Included from $file ---" >> $deffile
+    cat $file >> $deffile
+  done
+
+  # set the run dependent definition file
+  runfile="$rundir/run$run.def"
+  if [ -f $runfile ]
+  then
+    echo "Include run dependent file: $runfile"
+    echo "#--- Included from $runfile ---" >> $deffile
+    cat $runfile >> $deffile
+  fi
+
+  echo "#--- Defnition of output files ---" > $deffilef
+  if [ -n "$dst_flag" ]
+  then
+    echo ' 1 def DST_FILE = "'$dstfile'"' >> $deffilef
+  fi
+  echo ' 1 def HB_FILE = "'$hbfile'"' >> $deffilef
+  echo ' 1 def SCA_FILE = "'$scafile'"' >> $deffilef
+  echo ' 1 def ALIAS_FILE = "'$alifile'"' >> $deffilef
+
+  # find data
+  if [ -f $blddir/run$run$src.bld ]
+  then
+    datacmd="cat $blddir/run$run$src.bld"
+  elif [ -f $blddir/run$run$src.bld.gz ]
+  then
+    datacmd="gunzip -c $blddir/run$run$src.bld.gz"
+  elif [ -f $dstindir/run$run$src.dst ]
+  then
+    datacmd="cat $dstindir/run$run$src.dst"
+  elif [ -f $dstindir/run$run$src.dst.gz ]
+  then
+    datacmd="gunzip -c $dstindir/run$run$src.dst.gz"
+  fi
+
+  # -----  do analysis   ------
+  if [ -n "$shm_flag" ]
+  then
+    $datacmd | $anacmd $anaopt -d $deffilef -d $deffile
+  else
+    $datacmd | $anacmd $anaopt -d $deffilef -d $deffile -f $hbfile $rootopt
+  fi
+  # ---------------------------
+done
+#---------------- end of RUN loop ----------------
+
+rm -f $deffilep
+rm -f $deffilef
