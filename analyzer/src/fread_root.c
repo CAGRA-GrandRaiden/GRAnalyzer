@@ -50,7 +50,9 @@ void FindVar(int dstvarlabel)
 	}
 }
 
-/* Get variable names */
+/** Get variable names
+    Parses the DST_VAR in hist.def for all the variable names to be saved in TTree
+ */
 static int root_write_header(char *comment)
 {
 	char *name, *p, *d, c;
@@ -64,25 +66,27 @@ static int root_write_header(char *comment)
 		c = 1;  // any number other than 0 is OK
 		for(int i=0;c;i++){
 			c = *d++;
-			if((!c && i) || c==':'){
+			if((!c && i) || c==':'){ // seperate by ':'
 				if(i>255) i=255;
 				strncpy(str, p, i);
 				str[i] = 0x00;
 				p = d;
 				i = -1;
-				if(ndstvar>=MaxNDSTVar){
+				if(ndstvar>=MaxNDSTVar){ // probably need to increase MaxNDSTVar size
 					break;
 				}
 				dstvar[ndstvar] = strdup(str);
 				dr_ref_n(str, &dstvarref[ndstvar++]);
+				/* dstvar and dstvarref are the main string and
+				   integer lookup-pairs for the DST_VARs */
 			}
 			if(!c) break;
 		}
 	}
 
-	InitTable();
+	InitTable(); // set all rootalyze variables to 256 (large number)
 	for(int i=0;i<ndstvar;i++) {
-		FindVar(i);
+		FindVar(i); // associate each dstvar with variable in conversion table
 	}
 	/*for(int i=0;i<ndstvar;i++) {
 		showerr("%d \t %d \t %d \n",i,conversion_table[i].index_subset,conversion_table[i].index_variable);
@@ -107,7 +111,7 @@ int root_write_data()
 
 	// loop on all the variables
 	for(int iv=0; iv<ndstvar; iv++){
-		ref = dstvarref[iv];
+		ref = dstvarref[iv]; // get the index of the dst variable (built in header)
 		min = dr_min_ref(ref);
 		max = dr_max_ref(ref);
 		index1 = conversion_table[iv].index_subset;
