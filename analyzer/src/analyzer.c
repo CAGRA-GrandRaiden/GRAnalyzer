@@ -326,14 +326,14 @@ int evt_start(){
   evt_start_f2();
 #endif
 	dst_init();
-	
+
 	if(rootflag == 1)
 		root_init(nrun);
 
     return 0;
-	
+
 }
-	
+
 void show_blk_num(flag)
 		 int flag;
 {
