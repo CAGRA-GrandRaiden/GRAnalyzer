@@ -7,6 +7,7 @@
 #* Compiler etc.  *
 #******************
 # Directories
+ANA = /projects/ceclub/sullivan/cagragr/GRAnalyzer/analyzer
 SDIR = src
 HDIR = include
 ODIR = obj
@@ -24,13 +25,14 @@ AHIST = awk -f bin/hist.awk
 PHIST = perl bin/moveline.pl
 CFLAGS = -I. -I$(HDIR) -I$(SDIR) \
          -D`uname -m` -D`uname -s` -DLinux86 -Df2cFortran \
-         -DUSE_PAW
-ROOTFLAGS = -I$(ROOTDIR)/include `root-config --cflags --glibs`
-LDFLAGS = -lm
-VARIOUSLIB = -L$(LDIR) -lpacklib
+         -DUSE_PAW -std=c++11
+ROOTFLAGS = -I$(shell root-config --incdir) $(shell root-config --cflags --glibs)
+ROOTLIBS  =  $(shell root-config --libs)  # does not include -lGui
+LDFLAGS = -lm -fPIC
+VARIOUSLIB = -L$(LDIR) -L$(ANA) -Wl,-rpath,$(ANA) -lpacklib -lRCNPTREE
 GPP = g++ $(CFLAGS) $(CPPFLAGS) $(ROOTFLAGS) -c
 COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) -c
-LINK.c = g++ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
+LINK.c = g++ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(ROOTFLAGS)
 
 # for Linux (miho-2)
 FLIB  = -L/usr/lib/gcc/x86_64-redhat-linux/4.4.4 -lgfortran -lnsl
@@ -66,7 +68,10 @@ OBJ  =	$(ODIR)/analyzer.o \
 	$(ODIR)/lex.yy.o \
 	$(ODIR)/freadin.tab.o \
 	$(ODIR)/dummy.o \
-	$(ODIR)/hb.o \
+	$(ODIR)/hb.o
+
+DICTFILES=$(ODIR)/RCNPTREEDictionary.o
+SHAREDTARGET=libRCNPTREE.so
 
 HDR  = $(HDIR)/analyzer.h $(HDIR)/histogram.h $(HDIR)/freadin.h
 
@@ -107,7 +112,17 @@ $(ODIR)/fread_root.o: $(SDIR)/fread_root.c $(HDR)
 	$(PHIST) $<.c
 	$(GPP) $<.c -o $@
 
-$(ODIR)/analyzer.o: $(SDIR)/analyzer.c $(HDR)
+RCNPTREEDictionary:
+	rootcint -f src/RCNPTREEDictionary.cc -c -p -I$(HDIR) rootalyze.h LinkDef.h
+	mv src/RCNPTREEDictionary.h include/
+
+$(ODIR)/RCNPTREEDictionary.o: $(SDIR)/RCNPTREEDictionary.cc
+	$(LINK.c) $< -c -o $@
+
+lib%.so: $(ODIR)/RCNPTREEDictionary.o
+	g++ -g -Wl,-rpath=$(LIBDIR) $(LDFLAGS) $(ROOTLIBS) -shared -o $@ $^
+
+$(ODIR)/analyzer.o: $(SDIR)/analyzer.c $(HDR) RCNPTREEDictionary
 	$(AHIST) $< > $<.c
 	$(PHIST) $<.c
 	$(COMPILE.c) $<.c -o $@
@@ -181,7 +196,7 @@ $(SDIR)/freadin.tab.c: $(SDIR)/freadin.y $(HDIR)/freadin.h
 $(ODIR)/freadin.tab.o: $(SDIR)/freadin.tab.c
 	$(COMPILE.c) $< -o $@
 
-$(EDIR)/analyzer: $(OBJ)
+$(EDIR)/analyzer: $(OBJ) $(DICTFILES) $(SHAREDTARGET)
 	$(LINK.c)  $(OBJ) $(STATIC) $(VARIOUSLIB) $(FLIB) -o $@ $(ROOTFLAGS)
 
 test: test.c histogram.o histogram.h
@@ -192,4 +207,5 @@ clean:
 	rm -f core $(TARGET) $(ODIR)/* $(SDIR)/*.c.c \
 	$(SDIR)/freadin.tab.h $(SDIR)/freadin.tab.c \
 	lex.yy.c $(SDIR)/freadin.output \
-        last.kumac last.kumacold 
+	./src/*~ last.kumac last.kumacold \
+	./src/*Dictionary.cc ./include/*Dictionary.h
