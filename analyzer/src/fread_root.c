@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <vector>
+#include <string>
+#include <map>
+#include <utility>
 
 #include "TFile.h"
 #include "TROOT.h"
@@ -21,34 +24,11 @@ using namespace std;
 
 static RCNPTREE rootevent;
 static ROOTVARTABLE variable_table;
-static ARRAYINDEX conversion_table[MaxNDSTVar];
 static TFile *RootFile;
 static TTree *tree;
 static vector<vector<vector<double> > > temparray(var_subsets); // Array to temporary store the event
+static map<string,vector<double> > data_map;
 
-/* Initialize the ROOT-analyzer variable conversion table subset values to 256 to avoid accidental mismatch */
-void InitTable()
-{
-	for(int i=0;i<MaxNDSTVar;i++) {
-		conversion_table[i].index_subset = 256;
-	}
-}
-
-/* Fills the ROOT-analyzer variable conversion table */
-void FindVar(int dstvarlabel)
-{
-	int asize = 0;
-	for(int i=0;i<var_subsets;i++) {
-		asize = variable_table.table_size[i];
-		for(int j=0;j<asize;j++) {
-			if(!strcmp(dstvar[dstvarlabel],variable_table.variable_name[i][j])) {
-				conversion_table[dstvarlabel].index_subset = i;
-				conversion_table[dstvarlabel].index_variable = j;
-				i=j=1000;
-			}
-		}
-	}
-}
 
 /** Get variable names
     Parses the DST_VAR in hist.def for all the variable names to be saved in TTree
@@ -84,13 +64,7 @@ static int root_write_header(char *comment)
 		}
 	}
 
-	InitTable(); // set all rootalyze variables to 256 (large number)
-	for(int i=0;i<ndstvar;i++) {
-		FindVar(i); // associate each dstvar with variable in conversion table
-	}
-	/*for(int i=0;i<ndstvar;i++) {
-		showerr("%d \t %d \t %d \n",i,conversion_table[i].index_subset,conversion_table[i].index_variable);
-	}*/
+
 	return(0);
 }
 
@@ -114,15 +88,13 @@ int root_write_data()
 		ref = dstvarref[iv]; // get the index of the dst variable (built in header)
 		min = dr_min_ref(ref);
 		max = dr_max_ref(ref);
-		index1 = conversion_table[iv].index_subset;
-		index2 = conversion_table[iv].index_variable;
 
 		/// Check if current variable is not empty ///
 		if(dr_exists(d=dr_get_ref(ref,min))){
 			/// Scroll the multiplicity of current variable ///
 			for(int i=min; i<max; i++){
 				if(dr_exists(d=dr_get_ref(ref,i))){
-					temparray[index1][index2].push_back(d);
+					data_map[dstvar[iv]].push_back(d);
 				}
 			}
 		}
@@ -131,38 +103,19 @@ int root_write_data()
 	///////////////////////////////////////
 	///////////////// GR //////////////////
 	///////////////////////////////////////
-	index1 = variable_table.table_var_GR;
-	// GR main values //
-	mult = temparray[index1][0].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_RAYID[i] = temparray[index1][0][i];
-	}
-	rootevent.GR_RAYID_mult = mult;
-	mult = temparray[index1][1].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_RF[i] = temparray[index1][1][i];
-	}
-	rootevent.GR_RF_mult = mult;
-	mult = temparray[index1][2].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_X[i] = temparray[index1][2][i];
-	}
-	rootevent.GR_X_mult = mult;
-	mult = temparray[index1][3].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_Y[i] = temparray[index1][3][i];
-	}
-	rootevent.GR_Y_mult = mult;
-	mult = temparray[index1][4].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_TH[i] = temparray[index1][4][i];
-	}
-	rootevent.GR_TH_mult = mult;
-	mult = temparray[index1][5].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_PH[i] = temparray[index1][5][i];
-	}
-	rootevent.GR_PH_mult = mult;
+	/* index1 = variable_table.table_var_GR; */
+	/* // GR main values // */
+	/* mult = temparray[index1][0].size(); */
+	/* for (int i=0;i<mult;i++) { */
+	/* 	rootevent.GR_RAYID[i] = temparray[index1][0][i]; */
+	/* } */
+	/* rootevent.GR_RAYID_mult = mult; */
+	if(data_map.count("GR_RAYID")>0) {rootevent.GR_RAYID = std::mov(data_map["GR_RAYID"])} else { showerr("GR_RAYID NOT FOUND"); exit(1);};
+	if(data_map.count("GR_RF")>0) {rootevent.GR_RF = std::mov(data_map["GR_RF"])} else {showerr("ERROR: GR_RF NOT FOUND!!!"); exit(1);};
+	if(data_map.count("GR_X")>0) {rootevent.GR_X = std::mov(data_map["GR_X"])};
+	if(data_map.count("GR_Y")>0) {rootevent.GR_Y = std::mov(data_map["GR_Y"])};
+	if(data_map.count("GR_TH")>0) {rootevent.GR_TH = std::mov(data_map["GR_TH"])};
+	if(data_map.count("GR_PH")>0) {rootevent.GR_PH = std::mov(data_map["GR_PH"])};
 
 	// GR ADC //
 	mult = temparray[index1][6].size();
@@ -290,66 +243,18 @@ int root_write_data()
 	rootevent.GR_MADC_mult = token[3];
 
 	// GR WIRE //
-	mult = temparray[index1][23].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_WIRE_X1[i] = temparray[index1][23][i];
-	}
-	rootevent.GR_WIRE_X1_mult = mult;
-	mult = temparray[index1][24].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_WIRE_U1[i] = temparray[index1][24][i];
-	}
-	rootevent.GR_WIRE_U1_mult = mult;
-	mult = temparray[index1][25].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_WIRE_X2[i] = temparray[index1][25][i];
-	}
-	rootevent.GR_WIRE_X2_mult = mult;
-	mult = temparray[index1][26].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_WIRE_U2[i] = temparray[index1][26][i];
-	}
-	rootevent.GR_WIRE_U2_mult = mult;
-	mult = temparray[index1][27].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_WTDC_X1[i] = temparray[index1][27][i];
-	}
-	rootevent.GR_WTDC_X1_mult = mult;
-	mult = temparray[index1][28].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_WTDC_U1[i] = temparray[index1][28][i];
-	}
-	rootevent.GR_WTDC_U1_mult = mult;
-	mult = temparray[index1][29].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_WTDC_X2[i] = temparray[index1][29][i];
-	}
-	rootevent.GR_WTDC_X2_mult = mult;
-	mult = temparray[index1][30].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_WTDC_U2[i] = temparray[index1][30][i];
-	}
-	rootevent.GR_WTDC_U2_mult = mult;
-	mult = temparray[index1][31].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_TDCR_X1[i] = temparray[index1][31][i];
-	}
-	rootevent.GR_TDCR_X1_mult = mult;
-	mult = temparray[index1][32].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_TDCR_U1[i] = temparray[index1][32][i];
-	}
-	rootevent.GR_TDCR_U1_mult = mult;
-	mult = temparray[index1][33].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_TDCR_X2[i] = temparray[index1][33][i];
-	}
-	rootevent.GR_TDCR_X2_mult = mult;
-	mult = temparray[index1][34].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_TDCR_U2[i] = temparray[index1][34][i];
-	}
-	rootevent.GR_TDCR_U2_mult = mult;
+	if(data_map.count("GR_WIRE_X1")>0) {rootevent.GR_WIRE_X1 = std::mov(data_map["GR_WIRE_X1"])};
+	if(data_map.count("GR_WIRE_U1")>0) {rootevent.GR_WIRE_U1 = std::mov(data_map["GR_WIRE_U1"])};
+	if(data_map.count("GR_WIRE_X2")>0) {rootevent.GR_WIRE_X2 = std::mov(data_map["GR_WIRE_X2"])};
+	if(data_map.count("GR_WIRE_U2")>0) {rootevent.GR_WIRE_U2 = std::mov(data_map["GR_WIRE_U2"])};
+	if(data_map.count("GR_WTDC_X1")>0) {rootevent.GR_WTDC_X1 = std::mov(data_map["GR_WTDC_X1"])};
+	if(data_map.count("GR_WTDC_U1")>0) {rootevent.GR_WTDC_U1 = std::mov(data_map["GR_WTDC_U1"])};
+	if(data_map.count("GR_WTDC_X2")>0) {rootevent.GR_WTDC_X2 = std::mov(data_map["GR_WTDC_X2"])};
+	if(data_map.count("GR_WTDC_U2")>0) {rootevent.GR_WTDC_U2 = std::mov(data_map["GR_WTDC_U2"])};
+	if(data_map.count("GR_TDCR_X1")>0) {rootevent.GR_TDCR_X1 = std::mov(data_map["GR_TDCR_X1"])};
+	if(data_map.count("GR_TDCR_U1")>0) {rootevent.GR_TDCR_U1 = std::mov(data_map["GR_TDCR_U1"])};
+	if(data_map.count("GR_TDCR_X2")>0) {rootevent.GR_TDCR_X2 = std::mov(data_map["GR_TDCR_X2"])};
+	if(data_map.count("GR_TDCR_U2")>0) {rootevent.GR_TDCR_U2 = std::mov(data_map["GR_TDCR_U2"])};
 
 	// clean temparray
 	for (int i=0;i<variable_table.table_size[index1];i++) {
@@ -362,11 +267,8 @@ int root_write_data()
 	///////////////////////////////////////
 	index1 = variable_table.table_var_LAS;
 	// LAS main values //
-	mult = temparray[index1][0].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_RAYID[i] = temparray[index1][0][i];
-	}
-	rootevent.LAS_RAYID_mult = mult;
+	if(data_map.count("LAS_RAYID")>0) {rootevent.LAS_RAYID = std::mov(data_map["LAS_RAYID"])};
+
 	mult = temparray[index1][1].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_RF[token[4]] = temparray[index1][1][i];
@@ -388,26 +290,11 @@ int root_write_data()
 		token[4] += 1;
 	}
 	rootevent.LAS_RF_mult = token[4];
-	mult = temparray[index1][4].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_X[i] = temparray[index1][4][i];
-	}
-	rootevent.LAS_X_mult = mult;
-	mult = temparray[index1][5].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_Y[i] = temparray[index1][5][i];
-	}
-	rootevent.LAS_Y_mult = mult;
-	mult = temparray[index1][6].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TH[i] = temparray[index1][6][i];
-	}
-	rootevent.LAS_TH_mult = mult;
-	mult = temparray[index1][7].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_PH[i] = temparray[index1][7][i];
-	}
-	rootevent.LAS_PH_mult = mult;
+
+	if(data_map.count("LAS_X")>0) {rootevent.LAS_X = std::mov(data_map["LAS_X"])};
+	if(data_map.count("LAS_Y")>0) {rootevent.LAS_Y = std::mov(data_map["LAS_Y"])};
+	if(data_map.count("LAS_TH")>0) {rootevent.LAS_TH = std::mov(data_map["LAS_TH"])};
+	if(data_map.count("LAS_PH")>0) {rootevent.LAS_PH = std::mov(data_map["LAS_PH"])};
 
 	// LAS ADC //
 	mult = temparray[index1][8].size();
@@ -668,66 +555,18 @@ int root_write_data()
 	rootevent.LAS_MADC_mult = token[8];
 
 	// LAS WIRE //
-	mult = temparray[index1][44].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_WIRE_X1[i] = temparray[index1][44][i];
-	}
-	rootevent.LAS_WIRE_X1_mult = mult;
-	mult = temparray[index1][45].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_WIRE_U1[i] = temparray[index1][45][i];
-	}
-	rootevent.LAS_WIRE_U1_mult = mult;
-	mult = temparray[index1][46].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_WIRE_V1[i] = temparray[index1][46][i];
-	}
-	rootevent.LAS_WIRE_V1_mult = mult;
-	mult = temparray[index1][47].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_WIRE_X2[i] = temparray[index1][47][i];
-	}
-	rootevent.LAS_WIRE_X2_mult = mult;
-	mult = temparray[index1][48].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_WIRE_U2[i] = temparray[index1][48][i];
-	}
-	rootevent.LAS_WIRE_U2_mult = mult;
-	mult = temparray[index1][49].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_WIRE_V2[i] = temparray[index1][49][i];
-	}
-	rootevent.LAS_WIRE_V2_mult = mult;
-	mult = temparray[index1][50].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_X1[i] = temparray[index1][50][i];
-	}
-	rootevent.LAS_TDCR_X1_mult = mult;
-	mult = temparray[index1][51].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_U1[i] = temparray[index1][51][i];
-	}
-	rootevent.LAS_TDCR_U1_mult = mult;
-	mult = temparray[index1][52].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_V1[i] = temparray[index1][52][i];
-	}
-	rootevent.LAS_TDCR_V1_mult = mult;
-	mult = temparray[index1][53].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_X2[i] = temparray[index1][53][i];
-	}
-	rootevent.LAS_TDCR_X2_mult = mult;
-	mult = temparray[index1][54].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_U2[i] = temparray[index1][54][i];
-	}
-	rootevent.LAS_TDCR_U2_mult = mult;
-	mult = temparray[index1][55].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_V2[i] = temparray[index1][55][i];
-	}
-	rootevent.LAS_TDCR_V2_mult = mult;
+	if(data_map.count("LAS_WIRE_X1")>0) {rootevent.LAS_WIRE_X1 = std::mov(data_map["LAS_WIRE_X1"])};
+	if(data_map.count("LAS_WIRE_U1")>0) {rootevent.LAS_WIRE_U1 = std::mov(data_map["LAS_WIRE_U1"])};
+	if(data_map.count("LAS_WIRE_V1")>0) {rootevent.LAS_WIRE_V1 = std::mov(data_map["LAS_WIRE_V1"])};
+	if(data_map.count("LAS_WIRE_X2")>0) {rootevent.LAS_WIRE_X2 = std::mov(data_map["LAS_WIRE_X2"])};
+	if(data_map.count("LAS_WIRE_U2")>0) {rootevent.LAS_WIRE_U2 = std::mov(data_map["LAS_WIRE_U2"])};
+	if(data_map.count("LAS_WIRE_V2")>0) {rootevent.LAS_WIRE_V2 = std::mov(data_map["LAS_WIRE_V2"])};
+	if(data_map.count("LAS_TDCR_X1")>0) {rootevent.LAS_TDCR_X1 = std::mov(data_map["LAS_TDCR_X1"])};
+	if(data_map.count("LAS_TDCR_U1")>0) {rootevent.LAS_TDCR_U1 = std::mov(data_map["LAS_TDCR_U1"])};
+	if(data_map.count("LAS_TDCR_V1")>0) {rootevent.LAS_TDCR_V1 = std::mov(data_map["LAS_TDCR_V1"])};
+	if(data_map.count("LAS_TDCR_X2")>0) {rootevent.LAS_TDCR_X2 = std::mov(data_map["LAS_TDCR_X2"])};
+	if(data_map.count("LAS_TDCR_U2")>0) {rootevent.LAS_TDCR_U2 = std::mov(data_map["LAS_TDCR_U2"])};
+	if(data_map.count("LAS_TDCR_V2")>0) {rootevent.LAS_TDCR_V2 = std::mov(data_map["LAS_TDCR_V2"])};
 
 	for (int i=0;i<variable_table.table_size[index1];i++) {
 		temparray[index1][i].resize(0);
