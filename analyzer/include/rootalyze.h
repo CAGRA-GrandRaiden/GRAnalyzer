@@ -26,10 +26,12 @@ using namespace std;
 /* Multiplicity pretty useless at the moment, but might become usefull later */
 
 
-class RCNPTREE : public TObject {             // This indicates that the RCNPTREE class inherits from the TObject class (needed writing this object to a tree)
+class RCNPTREE : public TObject {             // This indicates that the RCNPTREE class inherits from the TObject class
+	                                      // (this inheritence is needed for writing this object to a tree)
 	public :
 	RCNPTREE() {;}                        // This is the class "constructor" it is run when an object of the class is created
-	virtual ~RCNPTREE() {;}               // This is the class "destructor" it is run when an object of the class is destroyed (virtual indicates that it overrides the destructor of the parent TObject class)
+	virtual ~RCNPTREE() {;}               // This is the class "destructor" it is run when an object of the class is destroyed
+	                                      // (virtual indicates that it overrides the destructor of the parent TObject class)
 
 
 	void Clear() {data.clear();}
