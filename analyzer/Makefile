@@ -7,7 +7,7 @@
 #* Compiler etc.  *
 #******************
 # Directories
-ANA = /projects/ceclub/sullivan/cagragr/GRAnalyzer/analyzer
+ANA = ./
 SDIR = src
 HDIR = include
 ODIR = obj
@@ -208,4 +208,5 @@ clean:
 	$(SDIR)/freadin.tab.h $(SDIR)/freadin.tab.c \
 	lex.yy.c $(SDIR)/freadin.output \
 	./src/*~ last.kumac last.kumacold \
-	./src/*Dictionary.cc ./include/*Dictionary.h
+	./src/*Dictionary.cc ./include/*Dictionary.h \
+	./*.so
