@@ -7,7 +7,7 @@
 #* Compiler etc.  *
 #******************
 # Directories
-ANA = ./
+ANA = $(realpath ./)
 SDIR = src
 HDIR = include
 ODIR = obj
