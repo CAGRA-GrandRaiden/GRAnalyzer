@@ -24,14 +24,16 @@ using namespace std;
 /**************  RCNPTREE CLASS ****************/
 /* Variables for the tree */
 /* Multiplicity pretty useless at the moment, but might become usefull later */
-class RCNPTREE : public TObject {
+
+
+class RCNPTREE : public TObject {             // This indicates that the RCNPTREE class inherits from the TObject class (needed writing this object to a tree)
 	public :
-	RCNPTREE() {;}
-	virtual ~RCNPTREE() {;}
+	RCNPTREE() {;}                        // This is the class "constructor" it is run when an object of the class is created
+	virtual ~RCNPTREE() {;}               // This is the class "destructor" it is run when an object of the class is destroyed (virtual indicates that it overrides the destructor of the parent TObject class)
 
 
 	void Clear() {data.clear();}
-	map<string,vector<double> > data;
+	map<string,vector<double> > data;     // The underlying map from string to vector of data
 
-	ClassDef(RCNPTREE,1);
+	ClassDef(RCNPTREE,1);                 // This is a ROOT macro that is needed for creating a ROOT dictionary
 };
