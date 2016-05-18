@@ -25,11 +25,21 @@ class RCNPTREE : public TObject {             // This indicates that the RCNPTRE
 
 class DSTMap : public TObject {
 
+  map<string,int> strtoint;
+  map<int,string> inttostr;
+
   public:
         DSTMap() {;}
         virtual ~DSTMap() {;}
 
-        map<string,int> lookup;
+        int operator()(const string& var) {return strtoint.at(var);}
+        string operator()(const int& varnum) {return inttostr.at(varnum);}
+  //int Get(const string& var) {return strtoint.at(var);}
+  //string Get(const int& varnum) {return inttostr.at(varnum);}
+        void Set(const int& varnum, const string& var) {
+	  strtoint[var] = varnum;
+	  inttostr[varnum] = var;
+	}
 
         ClassDef(DSTMap,1);
 };

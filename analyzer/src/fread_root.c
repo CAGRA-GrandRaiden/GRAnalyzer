@@ -50,7 +50,7 @@ static int root_write_header(char *comment)
 					break;
 				}
 				dstvar[ndstvar] = strdup(str);
-				table->lookup[str] = ndstvar; //
+				table->Set(ndstvar,dstvar[ndstvar]);
 				dr_ref_n(str, &dstvarref[ndstvar++]);
 				/* dstvar and dstvarref are the main string and
 				   integer lookup-pairs for the DST_VARs */
@@ -90,7 +90,7 @@ int root_write_data()
 			for(int i=min; i<max; i++){
 				if(dr_exists(d=dr_get_ref(ref,i))){
 					//rootevent->data[dstvar[iv]].push_back(d);
-					rootevent->data[ref].push_back(d);
+					rootevent->data[iv].push_back(d);
 				}
 			}
 		}
