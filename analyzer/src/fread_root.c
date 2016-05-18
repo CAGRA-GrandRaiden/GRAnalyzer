@@ -19,7 +19,7 @@ static int dstvarref[MaxNDSTVar];
 using namespace std;
 
 static DSTMap* table;
-static RCNPTREE* rootevent;
+static RCNPEvent* rootevent;
 static TFile *RootFile;
 static TTree *tree;
 
@@ -109,7 +109,7 @@ int root_init(int nrun){
 	sprintf(rootname, "rootfiles/run_%04d.root", nrun);
 	RootFile = new TFile(rootname,"RECREATE");
 	tree = new TTree("tree","Data Tree");
-	rootevent = new RCNPTREE;
+	rootevent = new RCNPEvent;
 	table = new DSTMap;
 	tree->Branch("rcnpevent", &rootevent);
 

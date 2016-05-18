@@ -14,6 +14,7 @@ ODIR = obj
 EDIR = bin
 LDIR = lib
 ROOTDIR = /usr/local/root/v5.34.32.Linux-slc6-x86_64-gcc4.4
+COG = $(EDIR)/cog
 
 # Common
 CC = cc
@@ -75,7 +76,7 @@ SHAREDTARGET=libRCNPTREE.so
 
 HDR  = $(HDIR)/analyzer.h $(HDIR)/histogram.h $(HDIR)/freadin.h
 
-all: $(TARGET)
+all:  rootalyze $(TARGET)
 
 $(ODIR)/hb.o: $(SDIR)/hb.f
 	$(FC) -c $(FFLAGS) -o $@ $<
@@ -111,6 +112,9 @@ $(ODIR)/fread_root.o: $(SDIR)/fread_root.c $(HDR)
 	$(AHIST) $< > $<.c
 	$(PHIST) $<.c
 	$(GPP) $<.c -o $@
+
+rootalyze:
+	$(COG) -r include/rootalyze.h
 
 RCNPTREEDictionary:
 	rootcint -f src/RCNPTREEDictionary.cc -c -p -I$(HDIR) rootalyze.h LinkDef.h
@@ -210,3 +214,4 @@ clean:
 	./src/*~ last.kumac last.kumacold \
 	./src/*Dictionary.cc ./include/*Dictionary.h \
 	./*.so
+	$(COG) -xr include/rootalyze.h
