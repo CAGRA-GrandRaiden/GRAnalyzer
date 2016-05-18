@@ -18,11 +18,10 @@ static int dstvarref[MaxNDSTVar];
 
 using namespace std;
 
+static DSTMap* table;
 static RCNPTREE* rootevent;
 static TFile *RootFile;
 static TTree *tree;
-static vector<vector<vector<double> > > temparray(var_subsets); // Array to temporary store the event
-//static map<string,vector<double> > data_map;
 
 
 /** Get variable names
@@ -51,6 +50,7 @@ static int root_write_header(char *comment)
 					break;
 				}
 				dstvar[ndstvar] = strdup(str);
+				table->lookup[str] = ndstvar; //
 				dr_ref_n(str, &dstvarref[ndstvar++]);
 				/* dstvar and dstvarref are the main string and
 				   integer lookup-pairs for the DST_VARs */
@@ -68,8 +68,8 @@ int root_write_data()
 {
 	int ref, min, max;
 	int index1, index2;
-	double d;							// data value
-	const int numbtoken = 11;		// number of *_CHAN variables in rootalyze.h
+	double d; // data value
+	const int numbtoken = 11; // number of *_CHAN variables in rootalyze.h
 	int token[numbtoken] = {0};
 	int mult, chan;
 
@@ -89,7 +89,8 @@ int root_write_data()
 			/// Scroll the multiplicity of current variable ///
 			for(int i=min; i<max; i++){
 				if(dr_exists(d=dr_get_ref(ref,i))){
-					rootevent->data[dstvar[iv]].push_back(d);
+					//rootevent->data[dstvar[iv]].push_back(d);
+					rootevent->data[ref].push_back(d);
 				}
 			}
 		}
@@ -97,7 +98,6 @@ int root_write_data()
 
 	tree->Fill();
 	rootevent->Clear();
-
 	return(0);
 }
 
@@ -110,9 +110,8 @@ int root_init(int nrun){
 	RootFile = new TFile(rootname,"RECREATE");
 	tree = new TTree("tree","Data Tree");
 	rootevent = new RCNPTREE;
+	table = new DSTMap;
 	tree->Branch("rcnpevent", &rootevent);
-
-
 
 	if((res=root_write_header((char*)NULL))) {
 		return(res);
@@ -123,6 +122,8 @@ int root_init(int nrun){
 /* exit */
 int root_exit(){
 	if(!RootFile) { return(0); }
-	RootFile->Write();
+	RootFile->cd();
+	tree->Write("", TObject::kOverwrite);
+	table->Write("", TObject::kOverwrite);
 	RootFile->Close();
 }

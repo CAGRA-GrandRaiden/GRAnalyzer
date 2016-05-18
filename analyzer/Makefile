@@ -25,7 +25,7 @@ AHIST = awk -f bin/hist.awk
 PHIST = perl bin/moveline.pl
 CFLAGS = -I. -I$(HDIR) -I$(SDIR) \
          -D`uname -m` -D`uname -s` -DLinux86 -Df2cFortran \
-         -DUSE_PAW -std=c++11
+         -DUSE_PAW -std=c++11 -O3 -g
 ROOTFLAGS = -I$(shell root-config --incdir) $(shell root-config --cflags --glibs)
 ROOTLIBS  =  $(shell root-config --libs)  # does not include -lGui
 LDFLAGS = -lm -fPIC
