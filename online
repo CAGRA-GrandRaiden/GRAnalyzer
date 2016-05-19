@@ -1,0 +1,10 @@
+#!/bin/csh
+
+while 1
+  router_save -s -b 1024 BLD | analyzer/bin/analyzer -b 1024 -r
+#	router_save -s -b 1024 BLD | analyzer/bin/analyzer -b 1024
+#  router_save -s -b 256 BLD | analyzer/bin/analyzer -b 256
+#  router_save -s -b 96 BLD | analyzer/bin/analyzer -b 96
+#  router_save -s -b 96 BLD | analyzer/bin/analyzer -b 96 -p 3
+#  router_save -s -b 96 BLD | analyzer/bin/analyzer -b 96 -p 3 -f hb/analyzer.hb
+end

@@ -1,0 +1,20 @@
+macro/default '.,macro,~/macro'
+exec init
+
+*set gfon -20 
+*set cfon -50
+*set VFON -20
+*set LFON -20
+*set TFON -20
+*set gsiz  0.42
+*set ygti  0.50
+*set yhti  1.50
+*set ywin  3.50
+*set ymgu  1.50
+*set xmgl  2.50
+*set xmgr  1.50
+*set xlab  1.70
+*set xwin  2.50
+*kuip/set_show/filecase keep
+*
+*set stat 110011

@@ -1,0 +1,300 @@
+alias/create   GADC1L               1
+alias/create   NAM1 '!GADC1L'
+alias/create   TTL1 'GR ADC 1L'
+alias/create   TAX1 'ADC "M#ch"N#'
+alias/create   TAY1 'Counts/ch'
+alias/create   GADC1R               2
+alias/create   NAM2 '!GADC1R'
+alias/create   TTL2 'GR ADC 1R'
+alias/create   TAX2 'ADC "M#ch"N#'
+alias/create   TAY2 'Counts/ch'
+alias/create   GADC2L               3
+alias/create   NAM3 '!GADC2L'
+alias/create   TTL3 'GR ADC 2L'
+alias/create   TAX3 'ADC "M#ch"N#'
+alias/create   TAY3 'Counts/ch'
+alias/create   GADC2R               4
+alias/create   NAM4 '!GADC2R'
+alias/create   TTL4 'GR ADC 2R'
+alias/create   TAX4 'ADC "M#ch"N#'
+alias/create   TAY4 'Counts/ch'
+alias/create   GDE1                 5
+alias/create   NAM5 '!GDE1'
+alias/create   TTL5 'GR DE 1'
+alias/create   TAX5 'ADC "M#ch"N#'
+alias/create   TAY5 'Counts/ch'
+alias/create   GDE2                 6
+alias/create   NAM6 '!GDE2'
+alias/create   TTL6 'GR DE 2'
+alias/create   TAX6 'ADC "M#ch"N#'
+alias/create   TAY6 'Counts/ch'
+alias/create   GDE12                7
+alias/create   NAM7 '!GDE12'
+alias/create   TTL7 'GR DE 2 vs DE 1'
+alias/create   TAX7 'DE 1 "M#ch"N#'
+alias/create   TAY7 'DE 3 "M#ch"N#'
+alias/create   GTDC1L               8
+alias/create   NAM8 '!GTDC1L'
+alias/create   TTL8 'GR TDC 1L'
+alias/create   TAX8 '^!'
+alias/create   TAY8 '^!'
+alias/create   GTDC1R               9
+alias/create   NAM9 '!GTDC1R'
+alias/create   TTL9 'GR TDC 1R'
+alias/create   TAX9 '^!'
+alias/create   TAY9 '^!'
+alias/create   GTDC2L               10
+alias/create   NAM10 '!GTDC2L'
+alias/create   TTL10 'GR TDC 2L'
+alias/create   TAX10 '^!'
+alias/create   TAY10 '^!'
+alias/create   GTDC2R               11
+alias/create   NAM11 '!GTDC2R'
+alias/create   TTL11 'GR TDC 2R'
+alias/create   TAX11 '^!'
+alias/create   TAY11 '^!'
+alias/create   GRF                  12
+alias/create   NAM12 '!GRF'
+alias/create   TTL12 'GR RF'
+alias/create   TAX12 '^!'
+alias/create   TAY12 '^!'
+alias/create   GTPOS1ADC1L          13
+alias/create   NAM13 '!GTPOS1ADC1L'
+alias/create   TTL13 'GR adc1l vs TPOS 1'
+alias/create   TAX13 'GR TPOS 1'
+alias/create   TAY13 'ADC 1l "M#ch"N#'
+alias/create   GTPOS1ADC1R          14
+alias/create   NAM14 '!GTPOS1ADC1R'
+alias/create   TTL14 'GR adc1r vs TPOS 1'
+alias/create   TAX14 'GR TPOS 1'
+alias/create   TAY14 'ADC 1r "M#ch"N#'
+alias/create   GTPOS1ADC2L          15
+alias/create   NAM15 '!GTPOS1ADC2L'
+alias/create   TTL15 'GR adc2l vs TPOS 1'
+alias/create   TAX15 'GR TPOS 1'
+alias/create   TAY15 'ADC 2l "M#ch"N#'
+alias/create   GTPOS1ADC2R          16
+alias/create   NAM16 '!GTPOS1ADC2R'
+alias/create   TTL16 'GR adc2r vs TPOS 1'
+alias/create   TAX16 'GR TPOS 1'
+alias/create   TAY16 'ADC 2R"M#ch"N#'
+alias/create   GTPOS1DE1            17
+alias/create   NAM17 '!GTPOS1DE1'
+alias/create   TTL17 'GR DE1 vs TPOS 1'
+alias/create   TAX17 'GR TPOS 1'
+alias/create   TAY17 'DE 1 "M#ch"N#'
+alias/create   GTPOS2DE2            18
+alias/create   NAM18 '!GTPOS2DE2'
+alias/create   TTL18 'GR DE2 vs TPOS 2'
+alias/create   TAX18 'GR TPOS 2'
+alias/create   TAY18 'DE 2 "M#ch"N#'
+alias/create   GTPOS1_PI            19
+alias/create   NAM19 '!GTPOS1_PI'
+alias/create   TTL19 'GR TDC POS 1 PIGated'
+alias/create   TAX19 '^!'
+alias/create   TAY19 '^!'
+alias/create   GTPOS1               20
+alias/create   NAM20 '!GTPOS1'
+alias/create   TTL20 'GR TDC POS 1'
+alias/create   TAX20 '^!'
+alias/create   TAY20 '^!'
+alias/create   GTPOS2               21
+alias/create   NAM21 '!GTPOS2'
+alias/create   TTL21 'GR TDC POS 2'
+alias/create   TAX21 '^!'
+alias/create   TAY21 '^!'
+alias/create   GDE1RF               22
+alias/create   NAM22 '!GDE1RF'
+alias/create   TTL22 'GR DE 1 vs GR RF'
+alias/create   TAX22 'RF "M#ch"N#'
+alias/create   TAY22 'DE 1 "M#ch"N#'
+alias/create   GDE2RF               23
+alias/create   NAM23 '!GDE2RF'
+alias/create   TTL23 'GR DE 2 vs GR RF'
+alias/create   TAX23 'RF "M#ch"N#'
+alias/create   TAY23 'DE 2 "M#ch"N#'
+alias/create   GWIREMX1             24
+alias/create   NAM24 '!GWIREMX1'
+alias/create   TTL24 'GR WIRE X1 (Multi Hit)'
+alias/create   TAX24 '^!'
+alias/create   TAY24 '^!'
+alias/create   GWIREMU1             25
+alias/create   NAM25 '!GWIREMU1'
+alias/create   TTL25 'GR WIRE U1 (Multi Hit)'
+alias/create   TAX25 '^!'
+alias/create   TAY25 '^!'
+alias/create   GWIREMX2             26
+alias/create   NAM26 '!GWIREMX2'
+alias/create   TTL26 'GR WIRE X2 (Multi Hit)'
+alias/create   TAX26 '^!'
+alias/create   TAY26 '^!'
+alias/create   GWIREMU2             27
+alias/create   NAM27 '!GWIREMU2'
+alias/create   TTL27 'GR WIRE U2 (Multi Hit)'
+alias/create   TAX27 '^!'
+alias/create   TAY27 '^!'
+alias/create   GWIREX1              28
+alias/create   NAM28 '!GWIREX1'
+alias/create   TTL28 'GR WIRE X1'
+alias/create   TAX28 '^!'
+alias/create   TAY28 '^!'
+alias/create   GWIREU1              29
+alias/create   NAM29 '!GWIREU1'
+alias/create   TTL29 'GR WIRE U1'
+alias/create   TAX29 '^!'
+alias/create   TAY29 '^!'
+alias/create   GWIREX2              30
+alias/create   NAM30 '!GWIREX2'
+alias/create   TTL30 'GR WIRE X2'
+alias/create   TAX30 '^!'
+alias/create   TAY30 '^!'
+alias/create   GWIREU2              31
+alias/create   NAM31 '!GWIREU2'
+alias/create   TTL31 'GR WIRE U2'
+alias/create   TAX31 '^!'
+alias/create   TAY31 '^!'
+alias/create   GTDCX1               32
+alias/create   NAM32 '!GTDCX1'
+alias/create   TTL32 'GR TDC X1'
+alias/create   TAX32 '^!'
+alias/create   TAY32 '^!'
+alias/create   GTDCU1               33
+alias/create   NAM33 '!GTDCU1'
+alias/create   TTL33 'GR TDC U1'
+alias/create   TAX33 '^!'
+alias/create   TAY33 '^!'
+alias/create   GTDCX2               34
+alias/create   NAM34 '!GTDCX2'
+alias/create   TTL34 'GR TDC X2'
+alias/create   TAX34 '^!'
+alias/create   TAY34 '^!'
+alias/create   GTDCU2               35
+alias/create   NAM35 '!GTDCU2'
+alias/create   TTL35 'GR TDC U2'
+alias/create   TAX35 '^!'
+alias/create   TAY35 '^!'
+alias/create   RAYID                36
+alias/create   NAM36 '!RAYID'
+alias/create   TTL36 'All tracks'
+alias/create   TAX36 '^!'
+alias/create   TAY36 '^!'
+alias/create   GPOSX1               37
+alias/create   NAM37 '!GPOSX1'
+alias/create   TTL37 'GR POS X1'
+alias/create   TAX37 '^!'
+alias/create   TAY37 '^!'
+alias/create   GPOSU1               38
+alias/create   NAM38 '!GPOSU1'
+alias/create   TTL38 'GR POS U1'
+alias/create   TAX38 '^!'
+alias/create   TAY38 '^!'
+alias/create   GPOSX2               39
+alias/create   NAM39 '!GPOSX2'
+alias/create   TTL39 'GR POS X2'
+alias/create   TAX39 '^!'
+alias/create   TAY39 '^!'
+alias/create   GPOSU2               40
+alias/create   NAM40 '!GPOSU2'
+alias/create   TTL40 'GR POS U2'
+alias/create   TAX40 '^!'
+alias/create   TAY40 '^!'
+alias/create   GDLX1                41
+alias/create   NAM41 '!GDLX1'
+alias/create   TTL41 'GR Drift Length X1'
+alias/create   TAX41 '^!'
+alias/create   TAY41 '^!'
+alias/create   GDLU1                42
+alias/create   NAM42 '!GDLU1'
+alias/create   TTL42 'GR Drift Length U1'
+alias/create   TAX42 '^!'
+alias/create   TAY42 '^!'
+alias/create   GDLX2                43
+alias/create   NAM43 '!GDLX2'
+alias/create   TTL43 'GR Drift Length X2'
+alias/create   TAX43 '^!'
+alias/create   TAY43 '^!'
+alias/create   GDLU2                44
+alias/create   NAM44 '!GDLU2'
+alias/create   TTL44 'GR Drift Length U2'
+alias/create   TAX44 '^!'
+alias/create   TAY44 '^!'
+alias/create   QTC2Leading1         45
+alias/create   NAM45 '!QTC2Leading1'
+alias/create   TTL45 'QTC2Leading-1'
+alias/create   TAX45 'ch'
+alias/create   TAY45 '^!'
+alias/create   QTC2Leading2         46
+alias/create   NAM46 '!QTC2Leading2'
+alias/create   TTL46 'QTC2Leading-2'
+alias/create   TAX46 'ch'
+alias/create   TAY46 '^!'
+alias/create   QTC2Leading1GRX      47
+alias/create   NAM47 '!QTC2Leading1GRX'
+alias/create   TTL47 'QTC2Leading-1 GRX'
+alias/create   TAX47 'ch'
+alias/create   TAY47 '^!'
+alias/create   QTC2Leading2GRX      48
+alias/create   NAM48 '!QTC2Leading2GRX'
+alias/create   TTL48 'QTC2Leading-2 GRX'
+alias/create   TAX48 'ch'
+alias/create   TAY48 '^!'
+alias/create   QTC2Leading3         49
+alias/create   NAM49 '!QTC2Leading3'
+alias/create   TTL49 'QTC2Leading-3'
+alias/create   TAX49 'ch'
+alias/create   TAY49 '^!'
+alias/create   QTC2Trailing1        50
+alias/create   NAM50 '!QTC2Trailing1'
+alias/create   TTL50 'QTC2Trailing-1'
+alias/create   TAX50 'ch'
+alias/create   TAY50 '^!'
+alias/create   QTC2Trailing2        51
+alias/create   NAM51 '!QTC2Trailing2'
+alias/create   TTL51 'QTC2Trailing-2'
+alias/create   TAX51 'ch'
+alias/create   TAY51 '^!'
+alias/create   QTC2Trailing3        52
+alias/create   NAM52 '!QTC2Trailing3'
+alias/create   TTL52 'QTC2Trailing-3'
+alias/create   TAX52 'ch'
+alias/create   TAY52 '^!'
+alias/create   QTC2W1               53
+alias/create   NAM53 '!QTC2W1'
+alias/create   TTL53 'QTC2 Width 1'
+alias/create   TAX53 'ch'
+alias/create   TAY53 '^!'
+alias/create   QTC2W2               54
+alias/create   NAM54 '!QTC2W2'
+alias/create   TTL54 'QTC2 Width 2'
+alias/create   TAX54 'ch'
+alias/create   TAY54 '^!'
+alias/create   QTC2W3               55
+alias/create   NAM55 '!QTC2W3'
+alias/create   TTL55 'QTC2 Width 3'
+alias/create   TAX55 'ch'
+alias/create   TAY55 '^!'
+alias/create   GX                   56
+alias/create   NAM56 '!GX'
+alias/create   TTL56 'GR X'
+alias/create   TAX56 '^!'
+alias/create   TAY56 '^!'
+alias/create   GXcorr               57
+alias/create   NAM57 '!GXcorr'
+alias/create   TTL57 'GR X corr'
+alias/create   TAX57 '^!'
+alias/create   TAY57 '^!'
+alias/create   GTH                  58
+alias/create   NAM58 '!GTH'
+alias/create   TTL58 'GR TH'
+alias/create   TAX58 '^!'
+alias/create   TAY58 '^!'
+alias/create   GPH                  59
+alias/create   NAM59 '!GPH'
+alias/create   TTL59 'GR PH'
+alias/create   TAX59 '^!'
+alias/create   TAY59 '^!'
+alias/create   GXTH                 60
+alias/create   NAM60 '!GXTH'
+alias/create   TTL60 'GR TH vs X'
+alias/create   TAX60 '^!'
+alias/create   TAY60 '^!'
