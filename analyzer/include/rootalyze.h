@@ -1,6 +1,6 @@
 const int multmax = 256;	/* max multiplicity of each variable (necessary for RCNPTREE declaration) */
 const int var_subsets = 7; // number of subsets of variables (first index of variable_table)
-const int var_GR = 35; // number of GR variables
+const int var_GR = 31; // number of GR variables
 const int var_LAS = 56; // number of LAS variables
 const int var_BLP = 16; // number of BLP variables
 const int var_QTC = 4; // number of QTC variables
@@ -86,14 +86,10 @@ void ROOTVARTABLE::FillVarTable(ROOTVARTABLE &variable_table)
 	strcpy (variable_table.variable_name[variable_table.table_var_GR][24],"GR_WIRE_U1");
 	strcpy (variable_table.variable_name[variable_table.table_var_GR][25],"GR_WIRE_X2");
 	strcpy (variable_table.variable_name[variable_table.table_var_GR][26],"GR_WIRE_U2");
-	strcpy (variable_table.variable_name[variable_table.table_var_GR][27],"GR_WTDC_X1");
-	strcpy (variable_table.variable_name[variable_table.table_var_GR][28],"GR_WTDC_U1");
-	strcpy (variable_table.variable_name[variable_table.table_var_GR][29],"GR_WTDC_X2");
-	strcpy (variable_table.variable_name[variable_table.table_var_GR][30],"GR_WTDC_U2");
-	strcpy (variable_table.variable_name[variable_table.table_var_GR][31],"GR_TDCR_X1");
-	strcpy (variable_table.variable_name[variable_table.table_var_GR][32],"GR_TDCR_U1");
-	strcpy (variable_table.variable_name[variable_table.table_var_GR][33],"GR_TDCR_X2");
-	strcpy (variable_table.variable_name[variable_table.table_var_GR][34],"GR_TDCR_U2");
+	strcpy (variable_table.variable_name[variable_table.table_var_GR][27],"GR_TDC_X1");
+	strcpy (variable_table.variable_name[variable_table.table_var_GR][28],"GR_TDC_U1");
+	strcpy (variable_table.variable_name[variable_table.table_var_GR][29],"GR_TDC_X2");
+	strcpy (variable_table.variable_name[variable_table.table_var_GR][30],"GR_TDC_U2");
 	// LAS                
 	strcpy (variable_table.variable_name[variable_table.table_var_LAS][0],"LAS_RAYID");
 	strcpy (variable_table.variable_name[variable_table.table_var_LAS][1],"LAS_RF1");
@@ -145,14 +141,14 @@ void ROOTVARTABLE::FillVarTable(ROOTVARTABLE &variable_table)
 	strcpy (variable_table.variable_name[variable_table.table_var_LAS][47],"LAS_WIRE_X2");
 	strcpy (variable_table.variable_name[variable_table.table_var_LAS][48],"LAS_WIRE_U2");
 	strcpy (variable_table.variable_name[variable_table.table_var_LAS][49],"LAS_WIRE_V2");
-	strcpy (variable_table.variable_name[variable_table.table_var_LAS][50],"LAS_TDCR_X1");
-	strcpy (variable_table.variable_name[variable_table.table_var_LAS][51],"LAS_TDCR_U1");
-	strcpy (variable_table.variable_name[variable_table.table_var_LAS][52],"LAS_TDCR_V1");
-	strcpy (variable_table.variable_name[variable_table.table_var_LAS][53],"LAS_TDCR_X2");
-	strcpy (variable_table.variable_name[variable_table.table_var_LAS][54],"LAS_TDCR_U2");
-	strcpy (variable_table.variable_name[variable_table.table_var_LAS][55],"LAS_TDCR_V2");
+	strcpy (variable_table.variable_name[variable_table.table_var_LAS][50],"LAS_TDC_X1");
+	strcpy (variable_table.variable_name[variable_table.table_var_LAS][51],"LAS_TDC_U1");
+	strcpy (variable_table.variable_name[variable_table.table_var_LAS][52],"LAS_TDC_V1");
+	strcpy (variable_table.variable_name[variable_table.table_var_LAS][53],"LAS_TDC_X2");
+	strcpy (variable_table.variable_name[variable_table.table_var_LAS][54],"LAS_TDC_U2");
+	strcpy (variable_table.variable_name[variable_table.table_var_LAS][55],"LAS_TDC_V2");
 	// BLP               
-	strcpy (variable_table.variable_name[variable_table.table_var_BLP][0],"BLP_ADC1");
+	/*strcpy (variable_table.variable_name[variable_table.table_var_BLP][0],"BLP_ADC1");
 	strcpy (variable_table.variable_name[variable_table.table_var_BLP][1],"BLP_ADC2");
 	strcpy (variable_table.variable_name[variable_table.table_var_BLP][2],"BLP_ADC3");
 	strcpy (variable_table.variable_name[variable_table.table_var_BLP][3],"BLP_ADC4");
@@ -186,7 +182,7 @@ void ROOTVARTABLE::FillVarTable(ROOTVARTABLE &variable_table)
 	strcpy (variable_table.variable_name[variable_table.table_var_SSDTDC][2],"SSD_LEAD_CH");
 	strcpy (variable_table.variable_name[variable_table.table_var_SSDTDC][3],"SSD_LEAD_TDC");	
 	// Others         
-	strcpy (variable_table.variable_name[variable_table.table_var_Others][0],"GR_TIMESTAMP");
+	strcpy (variable_table.variable_name[variable_table.table_var_Others][0],"GR_TIMESTAMP");*/
 }
 
 
@@ -229,22 +225,14 @@ class RCNPTREE {
 		double	GR_WIRE_X2[multmax];
 		int 	GR_WIRE_U2_mult;
 		double	GR_WIRE_U2[multmax];
-		int 	GR_WTDC_X1_mult;
-		double	GR_WTDC_X1[multmax];
-		int 	GR_WTDC_U1_mult;
-		double	GR_WTDC_U1[multmax];
-		int 	GR_WTDC_X2_mult;
-		double	GR_WTDC_X2[multmax];
-		int 	GR_WTDC_U2_mult;
-		double	GR_WTDC_U2[multmax];
-		int 	GR_TDCR_X1_mult;
-		double	GR_TDCR_X1[multmax];
-		int 	GR_TDCR_U1_mult;
-		double	GR_TDCR_U1[multmax];
-		int 	GR_TDCR_X2_mult;
-		double	GR_TDCR_X2[multmax];
-		int 	GR_TDCR_U2_mult;
-		double	GR_TDCR_U2[multmax];
+		int 	GR_TDC_X1_mult;
+		double	GR_TDC_X1[multmax];
+		int 	GR_TDC_U1_mult;
+		double	GR_TDC_U1[multmax];
+		int 	GR_TDC_X2_mult;
+		double	GR_TDC_X2[multmax];
+		int 	GR_TDC_U2_mult;
+		double	GR_TDC_U2[multmax];
 		
 		// LAS VALUES
 		int 	LAS_RAYID_mult;
@@ -284,21 +272,21 @@ class RCNPTREE {
 		double	LAS_WIRE_U2[multmax];
 		int 	LAS_WIRE_V2_mult;
 		double	LAS_WIRE_V2[multmax];
-		int 	LAS_TDCR_X1_mult;
-		double	LAS_TDCR_X1[multmax];
-		int 	LAS_TDCR_U1_mult;
-		double	LAS_TDCR_U1[multmax];
-		int 	LAS_TDCR_V1_mult;
-		double	LAS_TDCR_V1[multmax];
-		int 	LAS_TDCR_X2_mult;
-		double	LAS_TDCR_X2[multmax];
-		int 	LAS_TDCR_U2_mult;
-		double	LAS_TDCR_U2[multmax];
-		int 	LAS_TDCR_V2_mult;
-		double	LAS_TDCR_V2[multmax];
+		int 	LAS_TDC_X1_mult;
+		double	LAS_TDC_X1[multmax];
+		int 	LAS_TDC_U1_mult;
+		double	LAS_TDC_U1[multmax];
+		int 	LAS_TDC_V1_mult;
+		double	LAS_TDC_V1[multmax];
+		int 	LAS_TDC_X2_mult;
+		double	LAS_TDC_X2[multmax];
+		int 	LAS_TDC_U2_mult;
+		double	LAS_TDC_U2[multmax];
+		int 	LAS_TDC_V2_mult;
+		double	LAS_TDC_V2[multmax];
 	
 		// BLP VALUES	
-		int 	BLP_ADC_mult;
+		/*int 	BLP_ADC_mult;
 		double 	BLP_ADC[multmax];
 		double 	BLP_ADC_CHAN[multmax];
 		int 	BLP_TDC_mult;
@@ -341,7 +329,7 @@ class RCNPTREE {
 		
 		// Others
 		int 	GR_TIMESTAMP_mult;
-		double 	GR_TIMESTAMP[multmax];
+		double 	GR_TIMESTAMP[multmax];*/
 				  
 		void TreeBranch(TTree *tree);
 };
@@ -381,22 +369,14 @@ void RCNPTREE::TreeBranch(TTree *tree) {
 	tree->Branch("GR_WIRE_X2", GR_WIRE_X2,"GR_WIRE_X2[GR_WIRE_X2_mult]/D");
 	tree->Branch("GR_WIRE_U2_mult", &GR_WIRE_U2_mult,"GR_WIRE_U2_mult/I");
 	tree->Branch("GR_WIRE_U2", GR_WIRE_U2,"GR_WIRE_U2[GR_WIRE_U2_mult]/D");
-	tree->Branch("GR_WTDC_X1_mult", &GR_WTDC_X1_mult,"GR_WTDC_X1_mult/I");
-	tree->Branch("GR_WTDC_X1", GR_WTDC_X1,"GR_WTDC_X1[GR_WTDC_X1_mult]/D");
-	tree->Branch("GR_WTDC_U1_mult", &GR_WTDC_U1_mult,"GR_WTDC_U1_mult/I");
-	tree->Branch("GR_WTDC_U1", GR_WTDC_U1,"GR_WTDC_U1[GR_WTDC_U1_mult]/D");
-	tree->Branch("GR_WTDC_X2_mult", &GR_WTDC_X2_mult,"GR_WTDC_X2_mult/I");
-	tree->Branch("GR_WTDC_X2", GR_WTDC_X2,"GR_WTDC_X2[GR_WTDC_X2_mult]/D");
-	tree->Branch("GR_WTDC_U2_mult", &GR_WTDC_U2_mult,"GR_WTDC_U2_mult/I");
-	tree->Branch("GR_WTDC_U2", GR_WTDC_U2,"GR_WTDC_U2[GR_WTDC_U2_mult]/D");
-	tree->Branch("GR_TDCR_X1_mult", &GR_TDCR_X1_mult,"GR_TDCR_X1_mult/I");
-	tree->Branch("GR_TDCR_X1", GR_TDCR_X1,"GR_TDCR_X1[GR_TDCR_X1_mult]/D");
-	tree->Branch("GR_TDCR_U1_mult", &GR_TDCR_U1_mult,"GR_TDCR_U1_mult/I");
-	tree->Branch("GR_TDCR_U1", GR_TDCR_U1,"GR_TDCR_U1[GR_TDCR_U1_mult]/D");
-	tree->Branch("GR_TDCR_X2_mult", &GR_TDCR_X2_mult,"GR_TDCR_X2_mult/I");
-	tree->Branch("GR_TDCR_X2", GR_TDCR_X2,"GR_TDCR_X2[GR_TDCR_X2_mult]/D");
-	tree->Branch("GR_TDCR_U2_mult", &GR_TDCR_U2_mult,"GR_TDCR_U2_mult/I");
-	tree->Branch("GR_TDCR_U2", GR_TDCR_U2,"GR_TDCR_U2[GR_TDCR_U2_mult]/D");
+	tree->Branch("GR_TDC_X1_mult", &GR_TDC_X1_mult,"GR_TDC_X1_mult/I");
+	tree->Branch("GR_TDC_X1", GR_TDC_X1,"GR_TDC_X1[GR_TDC_X1_mult]/D");
+	tree->Branch("GR_TDC_U1_mult", &GR_TDC_U1_mult,"GR_TDC_U1_mult/I");
+	tree->Branch("GR_TDC_U1", GR_TDC_U1,"GR_TDC_U1[GR_TDC_U1_mult]/D");
+	tree->Branch("GR_TDC_X2_mult", &GR_TDC_X2_mult,"GR_TDC_X2_mult/I");
+	tree->Branch("GR_TDC_X2", GR_TDC_X2,"GR_TDC_X2[GR_TDC_X2_mult]/D");
+	tree->Branch("GR_TDC_U2_mult", &GR_TDC_U2_mult,"GR_TDC_U2_mult/I");
+	tree->Branch("GR_TDC_U2", GR_TDC_U2,"GR_TDC_U2[GR_TDC_U2_mult]/D");
    
 	// LAS
 	tree->Branch("LAS_RAYID_mult", &LAS_RAYID_mult,"LAS_RAYID_mult/I");
@@ -436,18 +416,18 @@ void RCNPTREE::TreeBranch(TTree *tree) {
 	tree->Branch("LAS_WIRE_U2", LAS_WIRE_U2,"LAS_WIRE_U2[LAS_WIRE_U2_mult]/D");
 	tree->Branch("LAS_WIRE_V2_mult", &LAS_WIRE_V2_mult,"LAS_WIRE_V2_mult/I");
 	tree->Branch("LAS_WIRE_V2", LAS_WIRE_V2,"LAS_WIRE_V2[LAS_WIRE_V2_mult]/D");
-	tree->Branch("LAS_TDCR_X1_mult", &LAS_TDCR_X1_mult,"LAS_TDCR_X1_mult/I");
-	tree->Branch("LAS_TDCR_X1", LAS_TDCR_X1,"LAS_TDCR_X1[LAS_TDCR_X1_mult]/D");
-	tree->Branch("LAS_TDCR_U1_mult", &LAS_TDCR_U1_mult,"LAS_TDCR_U1_mult/I");
-	tree->Branch("LAS_TDCR_U1", LAS_TDCR_U1,"LAS_TDCR_U1[LAS_TDCR_U1_mult]/D");
-	tree->Branch("LAS_TDCR_V1_mult", &LAS_TDCR_V1_mult,"LAS_TDCR_V1_mult/I");
-	tree->Branch("LAS_TDCR_V1", LAS_TDCR_V1,"LAS_TDCR_V1[LAS_TDCR_V1_mult]/D");
-	tree->Branch("LAS_TDCR_X2_mult", &LAS_TDCR_X2_mult,"LAS_TDCR_X2_mult/I");
-	tree->Branch("LAS_TDCR_X2", LAS_TDCR_X2,"LAS_TDCR_X2[LAS_TDCR_X2_mult]/D");
-	tree->Branch("LAS_TDCR_U2_mult", &LAS_TDCR_U2_mult,"LAS_TDCR_U2_mult/I");
-	tree->Branch("LAS_TDCR_U2", LAS_TDCR_U2,"LAS_TDCR_U2[LAS_TDCR_U2_mult]/D");
-	tree->Branch("LAS_TDCR_V2_mult", &LAS_TDCR_V2_mult,"LAS_TDCR_V2_mult/I");
-	tree->Branch("LAS_TDCR_V2", LAS_TDCR_V2,"LAS_TDCR_V2[LAS_TDCR_V2_mult]/D");
+	tree->Branch("LAS_TDC_X1_mult", &LAS_TDC_X1_mult,"LAS_TDC_X1_mult/I");
+	tree->Branch("LAS_TDC_X1", LAS_TDC_X1,"LAS_TDC_X1[LAS_TDC_X1_mult]/D");
+	tree->Branch("LAS_TDC_U1_mult", &LAS_TDC_U1_mult,"LAS_TDC_U1_mult/I");
+	tree->Branch("LAS_TDC_U1", LAS_TDC_U1,"LAS_TDC_U1[LAS_TDC_U1_mult]/D");
+	tree->Branch("LAS_TDC_V1_mult", &LAS_TDC_V1_mult,"LAS_TDC_V1_mult/I");
+	tree->Branch("LAS_TDC_V1", LAS_TDC_V1,"LAS_TDC_V1[LAS_TDC_V1_mult]/D");
+	tree->Branch("LAS_TDC_X2_mult", &LAS_TDC_X2_mult,"LAS_TDC_X2_mult/I");
+	tree->Branch("LAS_TDC_X2", LAS_TDC_X2,"LAS_TDC_X2[LAS_TDC_X2_mult]/D");
+	tree->Branch("LAS_TDC_U2_mult", &LAS_TDC_U2_mult,"LAS_TDC_U2_mult/I");
+	tree->Branch("LAS_TDC_U2", LAS_TDC_U2,"LAS_TDC_U2[LAS_TDC_U2_mult]/D");
+	tree->Branch("LAS_TDC_V2_mult", &LAS_TDC_V2_mult,"LAS_TDC_V2_mult/I");
+	tree->Branch("LAS_TDC_V2", LAS_TDC_V2,"LAS_TDC_V2[LAS_TDC_V2_mult]/D");
    
 	// BLP
 	/*tree->Branch("BLP_ADC_mult", &BLP_ADC_mult,"BLP_ADC_mult/I");
@@ -455,7 +435,7 @@ void RCNPTREE::TreeBranch(TTree *tree) {
 	tree->Branch("BLP_ADC_CHAN", BLP_ADC_CHAN,"BLP_ADC_CHAN[BLP_ADC_mult]/D"); 
 	tree->Branch("BLP_TDC_mult", &BLP_TDC_mult,"BLP_TDC_mult/I");
 	tree->Branch("BLP_TDC", BLP_TDC,"BLP_TDC[BLP_TDC_mult]/D");
-	tree->Branch("BLP_TDC_CHAN", BLP_TDC_CHAN,"BLP_TDC_CHAN[BLP_TDC_mult]/D");*/
+	tree->Branch("BLP_TDC_CHAN", BLP_TDC_CHAN,"BLP_TDC_CHAN[BLP_TDC_mult]/D");
 
 	// QTCs 
 	tree->Branch("QTC_TRAI_mult", &QTC_TRAI_mult,"QTC_TRAI_mult/I");
@@ -468,7 +448,7 @@ void RCNPTREE::TreeBranch(TTree *tree) {
 	tree->Branch("QTC_LEAD", QTC_LEAD,"QTC_LEAD[QTC_LEAD_mult]/D"); 
 	
 	// MADC32
-	/*tree->Branch("MADC32_0_mult", &MADC32_0_mult,"MADC32_0_mult/I");
+	tree->Branch("MADC32_0_mult", &MADC32_0_mult,"MADC32_0_mult/I");
 	tree->Branch("MADC32_0_CHAN", MADC32_0_CHAN,"MADC32_0_CHAN[MADC32_0_mult]/I");
 	tree->Branch("MADC32_0_CHAN_mult", MADC32_0_CHAN_mult,"MADC32_0_CHAN_mult[32]/I");
 	tree->Branch("MADC32_0", MADC32_0,"MADC32_0[MADC32_0_mult]/D");
@@ -479,20 +459,20 @@ void RCNPTREE::TreeBranch(TTree *tree) {
 	tree->Branch("MADC32_2_mult", &MADC32_2_mult,"MADC32_2_mult/I");
 	tree->Branch("MADC32_2_CHAN", MADC32_2_CHAN,"MADC32_2_CHAN[MADC32_2_mult]/I");
 	tree->Branch("MADC32_2_CHAN_mult", MADC32_2_CHAN_mult,"MADC32_2_CHAN_mult[32]/I");
-	tree->Branch("MADC32_2", MADC32_2,"MADC32_2[MADC32_2_mult]/D");*/
+	tree->Branch("MADC32_2", MADC32_2,"MADC32_2[MADC32_2_mult]/D");
 
 	// SSD TDCs
-	/*tree->Branch("SSD_TRAI_mult", &SSD_TRAI_mult,"SSD_TRAI_mult/I");
+	tree->Branch("SSD_TRAI_mult", &SSD_TRAI_mult,"SSD_TRAI_mult/I");
 	tree->Branch("SSD_TRAI_CHAN", SSD_TRAI_CHAN,"SSD_TRAI_CHAN[SSD_TRAI_mult]/I");
 	tree->Branch("SSD_TRAI_CHAN_mult", SSD_TRAI_CHAN_mult,"SSD_TRAI_CHAN_mult[128]/I");
 	tree->Branch("SSD_TRAI", SSD_TRAI,"SSD_TRAI[SSD_TRAI_mult]/D");
 	tree->Branch("SSD_LEAD_mult", &SSD_LEAD_mult,"SSD_LEAD_mult/I");
 	tree->Branch("SSD_LEAD_CHAN", SSD_LEAD_CHAN,"SSD_LEAD_CHAN[SSD_LEAD_mult]/I");
 	tree->Branch("SSD_LEAD_CHAN_mult", SSD_LEAD_CHAN_mult,"SSD_LEAD_CHAN_mult[128]/I");
-	tree->Branch("SSD_LEAD", SSD_LEAD,"SSD_LEAD[SSD_LEAD_mult]/D");*/
+	tree->Branch("SSD_LEAD", SSD_LEAD,"SSD_LEAD[SSD_LEAD_mult]/D"); 
 	
 	// Others
-	/*tree->Branch("GR_TIMESTAMP_mult", &GR_TIMESTAMP_mult,"GR_TIMESTAMP_mult/I");
+	tree->Branch("GR_TIMESTAMP_mult", &GR_TIMESTAMP_mult,"GR_TIMESTAMP_mult/I");
 	tree->Branch("GR_TIMESTAMP", GR_TIMESTAMP,"GR_TIMESTAMP[GR_TIMESTAMP_mult]/D");*/
 
 }

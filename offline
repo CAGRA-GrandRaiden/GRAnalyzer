@@ -51,7 +51,7 @@ src=$1; shift
 dst=$1; shift
 
 #------------  directories and files -----------
-blddir=./datatest/
+blddir=./data/
 dstindir=./dst
 dstoutdir=./dst
 hbdir=./hb

@@ -84,12 +84,13 @@ typedef struct RunComment{
 /*** Module IDs ***/
 # define	ID_Reserved    (0x00<<12)
 # define	ID_V1190       (0x01<<12)
-# define 	ID_NimIn       (0x02<<12)
-# define        ID_MADC32      (0x03<<12)
+# define ID_NimIn       (0x02<<12)
+# define ID_MADC32      (0x03<<12)
 # define	ID_TDC         (0x04<<12)
-# define        ID_3351        (0x05<<12)
+# define ID_3351        (0x05<<12)
 # define	ID_Scaler      (0x06<<12)
 # define	ID_3377        (0x07<<12)
+# define	ID_TIME	      (0x08<<12) // spared ID
 # define	ID_V830        (0x09<<12)
 # define	ID_4299_MWPC   (0x0a<<12)
 # define	ID_ADC_LAS     (0x0b<<12)

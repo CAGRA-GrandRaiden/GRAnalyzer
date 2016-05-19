@@ -28,8 +28,8 @@ CFLAGS = -I. -I$(HDIR) -I$(SDIR) \
 ROOTFLAGS = -I$(ROOTDIR)/include `root-config --cflags --glibs`
 LDFLAGS = -lm
 VARIOUSLIB = -L$(LDIR) -lpacklib
-GPP = g++ $(CFLAGS) $(CPPFLAGS) $(ROOTFLAGS) -c
-COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) -c
+GPP = g++ $(CFLAGS) $(CPPFLAGS) $(ROOTFLAGS) -c -g -O3
+COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) -c -g -O3
 LINK.c = g++ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 # for Linux (miho-2)
@@ -189,7 +189,7 @@ test: test.c histogram.o histogram.h
 	$(LINK.c) $<.c histogram.o -o $@
 
 clean:
-	rm -f core $(TARGET) $(ODIR)/* $(SDIR)/*.c.c \
+	rm -f core $(TARGET) $(ODIR)/* $(SDIR)/*.c.c\
 	$(SDIR)/freadin.tab.h $(SDIR)/freadin.tab.c \
 	lex.yy.c $(SDIR)/freadin.output \
         last.kumac last.kumacold 

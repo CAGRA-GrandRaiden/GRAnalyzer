@@ -242,6 +242,7 @@ int evt_start_rcnp(){
 #endif
 
 	/* for GR */
+
 	if(dr_is_true(dr_get(ANALYZE_GR))){
 		cmax = dr_exists(d=dr_get(GR_VDC_MAX_CLUST_SIZE)) ?
 			min(dr_int(d),Clst_MaxClstSize) :  Clst_DefMaxClstSize;

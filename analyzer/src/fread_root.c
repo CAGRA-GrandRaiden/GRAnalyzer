@@ -5,7 +5,6 @@
 #include "TFile.h"
 #include "TROOT.h"
 #include "TTree.h"
-#include "TClonesArray.h"
 
 #include "rootalyze.h"
 #include "freadin.h"
@@ -167,35 +166,30 @@ int root_write_data()
 		rootevent.GR_ADC_CHAN[token[0]] = 0;
 		token[0] += 1;				
 	}		
-	rootevent.GR_ADC_mult = token[0];		
 	mult = temparray[index1][7].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_ADC[token[0]] = temparray[index1][7][i];
 		rootevent.GR_ADC_CHAN[token[0]] = 1;
 		token[0] += 1;				
 	}			
-	rootevent.GR_ADC_mult = token[0];		
 	mult = temparray[index1][8].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_ADC[token[0]] = temparray[index1][8][i];
 		rootevent.GR_ADC_CHAN[token[0]] = 2;
 		token[0] += 1;				
 	}		
-	rootevent.GR_ADC_mult = token[0];		
 	mult = temparray[index1][9].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_ADC[token[0]] = temparray[index1][9][i];
 		rootevent.GR_ADC_CHAN[token[0]] = 3;
 		token[0] += 1;				
 	}			
-	rootevent.GR_ADC_mult = token[0];		
 	mult = temparray[index1][10].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_ADC[token[0]] = temparray[index1][10][i];
 		rootevent.GR_ADC_CHAN[token[0]] = 4;
 		token[0] += 1;				
 	}		
-	rootevent.GR_ADC_mult = token[0];		
 	mult = temparray[index1][11].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_ADC[token[0]] = temparray[index1][11][i];
@@ -211,35 +205,30 @@ int root_write_data()
 		rootevent.GR_TDC_CHAN[token[1]] = 0;
 		token[1] += 1;				
 	}			
-	rootevent.GR_TDC_mult = token[1];		
 	mult = temparray[index1][13].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_TDC[token[1]] = temparray[index1][13][i];
 		rootevent.GR_TDC_CHAN[token[1]] = 1;
 		token[1] += 1;				
 	}			
-	rootevent.GR_TDC_mult = token[1];		
 	mult = temparray[index1][14].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_TDC[token[1]] = temparray[index1][14][i];
 		rootevent.GR_TDC_CHAN[token[1]] = 2;
 		token[1] += 1;				
 	}			
-	rootevent.GR_TDC_mult = token[1];		
 	mult = temparray[index1][15].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_TDC[token[1]] = temparray[index1][15][i];
 		rootevent.GR_TDC_CHAN[token[1]] = 3;
 		token[1] += 1;				
 	}				
-	rootevent.GR_TDC_mult = token[1];		
 	mult = temparray[index1][16].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_TDC[token[1]] = temparray[index1][16][i];
 		rootevent.GR_TDC_CHAN[token[1]] = 4;
 		token[1] += 1;				
 	}				
-	rootevent.GR_TDC_mult = token[1];		
 	mult = temparray[index1][17].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_TDC[token[1]] = temparray[index1][17][i];
@@ -255,7 +244,6 @@ int root_write_data()
 		rootevent.GR_TPOS_CHAN[token[2]] = 0;
 		token[2] += 1;				
 	}	
-	rootevent.GR_TPOS_mult = token[2];		
 	mult = temparray[index1][19].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_TPOS[token[2]] = temparray[index1][19][i];
@@ -269,14 +257,12 @@ int root_write_data()
 		rootevent.GR_MADC_CHAN[token[3]] = 0;
 		token[3] += 1;				
 	}		
-	rootevent.GR_MADC_mult = token[3];		
 	mult = temparray[index1][21].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_MADC[token[3]] = temparray[index1][21][i];
 		rootevent.GR_MADC_CHAN[token[3]] = 1;
 		token[3] += 1;				
 	}		
-	rootevent.GR_MADC_mult = token[3];	
 	mult = temparray[index1][22].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.GR_MADC[token[3]] = temparray[index1][22][i];
@@ -308,44 +294,24 @@ int root_write_data()
 	rootevent.GR_WIRE_U2_mult = mult;	
 	mult = temparray[index1][27].size();
 	for (int i=0;i<mult;i++) {
-		rootevent.GR_WTDC_X1[i] = temparray[index1][27][i];				
+		rootevent.GR_TDC_X1[i] = temparray[index1][27][i];				
 	}	
-	rootevent.GR_WTDC_X1_mult = mult;	
+	rootevent.GR_TDC_X1_mult = mult;	
 	mult = temparray[index1][28].size();
 	for (int i=0;i<mult;i++) {
-		rootevent.GR_WTDC_U1[i] = temparray[index1][28][i];				
-	}	
-	rootevent.GR_WTDC_U1_mult = mult;	
+		rootevent.GR_TDC_U1[i] = temparray[index1][28][i];				
+	}		
+	rootevent.GR_TDC_U1_mult = mult;	
 	mult = temparray[index1][29].size();
 	for (int i=0;i<mult;i++) {
-		rootevent.GR_WTDC_X2[i] = temparray[index1][29][i];				
+		rootevent.GR_TDC_X2[i] = temparray[index1][29][i];				
 	}		
-	rootevent.GR_WTDC_X2_mult = mult;	
+	rootevent.GR_TDC_X2_mult = mult;	
 	mult = temparray[index1][30].size();
 	for (int i=0;i<mult;i++) {
-		rootevent.GR_WTDC_U2[i] = temparray[index1][30][i];				
+		rootevent.GR_TDC_U2[i] = temparray[index1][30][i];				
 	}	
-	rootevent.GR_WTDC_U2_mult = mult;	
-	mult = temparray[index1][31].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_TDCR_X1[i] = temparray[index1][31][i];				
-	}	
-	rootevent.GR_TDCR_X1_mult = mult;	
-	mult = temparray[index1][32].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_TDCR_U1[i] = temparray[index1][32][i];				
-	}		
-	rootevent.GR_TDCR_U1_mult = mult;	
-	mult = temparray[index1][33].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_TDCR_X2[i] = temparray[index1][33][i];				
-	}		
-	rootevent.GR_TDCR_X2_mult = mult;	
-	mult = temparray[index1][34].size();
-	for (int i=0;i<mult;i++) {
-		rootevent.GR_TDCR_U2[i] = temparray[index1][34][i];				
-	}	
-	rootevent.GR_TDCR_U2_mult = mult;
+	rootevent.GR_TDC_U2_mult = mult;
 
 	// clean temparray
 	for (int i=0;i<variable_table.table_size[index1];i++) {
@@ -412,77 +378,66 @@ int root_write_data()
 		rootevent.LAS_ADC_CHAN[token[5]] = 0;
 		token[5] += 1;				
 	}		
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][9].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][9][i];
 		rootevent.LAS_ADC_CHAN[token[5]] = 1;
 		token[5] += 1;				
 	}		
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][10].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][10][i];
 		rootevent.LAS_ADC_CHAN[token[5]] = 2;
 		token[5] += 1;				
 	}		
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][11].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][11][i];
 		rootevent.LAS_ADC_CHAN[token[5]] = 3;
 		token[5] += 1;				
 	}		
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][12].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][12][i];
 		rootevent.LAS_ADC_CHAN[token[5]] = 4;
 		token[5] += 1;				
 	}		
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][13].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][13][i];
 		rootevent.LAS_ADC_CHAN[token[5]] = 5;
 		token[5] += 1;				
 	}		
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][14].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][14][i];
 		rootevent.LAS_ADC_CHAN[token[5]] = 6;
 		token[5] += 1;				
 	}		
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][15].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][15][i];
 		rootevent.LAS_ADC_CHAN[token[5]] = 7;
 		token[5] += 1;				
 	}			
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][16].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][16][i];
 		rootevent.LAS_ADC_CHAN[token[5]] = 8;
 		token[5] += 1;				
 	}			
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][17].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][17][i];
 		rootevent.LAS_ADC_CHAN[token[5]] = 9;
 		token[5] += 1;				
 	}		
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][18].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][18][i];
 		rootevent.LAS_ADC_CHAN[token[5]] = 10;
 		token[5] += 1;				
 	}			
-	rootevent.LAS_ADC_mult = token[5];		
 	mult = temparray[index1][19].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_ADC[token[5]] = temparray[index1][19][i];
@@ -498,77 +453,66 @@ int root_write_data()
 		rootevent.LAS_TDC_CHAN[token[6]] = 0;
 		token[6] += 1;				
 	}		
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][21].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][21][i];
 		rootevent.LAS_TDC_CHAN[token[6]] = 1;
 		token[6] += 1;				
 	}		
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][22].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][22][i];
 		rootevent.LAS_TDC_CHAN[token[6]] = 2;
 		token[6] += 1;				
 	}		
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][23].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][23][i];
 		rootevent.LAS_TDC_CHAN[token[6]] = 3;
 		token[6] += 1;				
 	}			
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][24].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][24][i];
 		rootevent.LAS_TDC_CHAN[token[6]] = 4;
 		token[6] += 1;				
 	}		
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][25].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][25][i];
 		rootevent.LAS_TDC_CHAN[token[6]] = 5;
 		token[6] += 1;				
 	}		
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][26].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][26][i];
 		rootevent.LAS_TDC_CHAN[token[6]] = 6;
 		token[6] += 1;				
 	}		
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][27].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][27][i];
 		rootevent.LAS_TDC_CHAN[token[6]] = 7;
 		token[6] += 1;				
 	}		
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][28].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][28][i];
 		rootevent.LAS_TDC_CHAN[token[6]] = 8;
 		token[6] += 1;				
 	}		
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][29].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][29][i];
 		rootevent.LAS_TDC_CHAN[token[6]] = 9;
 		token[6] += 1;				
 	}		
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][30].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][30][i];
 		rootevent.LAS_TDC_CHAN[token[6]] = 10;
 		token[6] += 1;				
 	}		
-	rootevent.LAS_TDC_mult = token[6];		
 	mult = temparray[index1][31].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TDC[token[6]] = temparray[index1][31][i];
@@ -584,35 +528,30 @@ int root_write_data()
 		rootevent.LAS_TPOS_CHAN[token[7]] = 0;
 		token[7] += 1;				
 	}	
-	rootevent.LAS_TPOS_mult = token[7];		
 	mult = temparray[index1][33].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TPOS[token[7]] = temparray[index1][33][i];
 		rootevent.LAS_TPOS_CHAN[token[7]] = 1;
 		token[7] += 1;				
 	}	
-	rootevent.LAS_TPOS_mult = token[7];		
 	mult = temparray[index1][34].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TPOS[token[7]] = temparray[index1][34][i];
 		rootevent.LAS_TPOS_CHAN[token[7]] = 2;
 		token[7] += 1;				
 	}	
-	rootevent.LAS_TPOS_mult = token[7];		
 	mult = temparray[index1][35].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TPOS[token[7]] = temparray[index1][35][i];
 		rootevent.LAS_TPOS_CHAN[token[7]] = 3;
 		token[7] += 1;				
 	}	
-	rootevent.LAS_TPOS_mult = token[7];		
 	mult = temparray[index1][36].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TPOS[token[7]] = temparray[index1][36][i];
 		rootevent.LAS_TPOS_CHAN[token[7]] = 4;
 		token[7] += 1;				
 	}		
-	rootevent.LAS_TPOS_mult = token[7];		
 	mult = temparray[index1][37].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_TPOS[token[7]] = temparray[index1][37][i];
@@ -626,35 +565,30 @@ int root_write_data()
 		rootevent.LAS_MADC_CHAN[token[8]] = 0;
 		token[8] += 1;				
 	}	
-	rootevent.LAS_MADC_mult = token[8];		
 	mult = temparray[index1][39].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_MADC[token[8]] = temparray[index1][39][i];
 		rootevent.LAS_MADC_CHAN[token[8]] = 1;
 		token[8] += 1;				
 	}	
-	rootevent.LAS_MADC_mult = token[8];		
 	mult = temparray[index1][40].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_MADC[token[8]] = temparray[index1][40][i];
 		rootevent.LAS_MADC_CHAN[token[8]] = 2;
 		token[8] += 1;				
 	}	
-	rootevent.LAS_MADC_mult = token[8];		
 	mult = temparray[index1][41].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_MADC[token[8]] = temparray[index1][41][i];
 		rootevent.LAS_MADC_CHAN[token[8]] = 3;
 		token[8] += 1;				
 	}	
-	rootevent.LAS_MADC_mult = token[8];		
 	mult = temparray[index1][42].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_MADC[token[8]] = temparray[index1][42][i];
 		rootevent.LAS_MADC_CHAN[token[8]] = 4;
 		token[8] += 1;				
 	}		
-	rootevent.LAS_MADC_mult = token[8];		
 	mult = temparray[index1][43].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.LAS_MADC[token[8]] = temparray[index1][43][i];
@@ -696,38 +630,34 @@ int root_write_data()
 	rootevent.LAS_WIRE_V2_mult = mult;	
 	mult = temparray[index1][50].size();
 	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_X1[i] = temparray[index1][50][i];				
+		rootevent.LAS_TDC_X1[i] = temparray[index1][50][i];				
 	}	
-	rootevent.LAS_TDCR_X1_mult = mult;	
+	rootevent.LAS_TDC_X1_mult = mult;	
 	mult = temparray[index1][51].size();
 	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_U1[i] = temparray[index1][51][i];				
+		rootevent.LAS_TDC_U1[i] = temparray[index1][51][i];				
 	}		
-	rootevent.LAS_TDCR_U1_mult = mult;	
+	rootevent.LAS_TDC_U1_mult = mult;	
 	mult = temparray[index1][52].size();
 	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_V1[i] = temparray[index1][52][i];				
+		rootevent.LAS_TDC_V1[i] = temparray[index1][52][i];				
 	}		
-	rootevent.LAS_TDCR_V1_mult = mult;	
+	rootevent.LAS_TDC_V1_mult = mult;	
 	mult = temparray[index1][53].size();
 	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_X2[i] = temparray[index1][53][i];				
+		rootevent.LAS_TDC_X2[i] = temparray[index1][53][i];				
 	}	
-	rootevent.LAS_TDCR_X2_mult = mult;	
+	rootevent.LAS_TDC_X2_mult = mult;	
 	mult = temparray[index1][54].size();
 	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_U2[i] = temparray[index1][54][i];				
+		rootevent.LAS_TDC_U2[i] = temparray[index1][54][i];				
 	}	
-	rootevent.LAS_TDCR_U2_mult = mult;	
+	rootevent.LAS_TDC_U2_mult = mult;	
 	mult = temparray[index1][55].size();
 	for (int i=0;i<mult;i++) {
-		rootevent.LAS_TDCR_V2[i] = temparray[index1][55][i];				
+		rootevent.LAS_TDC_V2[i] = temparray[index1][55][i];				
 	}	
-	rootevent.LAS_TDCR_V2_mult = mult;
-
-	for (int i=0;i<variable_table.table_size[index1];i++) {
-		temparray[index1][i].resize(0);
-	}
+	rootevent.LAS_TDC_V2_mult = mult;
 
 	// clean temparray
 	for (int i=0;i<variable_table.table_size[index1];i++) {
@@ -745,50 +675,43 @@ int root_write_data()
 		rootevent.BLP_ADC[token[9]] = temparray[index1][0][i];
 		rootevent.BLP_ADC_CHAN[token[9]] = 0;
 		token[9] += 1;				
-	}	
-	rootevent.BLP_ADC_mult = token[9];		
+	}		
 	mult = temparray[index1][1].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_ADC[token[9]] = temparray[index1][1][i];
 		rootevent.BLP_ADC_CHAN[token[9]] = 1;
 		token[9] += 1;				
-	}	
-	rootevent.BLP_ADC_mult = token[9];		
+	}		
 	mult = temparray[index1][2].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_ADC[token[9]] = temparray[index1][2][i];
 		rootevent.BLP_ADC_CHAN[token[9]] = 2;
 		token[9] += 1;				
-	}	
-	rootevent.BLP_ADC_mult = token[9];		
+	}		
 	mult = temparray[index1][3].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_ADC[token[9]] = temparray[index1][3][i];
 		rootevent.BLP_ADC_CHAN[token[9]] = 3;
 		token[9] += 1;				
-	}	
-	rootevent.BLP_ADC_mult = token[9];		
+	}			
 	mult = temparray[index1][4].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_ADC[token[9]] = temparray[index1][4][i];
 		rootevent.BLP_ADC_CHAN[token[9]] = 4;
 		token[9] += 1;				
-	}	
-	rootevent.BLP_ADC_mult = token[9];		
+	}			
 	mult = temparray[index1][5].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_ADC[token[9]] = temparray[index1][5][i];
 		rootevent.BLP_ADC_CHAN[token[9]] = 5;
 		token[9] += 1;				
-	}	
-	rootevent.BLP_ADC_mult = token[9];		
+	}		
 	mult = temparray[index1][6].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_ADC[token[9]] = temparray[index1][6][i];
 		rootevent.BLP_ADC_CHAN[token[9]] = 6;
 		token[9] += 1;				
-	}	
-	rootevent.BLP_ADC_mult = token[9];		
+	}		
 	mult = temparray[index1][7].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_ADC[token[9]] = temparray[index1][7][i];
@@ -803,50 +726,43 @@ int root_write_data()
 		rootevent.BLP_TDC[token[10]] = temparray[index1][8][i];
 		rootevent.BLP_TDC_CHAN[token[10]] = 0;
 		token[10] += 1;				
-	}	
-	rootevent.BLP_TDC_mult = token[10];		
+	}		
 	mult = temparray[index1][9].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_TDC[token[10]] = temparray[index1][9][i];
 		rootevent.BLP_TDC_CHAN[token[10]] = 1;
 		token[10] += 1;				
-	}		
-	rootevent.BLP_TDC_mult = token[10];		
+	}			
 	mult = temparray[index1][10].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_TDC[token[10]] = temparray[index1][10][i];
 		rootevent.BLP_TDC_CHAN[token[10]] = 2;
 		token[10] += 1;				
-	}	
-	rootevent.BLP_TDC_mult = token[10];		
+	}		
 	mult = temparray[index1][11].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_TDC[token[10]] = temparray[index1][11][i];
 		rootevent.BLP_TDC_CHAN[token[10]] = 3;
 		token[10] += 1;				
-	}	
-	rootevent.BLP_TDC_mult = token[10];		
+	}			
 	mult = temparray[index1][12].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_TDC[token[10]] = temparray[index1][12][i];
 		rootevent.BLP_TDC_CHAN[token[10]] = 4;
 		token[10] += 1;				
-	}	
-	rootevent.BLP_TDC_mult = token[10];		
+	}			
 	mult = temparray[index1][13].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_TDC[token[10]] = temparray[index1][13][i];
 		rootevent.BLP_TDC_CHAN[token[10]] = 5;
 		token[10] += 1;				
-	}	
-	rootevent.BLP_TDC_mult = token[10];		
+	}			
 	mult = temparray[index1][14].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_TDC[token[10]] = temparray[index1][14][i];
 		rootevent.BLP_TDC_CHAN[token[10]] = 6;
 		token[10] += 1;				
-	}		
-	rootevent.BLP_TDC_mult = token[10];		
+	}				
 	mult = temparray[index1][15].size();
 	for (int i=0;i<mult;i++) {
 		rootevent.BLP_TDC[token[10]] = temparray[index1][15][i];
@@ -864,7 +780,7 @@ int root_write_data()
 	///////////////////////////////////////
 	//////////////// QTC //////////////////
 	///////////////////////////////////////
-	index1 = variable_table.table_var_QTC;	
+	/*index1 = variable_table.table_var_QTC;	
 	
 	// QTC TRAILING //
 	mult = temparray[index1][1].size();
@@ -895,7 +811,7 @@ int root_write_data()
 	// clean temparray
 	for (int i=0;i<variable_table.table_size[index1];i++) {
 		temparray[index1][i].resize(0);
-	}
+	}*/
 	
 	
 	//////////////////////////////////////////
@@ -1035,14 +951,10 @@ int root_init(int nrun){
 	rootevent.GR_WIRE_U1_mult=0;
 	rootevent.GR_WIRE_X2_mult=0;
 	rootevent.GR_WIRE_U2_mult=0;
-	rootevent.GR_WTDC_X1_mult=0;
-	rootevent.GR_WTDC_U1_mult=0;
-	rootevent.GR_WTDC_X2_mult=0;
-	rootevent.GR_WTDC_U2_mult=0;
-	rootevent.GR_TDCR_X1_mult=0;
-	rootevent.GR_TDCR_U1_mult=0;
-	rootevent.GR_TDCR_X2_mult=0;
-	rootevent.GR_TDCR_U2_mult=0;
+	rootevent.GR_TDC_X1_mult=0;
+	rootevent.GR_TDC_U1_mult=0;
+	rootevent.GR_TDC_X2_mult=0;
+	rootevent.GR_TDC_U2_mult=0;
 	
 	rootevent.LAS_RAYID_mult=0;
 	rootevent.LAS_RF_mult=0;
@@ -1060,27 +972,27 @@ int root_init(int nrun){
 	rootevent.LAS_WIRE_X2_mult=0;
 	rootevent.LAS_WIRE_U2_mult=0;
 	rootevent.LAS_WIRE_V2_mult=0;
-	rootevent.LAS_TDCR_X1_mult=0;
-	rootevent.LAS_TDCR_U1_mult=0;
-	rootevent.LAS_TDCR_V1_mult=0;
-	rootevent.LAS_TDCR_X2_mult=0;
-	rootevent.LAS_TDCR_U2_mult=0;
-	rootevent.LAS_TDCR_V2_mult=0;
+	rootevent.LAS_TDC_X1_mult=0;
+	rootevent.LAS_TDC_U1_mult=0;
+	rootevent.LAS_TDC_V1_mult=0;
+	rootevent.LAS_TDC_X2_mult=0;
+	rootevent.LAS_TDC_U2_mult=0;
+	rootevent.LAS_TDC_V2_mult=0;
 	
 	/*rootevent.BLP_ADC_mult=0;
-	rootevent.BLP_TDC_mult=0;*/
+	rootevent.BLP_TDC_mult=0;
 	
 	rootevent.QTC_TRAI_mult=0;
 	rootevent.QTC_LEAD_mult=0;
 	
-	/*rootevent.MADC32_0_mult=0;
+	rootevent.MADC32_0_mult=0;
 	rootevent.MADC32_1_mult=0;
-	rootevent.MADC32_2_mult=0;*/
+	rootevent.MADC32_2_mult=0;
 	
-	/*rootevent.SSD_TRAI_mult=0;
-	rootevent.SSD_LEAD_mult=0;*/
+	rootevent.SSD_TRAI_mult=0;
+	rootevent.SSD_LEAD_mult=0;
 	
-	/*rootevent.GR_TIMESTAMP_mult=0;*/
+	rootevent.GR_TIMESTAMP_mult=0;*/
 
 	if((res=root_write_header((char*)NULL))) {
 		return(res);
@@ -1092,7 +1004,10 @@ int root_init(int nrun){
 int root_exit(){
 	if(!RootFile)
 		return(0);
-	RootFile->Write();
-	RootFile->Close();
+	else{
+		RootFile->Write();
+		RootFile->Close();	
+		return(1);
+	}
 }
 
