@@ -108,7 +108,7 @@ int root_init(int nrun){
 	char rootname[128];
 	sprintf(rootname, "rootfiles/run_%04d.root", nrun);
 	RootFile = new TFile(rootname,"RECREATE");
-	tree = new TTree("tree","Data Tree");
+	tree = new TTree("rcnptree","RCNP Data Tree");
 	rootevent = new RCNPEvent;
 	table = new DSTMap;
 	tree->Branch("rcnpevent", &rootevent);
