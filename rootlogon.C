@@ -1,3 +1,3 @@
 void rootlogon(){
-  gSystem->Load("libRCNPTREE.so");
+  gSystem->Load("libRCNPEvent.so");
 }

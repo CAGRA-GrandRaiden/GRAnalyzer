@@ -111,6 +111,8 @@ int root_init(int nrun){
 	tree = new TTree("rcnptree","RCNP Data Tree");
 	rootevent = new RCNPEvent;
 	table = new DSTMap;
+	fprintf(stderr,"");
+	rootevent->HistDefCheckSum();
 	tree->Branch("rcnpevent", &rootevent);
 
 	if((res=root_write_header((char*)NULL))) {

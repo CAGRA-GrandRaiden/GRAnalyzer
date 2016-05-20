@@ -30,10 +30,10 @@ CFLAGS = -I. -I$(HDIR) -I$(SDIR) \
 ROOTFLAGS = -I$(shell root-config --incdir) $(shell root-config --cflags --glibs)
 ROOTLIBS  =  $(shell root-config --libs)  # does not include -lGui
 LDFLAGS = -lm -fPIC
-VARIOUSLIB = -L$(LDIR) -L$(ANA) -Wl,-rpath,$(ANA) -lpacklib -lRCNPTREE
+VARIOUSLIB = -L$(LDIR) -L$(ANA) -Wl,-rpath,$(ANA) -lpacklib -lRCNPEvent
 GPP = g++ $(CFLAGS) $(CPPFLAGS) $(ROOTFLAGS) -c
 COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) -c
-LINK.c = g++ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(ROOTFLAGS)
+LINK.c = g++ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(ROOTFLAGS) -std=c++11
 
 # for Linux (miho-2)
 FLIB  = -L/usr/lib/gcc/x86_64-redhat-linux/4.4.4 -lgfortran -lnsl
@@ -71,8 +71,8 @@ OBJ  =	$(ODIR)/analyzer.o \
 	$(ODIR)/dummy.o \
 	$(ODIR)/hb.o
 
-DICTFILES=$(ODIR)/RCNPTREEDictionary.o
-SHAREDTARGET=libRCNPTREE.so
+DICTFILES=$(ODIR)/RCNPEventDictionary.o
+SHAREDTARGET=libRCNPEvent.so
 
 HDR  = $(HDIR)/analyzer.h $(HDIR)/histogram.h $(HDIR)/freadin.h
 
@@ -116,17 +116,17 @@ $(ODIR)/fread_root.o: $(SDIR)/fread_root.c $(HDR)
 rootalyze:
 	$(COG) -r include/rootalyze.h
 
-RCNPTREEDictionary:
-	rootcint -f src/RCNPTREEDictionary.cc -c -p -I$(HDIR) rootalyze.h LinkDef.h
-	mv src/RCNPTREEDictionary.h include/
+RCNPEventDictionary:
+	rootcint -f src/RCNPEventDictionary.cc -c -p -I$(HDIR) rootalyze.h LinkDef.h
+	mv src/RCNPEventDictionary.h include/
 
-$(ODIR)/RCNPTREEDictionary.o: $(SDIR)/RCNPTREEDictionary.cc
+$(ODIR)/RCNPEventDictionary.o: $(SDIR)/RCNPEventDictionary.cc
 	$(LINK.c) $< -c -o $@
 
-lib%.so: $(ODIR)/RCNPTREEDictionary.o
+lib%.so: $(ODIR)/RCNPEventDictionary.o
 	g++ -g -Wl,-rpath=$(LIBDIR) $(LDFLAGS) $(ROOTLIBS) -shared -o $@ $^
 
-$(ODIR)/analyzer.o: $(SDIR)/analyzer.c $(HDR) RCNPTREEDictionary
+$(ODIR)/analyzer.o: $(SDIR)/analyzer.c $(HDR) RCNPEventDictionary
 	$(AHIST) $< > $<.c
 	$(PHIST) $<.c
 	$(COMPILE.c) $<.c -o $@

@@ -1,32 +1,47 @@
+
 #include "TObject.h"
 
+#include <stdio.h>
+#include <ctype.h>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
 #include <vector>
 #include <string>
+#include <fstream>
 #include <map>
+#include <stdexcept>
+#include <sys/types.h>
+#include <signal.h>
 
 #define BAD_NUM -441441
 
 using namespace std;
 
-/**************  RCNPTREE CLASS ****************/
+/**************  RCNPEvent Class ****************/
 /* All tree variables are referenced by string e.g. "GR_ADC" */
 
 class RCNPEvent : public TObject {            // This indicates that the RCNPEvent class inherits from the TObject class
 	                                      // (this inheritence is needed for writing this object to a tree)
-  public :
-        RCNPEvent() {;}                       // This is the class "constructor" it is run when an object of the class is created
+  public:
+        RCNPEvent()                           // This is the class "constructor" it is run when an object of the class is created
+	  : fTimestamp(0) {;}
 	virtual ~RCNPEvent() {;}              // This is the class "destructor" it is run when an object of the class is destroyed
 	                                      // (virtual indicates that it overrides the destructor of the parent TObject class)
 
         map<int,vector<double> > data;        // The underlying map from string to vector of data
 	void Clear() {data.clear();}
 
+        long GetTimestamp() { return fTimestamp; }
+        void SetTimestamp(const long& ts) { fTimestamp = ts; }
 
         //[[[cog import rootalyze as root; root.definitions() ]]]
         //[[[end]]]
 
 
-
+  private:
+        long fTimestamp;
+  public:
 	ClassDef(RCNPEvent,1);                // This is a ROOT macro that is needed for creating a ROOT dictionary
                                               // # corresponds to version number, if = 0, events will NOT be saved
 };
