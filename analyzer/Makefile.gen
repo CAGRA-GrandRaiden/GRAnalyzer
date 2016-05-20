@@ -1,0 +1,73 @@
+# Make file for analyzer program
+# Performs code generation only
+# Version 1.00  02-JUN-2000  by A. Tamii
+# Version 1.50  20-MAY-2016  by C. Sullivan
+
+#.SILENT:
+
+#******************
+#* Compiler etc.  *
+#******************
+# Directories
+ANA = $(realpath ./)
+SDIR = src
+HDIR = include
+ODIR = obj
+EDIR = bin
+COG = $(EDIR)/cog
+ROOTCINT = rootcint
+LEX = flex
+YACC = bison -v -d
+AHIST = awk -f bin/hist.awk
+PHIST = perl bin/moveline.pl
+
+SRC  =	$(SDIR)/analyzer.c.c \
+	$(SDIR)/chamb.c.c \
+	$(SDIR)/vdc.c.c \
+	$(SDIR)/mwpc.c.c \
+	$(SDIR)/chamb_rcnp.c.c \
+	$(SDIR)/chamb_np.c.c \
+	$(SDIR)/chamb_gr_fpp.c.c \
+	$(SDIR)/chamb_las_fpp.c.c \
+	$(SDIR)/chamb_f2.c.c \
+	$(SDIR)/fread_rcnp.c.c \
+	$(SDIR)/fread_mars.c.c \
+	$(SDIR)/fread_dst.c.c \
+	$(SDIR)/fread_root.c.c \
+	$(SDIR)/RCNPEventDictionary.cc \
+	$(HDIR)/RCNPEventDictionary.h \
+	$(HDIR)/RCNPEvent.h
+
+HDR  = $(HDIR)/analyzer.h $(HDIR)/histogram.h $(HDIR)/freadin.h
+HISTDEF=$(realpath ../hist.def)
+
+all:  $(SRC)
+
+$(HDIR)/RCNPEvent.h: $(HISTDEF)
+	$(COG) $(HDIR)/rootalyze.h > $@
+
+$(SDIR)/%.c.c: $(SDIR)/%.c
+	$(AHIST) $< > $<.c
+	$(PHIST) $<.c
+
+$(SDIR)/RCNPEventDictionary.h: $(SDIR)/RCNPEventDictionary.cc
+	touch $@
+
+$(SDIR)/RCNPEventDictionary.cc: $(HDIR)/RCNPEvent.h $(HDIR)/LinkDef.h
+	$(ROOTCINT) -f $@ -c -p -I$(HDIR) $^
+	mv $(basename $@).h $(HDIR)
+
+lex.yy.c: $(SDIR)/freadin.lex $(SDIR)/freadin.tab.c
+	$(LEX) $<
+
+$(SDIR)/freadin.tab.c: $(SDIR)/freadin.y $(HDIR)/freadin.h
+	$(YACC) $<
+	mv freadin.tab.c $(SDIR)
+	mv freadin.tab.h $(SDIR)
+
+clean:
+	rm -f $(SDIR)/*.c.c \
+	$(SDIR)/freadin.tab.h $(SDIR)/freadin.tab.c \
+	lex.yy.c $(SDIR)/freadin.output \
+        $(SDIR)/*Dictionary.cc $(HDIR)/*Dictionary.h \
+	$(HDIR)/RCNPEvent.h

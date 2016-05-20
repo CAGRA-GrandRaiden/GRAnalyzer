@@ -46,7 +46,8 @@ def definitions():
     for i,fn in enumerate(members):
         #cog.outl("int i{}; //! ignored by root".format(fn))
         cog.outl("double {0}(const int& i) {{ return (data.count({1}) > 0) ? data[{1}][i] : BAD_NUM; }}".format(fn,i))
-        cog.outl("double {0}() {{ return (data.count({1}) > 0) ? data[{1}][0] : BAD_NUM; }}".format(fn,i))
+        #cog.outl("double {0}() {{ return (data.count({1}) > 0) ? data[{1}][0] : BAD_NUM; }}".format(fn,i))
+        cog.outl("vector<double>* {0}() {{ return (data.count({1}) > 0) ? &data[{1}] : nullptr; }}".format(fn,i))
     # assume that Make is run from the analyzer directory and hist.def is one level up
     fullpath = readcmd('readlink -f ../hist.def')[:-1]
     astr = """
