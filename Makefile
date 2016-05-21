@@ -299,6 +299,8 @@ else
 
 endif
 
+.SILENT:
+
 $(shell make -C $(realpath ./analyzer) > /dev/null)
 
 

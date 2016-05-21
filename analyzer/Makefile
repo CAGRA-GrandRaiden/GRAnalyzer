@@ -79,7 +79,7 @@ $(ODIR)/hb.o: $(SDIR)/hb.f
 	gfortran -c -o $@ $<
 
 clean:
-	rm -f $(SDIR)/*.c.c $(SDIR)/*.cc.cc \
+	@rm -f $(SDIR)/*.c.c $(SDIR)/*.cc.cc \
 	$(HDIR)/freadin.tab.h $(SDIR)/freadin.tab.c \
 	$(SDIR)/lex.yy.c $(SDIR)/freadin.output \
 	$(DICTLIB)/$(SDIR)/*Dictionary.cc $(DICTLIB)/$(HDIR)/*Dictionary.h \

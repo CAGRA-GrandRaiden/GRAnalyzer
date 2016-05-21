@@ -181,7 +181,7 @@ int chamb_get_dt2d_tab(chamb)
 
 }
 
-#else  /* if DT2D_TAB */GR_TDCR
+#else  /* if DT2D_TAB  -  GR_TDCR */
 
 /* 2 dimensional polynomial fit   */
 /* with no division-by-zero check */
