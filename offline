@@ -67,7 +67,8 @@ deffilef="$defdir/analyzer_d_$PID.def"
 
 #
 #---------- analyzer command  ----------
-anacmd="./analyzer/bin/analyzer"
+#anacmd="./analyzer/bin/analyzer"
+anacmd="./bin/analyzer"
 anaopt=""
 #
 if [ "$blk" != "" ]

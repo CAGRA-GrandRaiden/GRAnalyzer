@@ -3,7 +3,7 @@ MacroBrowser.UseRint:   true
 Canvas.ShowEventStatus: true
 
 # Rint (interactive ROOT executable) specific alias, logon and logoff macros
-Rint.Logon:             ./rootlogon.C
+Rint.Logon:             ./rootlogon
 Rint.History:           $(HOME)/.root_hist
 
 #Unix.*.Root.UseTTFonts: false

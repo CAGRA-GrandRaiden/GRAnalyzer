@@ -6,7 +6,7 @@
 #include "TTree.h"
 #include "TClonesArray.h"
 
-#include "rootalyze.h"
+#include "RCNPEvent.h"
 #include "freadin.h"
 #include "histogram.h"
 

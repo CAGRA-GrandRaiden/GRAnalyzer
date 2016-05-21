@@ -1,5 +1,7 @@
 # Make file for analyzer program
+# Performs code generation only
 # Version 1.00  02-JUN-2000  by A. Tamii
+# Version 1.50  20-MAY-2016  by C. Sullivan
 
 #.SILENT:
 
@@ -10,208 +12,77 @@
 ANA = $(realpath ./)
 SDIR = src
 HDIR = include
+DICTLIB = libRCNPEvent
 ODIR = obj
 EDIR = bin
-LDIR = lib
-ROOTDIR = /usr/local/root/v5.34.32.Linux-slc6-x86_64-gcc4.4
 COG = $(EDIR)/cog
-
-# Common
-CC = cc
-FC = gfortran
-AR = ar
+ROOTCINT = rootcint
 LEX = flex
 YACC = bison -v -d
 AHIST = awk -f bin/hist.awk
 PHIST = perl bin/moveline.pl
-CFLAGS = -I. -I$(HDIR) -I$(SDIR) \
-         -D`uname -m` -D`uname -s` -DLinux86 -Df2cFortran \
-         -DUSE_PAW -O3 -g
-ROOTFLAGS = -I$(shell root-config --incdir) $(shell root-config --cflags --glibs)
-ROOTLIBS  =  $(shell root-config --libs)  # does not include -lGui
-LDFLAGS = -lm -fPIC
-VARIOUSLIB = -L$(LDIR) -L$(ANA) -Wl,-rpath,$(ANA) -lpacklib -lRCNPEvent
-GPP = g++ $(CFLAGS) $(CPPFLAGS) $(ROOTFLAGS) -c
-COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) -c
-LINK.c = g++ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(ROOTFLAGS) -std=c++11
 
-# for Linux (miho-2)
-FLIB  = -L/usr/lib/gcc/x86_64-redhat-linux/4.4.4 -lgfortran -lnsl
 
-# for MacOSX
-#FLIB  = -L/sw/lib/gcc4.8/lib -lgfortran
-
-#*************************
-#* Command Line Switches *
-#*************************
-TARGET = $(EDIR)/analyzer $(EDIR)/ask
-
-OBJ  =	$(ODIR)/analyzer.o \
-	$(ODIR)/chamb.o \
-	$(ODIR)/vdc.o \
-	$(ODIR)/mwdc.o \
-	$(ODIR)/mwpc.o \
-	$(ODIR)/chamb_rcnp.o \
-	$(ODIR)/chamb_np.o \
-	$(ODIR)/chamb_gr_fpp.o \
-	$(ODIR)/chamb_las_fpp.o \
-	$(ODIR)/chamb_f2.o \
-	$(ODIR)/ray.o \
-	$(ODIR)/mwdc_fit.o \
-	$(ODIR)/matrix.o \
-	$(ODIR)/fread.o \
-	$(ODIR)/fread_rcnp.o \
-	$(ODIR)/fread_mars.o \
-	$(ODIR)/histogram.o \
-	$(ODIR)/fread_dst.o \
-	$(ODIR)/fread_root.o \
-	$(ODIR)/proc_hb.o \
-	$(ODIR)/lex.yy.o \
-	$(ODIR)/freadin.tab.o \
-	$(ODIR)/dummy.o \
+SRC  =	$(SDIR)/analyzer.c.c \
+	$(SDIR)/chamb.c.c \
+	$(SDIR)/vdc.c.c \
+	$(SDIR)/mwpc.c.c \
+	$(SDIR)/chamb_rcnp.c.c \
+	$(SDIR)/chamb_np.c.c \
+	$(SDIR)/chamb_gr_fpp.c.c \
+	$(SDIR)/chamb_las_fpp.c.c \
+	$(SDIR)/chamb_f2.c.c \
+	$(SDIR)/fread_rcnp.c.c \
+	$(SDIR)/fread_mars.c.c \
+	$(SDIR)/fread_dst.c.c \
+	$(SDIR)/fread_root.cc.cc \
+	$(SDIR)/freadin.tab.c \
+	$(SDIR)/lex.yy.c \
+	$(DICTLIB)/$(SDIR)/RCNPEventDictionary.cc \
+	$(DICTLIB)/$(HDIR)/RCNPEventDictionary.h \
+	$(DICTLIB)/$(HDIR)/RCNPEvent.h \
 	$(ODIR)/hb.o
 
-DICTFILES=$(ODIR)/RCNPEventDictionary.o
-SHAREDTARGET=libRCNPEvent.so
-
 HDR  = $(HDIR)/analyzer.h $(HDIR)/histogram.h $(HDIR)/freadin.h
+HISTDEF=$(realpath ../hist.def)
 
-all:  rootalyze $(TARGET)
+all:  $(SRC)
 
-$(ODIR)/hb.o: $(SDIR)/hb.f
-	$(FC) -c $(FFLAGS) -o $@ $<
+$(DICTLIB)/$(HDIR)/RCNPEvent.h: $(HISTDEF)
+	$(COG) $(HDIR)/rootalyze.h > $@
 
-$(ODIR)/dummy.o: $(SDIR)/dummy.c
-	$(COMPILE.c) $(CFLAGS) -o $@ $<
-
-$(ODIR)/proc_hb.o: $(SDIR)/proc_hb.c
-	$(COMPILE.c) -o $@ $<
-
-$(ODIR)/histogram.o: $(SDIR)/histogram.c $(HDIR)/histogram.h $(SDIR)/freadin.tab.c
-	$(COMPILE.c) -o $@ $<
-
-$(ODIR)/fread.o: $(SDIR)/fread.c $(HDR)
-	$(COMPILE.c) $< -o $@
-
-$(ODIR)/fread_rcnp.o: $(SDIR)/fread_rcnp.c $(HDR)
+$(SDIR)/%.c.c: $(SDIR)/%.c
 	$(AHIST) $< > $<.c
 	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
 
-$(ODIR)/fread_mars.o: $(SDIR)/fread_mars.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
+$(SDIR)/%.cc.cc: $(SDIR)/%.cc
+	$(AHIST) $< > $<.cc
+	$(PHIST) $<.cc
 
-$(ODIR)/fread_dst.o: $(SDIR)/fread_dst.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
+$(DICTLIB)/$(SDIR)/RCNPEventDictionary.h: $(SDIR)/RCNPEventDictionary.cc
+	touch $@
 
-$(ODIR)/fread_root.o: $(SDIR)/fread_root.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(GPP) $<.c -o $@
+$(DICTLIB)/$(SDIR)/RCNPEventDictionary.cc: $(DICTLIB)/$(HDIR)/RCNPEvent.h $(DICTLIB)/$(HDIR)/LinkDef.h
+	$(ROOTCINT) -f $@ -c -p -I$(realpath $(DICTLIB)/$(HDIR)) $(realpath $(DICTLIB)/$(HDIR))/RCNPEvent.h $(realpath $(DICTLIB)/$(HDIR))/LinkDef.h
+	mv $(basename $@).h $(DICTLIB)/$(HDIR)
 
-rootalyze:
-	$(COG) -r include/rootalyze.h
-
-RCNPEventDictionary:
-	rootcint -f src/RCNPEventDictionary.cc -c -p -I$(HDIR) rootalyze.h LinkDef.h
-	mv src/RCNPEventDictionary.h include/
-
-$(ODIR)/RCNPEventDictionary.o: $(SDIR)/RCNPEventDictionary.cc
-	$(LINK.c) $< -c -o $@
-
-lib%.so: $(ODIR)/RCNPEventDictionary.o
-	g++ -g -Wl,-rpath=$(LIBDIR) $(LDFLAGS) $(ROOTLIBS) -shared -o $@ $^
-
-$(ODIR)/analyzer.o: $(SDIR)/analyzer.c $(HDR) RCNPEventDictionary
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
-
-$(ODIR)/chamb_f2.o: $(SDIR)/chamb_f2.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
-
-$(ODIR)/chamb_np.o: $(SDIR)/chamb_np.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
-
-$(ODIR)/chamb_gr_fpp.o: $(SDIR)/chamb_gr_fpp.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
-
-$(ODIR)/chamb_las_fpp.o: $(SDIR)/chamb_las_fpp.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
-
-$(ODIR)/chamb_rcnp.o: $(SDIR)/chamb_rcnp.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
-
-$(ODIR)/vdc.o: $(SDIR)/vdc.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
-
-$(ODIR)/mwdc.o: $(SDIR)/mwdc.c $(HDR)
-	$(COMPILE.c) $< -o $@
-
-$(ODIR)/mwpc.o: $(SDIR)/mwpc.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
-
-$(ODIR)/chamb.o: $(SDIR)/chamb.c $(HDR)
-	$(AHIST) $< > $<.c
-	$(PHIST) $<.c
-	$(COMPILE.c) $<.c -o $@
-
-$(ODIR)/ray.o: $(SDIR)/ray.c $(HDR)
-	$(COMPILE.c) $< -o $@
-
-$(ODIR)/mwdc_fit.o: $(SDIR)/mwdc_fit.c $(HDR)
-	$(COMPILE.c) $< -o $@
-
-$(ODIR)/matrix.o: $(SDIR)/matrix.c $(HDR)
-	$(COMPILE.c) $< -o $@
-
-$(EDIR)/ask: $(SDIR)/ask.c $(HDIR)/histogram.h $(HDIR)/freadin.h
-	$(LINK.c) $< -o $@
-
-lex.yy.c: $(SDIR)/freadin.lex $(SDIR)/freadin.tab.c
+$(SDIR)/lex.yy.c: $(SDIR)/freadin.lex $(SDIR)/freadin.tab.c
 	$(LEX) $<
-
-$(ODIR)/lex.yy.o: lex.yy.c $(SDIR)/freadin.tab.c
-	$(COMPILE.c) $< -o $@
+	mv lex.yy.c $@
 
 $(SDIR)/freadin.tab.c: $(SDIR)/freadin.y $(HDIR)/freadin.h
 	$(YACC) $<
 	mv freadin.tab.c $(SDIR)
-	mv freadin.tab.h $(SDIR)
+	mv freadin.tab.h $(HDIR)
 
-$(ODIR)/freadin.tab.o: $(SDIR)/freadin.tab.c
-	$(COMPILE.c) $< -o $@
-
-$(EDIR)/analyzer: $(OBJ) $(DICTFILES) $(SHAREDTARGET)
-	$(LINK.c)  $(OBJ) $(STATIC) $(VARIOUSLIB) $(FLIB) -o $@ $(ROOTFLAGS)
-
-test: test.c histogram.o histogram.h
-	$(AHIST) $< > $<.c
-	$(LINK.c) $<.c histogram.o -o $@
+$(ODIR)/hb.o: $(SDIR)/hb.f
+	gfortran -c -o $@ $<
 
 clean:
-	rm -f core $(TARGET) $(ODIR)/* $(SDIR)/*.c.c \
-	$(SDIR)/freadin.tab.h $(SDIR)/freadin.tab.c \
-	lex.yy.c $(SDIR)/freadin.output \
-	./src/*~ last.kumac last.kumacold \
-	./src/*Dictionary.cc ./include/*Dictionary.h \
-	./*.so
-	$(COG) -xr include/rootalyze.h
+	rm -f $(SDIR)/*.c.c $(SDIR)/*.cc.cc \
+	$(HDIR)/freadin.tab.h $(SDIR)/freadin.tab.c \
+	$(SDIR)/lex.yy.c $(SDIR)/freadin.output \
+	$(DICTLIB)/$(SDIR)/*Dictionary.cc $(DICTLIB)/$(HDIR)/*Dictionary.h \
+	$(DICTLIB)/$(HDIR)/RCNPEvent.h $(HDIR)/*.pyc \
+	$(SDIR)/#* $(SDIR)/*~ $(SDIR)/.#* \
+	$(HDIR)/#* $(HDIR)/*~ $(HDIR)/.#*
