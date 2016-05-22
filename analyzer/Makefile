@@ -13,6 +13,7 @@ ANA = $(realpath ./)
 SDIR = src
 HDIR = include
 DICTLIB = libRCNPEvent
+LDIR = lib
 ODIR = obj
 EDIR = bin
 COG = $(EDIR)/cog
@@ -84,5 +85,5 @@ clean:
 	$(SDIR)/lex.yy.c $(SDIR)/freadin.output \
 	$(DICTLIB)/$(SDIR)/*Dictionary.cc $(DICTLIB)/$(HDIR)/*Dictionary.h \
 	$(DICTLIB)/$(HDIR)/RCNPEvent.h $(HDIR)/*.pyc \
-	$(SDIR)/#* $(SDIR)/*~ $(SDIR)/.#* \
-	$(HDIR)/#* $(HDIR)/*~ $(HDIR)/.#*
+	$(ODIR)/*.o $(SDIR)/#* $(SDIR)/*~ $(SDIR)/.#* \
+	$(LDIR)/*.so $(HDIR)/#* $(HDIR)/*~ $(HDIR)/.#*
