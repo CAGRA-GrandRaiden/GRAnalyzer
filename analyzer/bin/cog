@@ -7,7 +7,7 @@ then
 else
 	#echo "$file not found."
 	cd bin/cogapp
-	python install_cog.py
+	python install_cog.py > /dev/null
 	cp ./venv/bin/cog.py ..
 	cd ../..
 	./bin/cog.py "$@"
