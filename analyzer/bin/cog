@@ -1,0 +1,14 @@
+#!/bin/bash
+file="./cog.py"
+if [ -f "$file" ]
+then
+	#echo "$file found."
+	./bin/cog.py "$@"
+else
+	#echo "$file not found."
+	cd bin/cogapp
+	python install_cog.py
+	cp ./venv/bin/cog.py ..
+	cd ../..
+	./bin/cog.py "$@"
+fi
