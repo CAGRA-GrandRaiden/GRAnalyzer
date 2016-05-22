@@ -189,7 +189,7 @@ test: test.c histogram.o histogram.h
 	$(LINK.c) $<.c histogram.o -o $@
 
 clean:
-	rm -f core $(TARGET) $(ODIR)/* $(SDIR)/*.c.c\
+	rm -f core $(TARGET) $(ODIR)/* $(SDIR)/*.c.c \
 	$(SDIR)/freadin.tab.h $(SDIR)/freadin.tab.c \
 	lex.yy.c $(SDIR)/freadin.output \
         last.kumac last.kumacold 
