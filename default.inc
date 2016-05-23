@@ -54,16 +54,16 @@ CODE_GEN_FILES =                         \
 
 # A list of directories containing source files containing "int
 # main()".  Each file will be compiled into a separate executable.
-EXE_DIRECTORIES = ./analyzer
+EXE_DIRECTORIES = ./analyzer ./util
 
 # A list of directories containing other source files.  Each file will
 # be compiled, with the resulting source file being linked into each
 # executable.
-SRC_DIRECTORIES = $(ANALYZER)/src
+SRC_DIRECTORIES = $(ANALYZER)/src util/src
 
 # A list of directories containing include files.  Each directory will
 # be made available for #include directives for included files.
-INC_DIRECTORIES = $(ANALYZER)/include
+INC_DIRECTORIES = $(ANALYZER)/include util/include
 
 # A list of directories that contain libraries.  The list can also
 # contain patterns that expand to directories that contain libraries.
