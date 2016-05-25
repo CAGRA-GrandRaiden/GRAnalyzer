@@ -428,7 +428,7 @@ static int read_rgn(buf, size)
 						ddata = -ddata;  // for online VDC2013 25-SEP-2013
 
 						// if QTC
-						/*qtc_ch = (get_qtc_ch(geo,ch))%16; // only 16 chan at the moment
+						qtc_ch = (get_qtc_ch(geo,ch))%16; // only 16 chan at the moment
 						if(qtc_ch>=0){
 							if(v1190.tdc_measurement.trailing) {
 								dr_append(QTC_TRAILING_CH, qtc_ch);
@@ -438,7 +438,7 @@ static int read_rgn(buf, size)
 								dr_append(QTC_LEADING_CH, qtc_ch);
 								dr_append(QTC_LEADING_TDC, v1190.tdc_measurement.measurement - base_time[geo]);
 							}
-						}*/
+						}
 						if(ch==V1190_BUFCH_CH){
 							dr_set(BUFCH[geo], ddata);
 						}
