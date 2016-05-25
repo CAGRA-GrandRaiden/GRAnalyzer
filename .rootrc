@@ -3,8 +3,8 @@ MacroBrowser.UseRint:   true
 Canvas.ShowEventStatus: true
 
 # Rint (interactive ROOT executable) specific alias, logon and logoff macros
-Rint.Logon:             ./rootlogon
-Rint.History:           $(HOME)/.root_hist
+Rint.Logon:             ./rootlogon.C
+Rint.History:           ./.root_hist
 
 #Unix.*.Root.UseTTFonts: false
 Unix.*.Root.UseTTFonts: true
@@ -14,7 +14,7 @@ X11.UseXft:              yes
 
 Rint.HistSize 500
 Rint.HistSave 100
-Unix.*.Root.DynamicPath: .:./analyzer:$(ROOTSYS)/lib
+Unix.*.Root.DynamicPath: .:./analyzer:./lib:$(ROOTSYS)/lib
 
 Unix.*.Root.MacroPath:  .:./macro:@macrodir@
-ACLiC.IncludePaths: -I./analyzer/include
+ACLiC.IncludePaths: -I./analyzer/include -I./analyzer/libRCNPEvent/include

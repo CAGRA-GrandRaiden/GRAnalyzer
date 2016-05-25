@@ -118,7 +118,7 @@ C_EXT   = c
 
 # A space-delimited list of file extensions to be compiled as C++
 # code.  No element of this list should be present in C_EXT.
-CPP_EXT = C cc cpp cxx c++ cp
+CPP_EXT = cc cpp cxx c++ cp
 
 # A space-delimited list of file patterns to be excluded
 # For example, this may contain a source file or directory
