@@ -507,6 +507,6 @@ $(foreach source,$(INSTALL_RESOURCES),$(eval $(call INSTALL_RULES,$(source))))
 
 # Cleanup
 clean:
-	@printf "%b" "$(DYELLOW)Cleaning$(NO_COLOR)\n"
+	@printf "%b" "$(DYELLOW)Cleaning GRAnalyzer$(NO_COLOR)\n"
 	@$(RM) -r $(CLEAN_TARGETS) .build-target
 	$(MAKE) clean -C analyzer/
