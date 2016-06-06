@@ -208,6 +208,7 @@ extern int histogram();
 extern int check_level(double d);
 extern char* str_token(int vtype);
 
+
 #if defined (__cplusplus)
 }
 #endif

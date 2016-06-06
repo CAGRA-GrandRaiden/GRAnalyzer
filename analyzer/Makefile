@@ -10,8 +10,8 @@
 #******************
 # Directories
 ANA = $(realpath ./)
-SDIR = src
-HDIR = include
+SDIR = libGRAnalyzer/src
+HDIR = libGRAnalyzer/include
 DICTLIB = libRCNPEvent
 LDIR = lib
 ODIR = obj
@@ -39,9 +39,9 @@ SRC  =	$(SDIR)/analyzer.c.c \
 	$(SDIR)/fread_root.cc.cc \
 	$(SDIR)/freadin.tab.c \
 	$(SDIR)/lex.yy.c \
-	$(DICTLIB)/$(SDIR)/RCNPEventDictionary.cc \
-	$(DICTLIB)/$(HDIR)/RCNPEventDictionary.h \
-	$(DICTLIB)/$(HDIR)/RCNPEvent.h \
+	$(DICTLIB)/src/RCNPEventDictionary.cc \
+	$(DICTLIB)/include/RCNPEventDictionary.h \
+	$(DICTLIB)/include/RCNPEvent.h \
 	$(ODIR)/hb.o
 
 HDR  = $(HDIR)/analyzer.h $(HDIR)/histogram.h $(HDIR)/freadin.h
@@ -77,7 +77,7 @@ $(SDIR)/freadin.tab.c: $(SDIR)/freadin.y $(HDIR)/freadin.h
 	mv freadin.tab.h $(HDIR)
 
 $(ODIR)/hb.o: $(SDIR)/hb.f
-	gfortran -c -o $@ $<
+	gfortran -c -fPIC -o $@ $<
 
 clean:
 	@rm -f $(SDIR)/*.c.c $(SDIR)/*.cc.cc \

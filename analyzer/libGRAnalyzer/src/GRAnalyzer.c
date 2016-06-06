@@ -752,156 +752,20 @@ int fread_ana(fd)
 #define MAX_NARGS 20
 
 /* main */
-int main(argc, argv)
-		 int   argc;
-		 char  *argv[];
+int start_analyzer(const char* filename)
 {
-	int i;
-	int ac;
-	char **av;
 	int bsize=0;
-  int fin;
-	pid_t pid;
-	int   pfd, pfd1[2], pfd2[2];
-	char *newargv[MAX_NARGS+3];
-	char  str[256];
-	char  cnum[256];
-	
+  int fin=0; /* standard input */
+
 	clock_t t1,t2;
 	t1=clock();
 
-	//	for(i=0; i<argc; i++){
-	//		fprintf(stderr, "arg %2d = '%s'\n",i,argv[i]);
-	//	}
-	//	exit(0);
-
-	ac = argc;
-	av = argv;
-	filename = *av++;
-	ac--;
-	
-	/* check the arguments */
-	while(ac>0){
-		if(av[0][0]=='-'){
-			if(strlen(av[0])!=2){
-				fprintf(stderr, "Unknown flag '%s'.\n",av[0]);
-				usage();
-				exit(1);
-			}
-			switch(av[0][1]){
-			case 'b':
-				ac--;
-				av++;
-				if(ac<=0){
-					fprintf(stderr, "no argument to '-b'.\n");
-					usage();
-					exit(1);
-				}
-				bsize = atoi(*av)*1024;
-				break;
-#if 0
-			case 's':
-				swap = !swap;
-				break;
-#endif
-			case 'd':
-				ac--;
-				av++;
-				if(ac<=0){
-					fprintf(stderr, "no argument to '-d'.\n");
-					usage();
-					exit(1);
-				}
-				deffnam[nfdef] = *av;
-				nfdef++;
-				break;
-			case 'o':
-				ac--;
-				av++;
-				if(ac<=0){
-					fprintf(stderr, "no argument to '-o'.\n");
-					usage();
-					exit(1);
-				}
-				ofile = *av;
-				break;
-			case 'f':
-				ac--;
-				av++;
-				if(ac<=0){
-					fprintf(stderr, "no argument to '-f'.\n"
-									);
-					usage();
-					exit(1);
-				}
-				shmflag = 0;
-				hbfnam = *av;
-				break;
-			case 'p':
-				ac--;
-				av++;
-				if(ac<=0){
-					fprintf(stderr, "no argument to '-p'.\n"
-									);
-					usage();
-					exit(1);
-				}
-				nchild = atoi(*av);
-				if(nchild<1){
-					fprintf(stderr, "Argument of p (number of child processes) "
-									"must be larger than 0.\n");
-					usage();
-					exit(1);
-				}
-				if(MAX_NCHILD < nchild){
-					fprintf(stderr, "Argument of p (number of child processes) "
-									"must be <= %d (=MAX_NCHILD).\n", MAX_NCHILD);
-					usage();
-					exit(1);
-				}
-				if(!cflag){  /* cflag has higher priority than pflag */
-					pflag = 1;
-				}
-				break;
-			case 'c':
-				ac--;
-				av++;
-				if(ac<=0){
-					fprintf(stderr, "no argument to '-c'.\n"
-									);
-					usage();
-					exit(1);
-				}
-				cflag = 1;
-				childn = atoi(*av);
-				fprintf(stderr, "Child process number = %d\n", childn);
-				fprintf(stderr, "Process ID = %d\n", getpid());
-				if(pflag){
-					pflag = 0;
-					nchild = 0;
-				}
-				break;
-			case 'h':
-			case 'H':
-				usage();
-				exit(0);
-				break;
-			case 'r':
-				ac--;
-				av++;
-				showerr("ROOT flag on, YEAH! You rock dude! \n");
-				rootflag = 1;
-				break;
-			default:
-				fprintf(stderr, "Unknown flag '%s'.\n",av[0]);
-				usage();
-				exit(1);
-			}
-		}else{
-			break;
-		}
-		ac--;
-		av++;
+	showerr("ROOT flag on, YEAH! You rock dude! \n");
+	rootflag = 1;
+	fin = open("./datatest/run6106.bld", O_RDONLY);
+	if(fin<0){
+		fprintf(stderr, "Could not open file.\n");
+		exit(1);
 	}
 
 	if(cflag){
@@ -911,79 +775,6 @@ int main(argc, argv)
 	}
 	fprintf(fout, "%s\n", title);
 
-	if(ac>1){
-		usage();
-		exit(1);
-	}
-
-	
-	fin = 0;  /* standard input */
-	if(!cflag && ac==1){
-		if(*av){
-			/* open data file */
-			fin = open(*av, O_RDONLY);
-			if(fin<0){
-				fprintf(stderr, "Could not open file '%s'.", *av);
-				exit(1);
-			}
-		}
-	}
-
-	/* create child processes */
-	if(pflag){
-		/* create arguments */
-		if(argc>MAX_NARGS){
-			fprintf(stderr, "main: too many arguments to fork\n");
-			exit(-1);
-		}
-		newargv[0] = argv[0];
-		newargv[1] = "-c";   /* append -c flag */
-		newargv[2] = cnum;   /* child number */
-		for(i=1; i<argc; i++){
-			newargv[i+2] = argv[i];
-		}
-		newargv[i+2] = (char*)NULL;
-
-		/* fork child processes */
-		for(i=0; i<nchild; i++){
-			if(pipe(pfd1)<0 || pipe(pfd2)<0){
-				fprintf(stderr, "main: Error in pipe();\n");
-				exit(-1);
-			}
-			pid = fork();
-			if(pid==-1){
-				fprintf(stderr, "main: Error in fork();\n");
-				exit(-1);
-			}
-			if(pid==0){
-				/* child process */
- 				close(0); dup(pfd1[0]);
-				close(1); dup(pfd2[1]);
-				close(pfd1[0]);
-				close(pfd1[1]);
-				close(pfd2[0]);
-				close(pfd2[1]);
-				sprintf(str, FNAM_CHILD_STDERR, i);
-				pfd = open(str,O_WRONLY|O_CREAT|O_TRUNC,0644);
-				if(pfd==-1){
-					fprintf(stderr, "Error in opening file '%s'.\n", str);
-					perror("open");
-					exit(-1);
-				}
-				close(2); dup(pfd);
-				sprintf(cnum, "%d", i);
-				/* exec*/
-				execvp(argv[0], newargv);
-				/* Never come here */
-			}
-			/* parent process */
-			cd[i].pid = pid;
-			close(pfd1[0]);
-			close(pfd2[1]);
-			cd[i].readfd = pfd2[0];
-			cd[i].writefd = pfd1[1];
-		}
-	}
 
 	/* initialize	 */
   fread_init(bsize);
@@ -1000,9 +791,6 @@ int main(argc, argv)
 	showerr("Total running time was %f s. \n", seconds);
 }
 
-#if defined (f2cFortran)
-void * MAIN__ = main;
-#endif
 
 /*
 Local Variables:

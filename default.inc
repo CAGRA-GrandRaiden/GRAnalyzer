@@ -33,25 +33,6 @@ LDFLAGS  =
 # Flags to be passed to the linker, after the listing of object files.
 LDLIBS   = $(ROOTLIBS) -L$(ANALYZER)/lib -lpacklib -lm -lgfortran -lnsl
 
-# Any files which will be processed by flex, bison, should be listed
-# here. This will exclude the unprocessed version ofthe files from
-# the build process and only the processed .c.c files will be built
-CODE_GEN_FILES =                         \
-	$(ANALYZER)/src/analyzer.c       \
-	$(ANALYZER)/src/chamb.c          \
-	$(ANALYZER)/src/vdc.c            \
-	$(ANALYZER)/src/mwpc.c           \
-	$(ANALYZER)/src/chamb_rcnp.c     \
-	$(ANALYZER)/src/chamb_np.c       \
-	$(ANALYZER)/src/chamb_gr_fpp.c   \
-	$(ANALYZER)/src/chamb_las_fpp.c  \
-	$(ANALYZER)/src/chamb_f2.c       \
-	$(ANALYZER)/src/fread_rcnp.c     \
-	$(ANALYZER)/src/fread_mars.c     \
-	$(ANALYZER)/src/fread_dst.c      \
-	$(ANALYZER)/src/fread_root.cc    \
-	$(ANALYZER)/src/kvi_sample.c     \
-
 # A list of directories containing source files containing "int
 # main()".  Each file will be compiled into a separate executable.
 EXE_DIRECTORIES = ./analyzer ./util
@@ -59,11 +40,11 @@ EXE_DIRECTORIES = ./analyzer ./util
 # A list of directories containing other source files.  Each file will
 # be compiled, with the resulting source file being linked into each
 # executable.
-SRC_DIRECTORIES = $(ANALYZER)/src util/src
+SRC_DIRECTORIES = util/src
 
 # A list of directories containing include files.  Each directory will
 # be made available for #include directives for included files.
-INC_DIRECTORIES = $(ANALYZER)/include util/include
+INC_DIRECTORIES = util/include
 
 # A list of directories that contain libraries.  The list can also
 # contain patterns that expand to directories that contain libraries.
@@ -91,7 +72,7 @@ CFLAGS_EXTRA =
 
 # Mandatory arguments to the C++ compiler.  These arguments will be
 # passed even if CXXFLAGS has been overridden by command-line arguments.
-CXXFLAGS_EXTRA = 
+CXXFLAGS_EXTRA = -std=c++11
 
 # Mandatory arguments to the linker, before the listing of object
 # files.  These arguments will be passed even if LDFLAGS has been
@@ -125,7 +106,7 @@ CPP_EXT = cc cpp cxx c++ cp
 # that is not to be compiled in the current build.
 # 'percent' an be used to create wildcard exclusions.
 # Note: Files in the base directory are excluded as ./filename.
-EXCLUSIONS = $(CODE_GEN_FILES)
+EXCLUSIONS = 
 
 # A function that, when given the name of a library, should return the
 # output file of a shared library.  For example, the default version,

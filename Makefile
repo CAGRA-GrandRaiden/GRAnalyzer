@@ -319,6 +319,7 @@ library_src_files = $(filter-out $(addprefix $(1)/,$(LIBRARY_EXCLUSIONS)),\
                                  $(call find_in_dirs,$(addprefix $(1)/,$(2)),$(CPP_EXT) $(C_EXT)))
 library_o_files   = $(call o_file_name,$(call library_src_files,$(1),$(2)))
 library_os_files   = $(addsuffix s,$(call library_o_files,$(1),$(2)))
+library_os_files  += $(EXTERNAL_STATIC_LIBS)
 
 all: default.inc executables libraries install_resources
 	@printf "%b" "$(DGREEN)Compilation successful$(NO_COLOR)\n"
