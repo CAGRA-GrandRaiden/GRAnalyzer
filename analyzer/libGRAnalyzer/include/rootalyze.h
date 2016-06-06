@@ -1,3 +1,5 @@
+#ifndef _RCNPEVENT_H_
+#define _RCNPEVENT_H_
 
 #include "TObject.h"
 
@@ -6,6 +8,7 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
+#include <functional>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -64,3 +67,10 @@ class DSTMap : public TObject {
 
         ClassDef(DSTMap,1);
 };
+
+#ifndef __CINT__
+static std::function<void(RCNPEvent*)> StoreData;
+extern void Init(std::function<void(RCNPEvent*)> func);
+#endif
+
+#endif

@@ -49,7 +49,7 @@ HISTDEF=$(realpath ../hist.def)
 
 all:  $(SRC)
 
-$(DICTLIB)/include/RCNPEvent.h: $(HISTDEF)
+$(DICTLIB)/include/RCNPEvent.h: $(HISTDEF) $(HDIR)/rootalyze.h
 	$(COG) $(HDIR)/rootalyze.h > $@
 
 $(SDIR)/%.c.c: $(SDIR)/%.c

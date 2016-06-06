@@ -24,6 +24,12 @@ static TFile *RootFile;
 static TTree *tree;
 
 
+void Init(std::function<void(RCNPEvent*)> func) {
+	std:: cout << "Here" << std::endl;
+	StoreData = func;
+}
+
+
 /** Get variable names
     Parses the DST_VAR in hist.def for all the variable names to be saved in TTree
  */
@@ -95,6 +101,8 @@ int root_write_data()
 			}
 		}
 	}
+
+	StoreData(rootevent);
 
 	tree->Fill();
 	rootevent->Clear();
