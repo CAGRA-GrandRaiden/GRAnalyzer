@@ -146,7 +146,7 @@ void domsg(){
 	int  res;
 	int  nc;
   while(1){
-		res = msgrcv(msgid, &msgp, MaxMsgLen, 
+		res = msgrcv(msgid, &msgp, MaxMsgLen,
 								 cflag ? getpid():MSG_CMD, IPC_NOWAIT);
 		if(res==0)
 			break;
@@ -236,7 +236,7 @@ int read_child_buf()
   	}
   	if(i>=nchild)
 			break;
-		
+
   	cd_read_prev = nc;
 		tsize = read(cd[nc].readfd, hd, sizeof(hist_data_t)*MAX_HIST_DATA);
 		if(tsize<=0){
@@ -262,7 +262,7 @@ int read_child_buf()
   	}
 		break; /* no loop (this is the default usage) */
 	}
-	
+
 	n = 0;
 	for(nc=0; nc<nchild; nc++)
 		n += cd[nc].n_sent_buf;
@@ -281,11 +281,11 @@ void send_child_buf(buf, size)
 {
 	int i, nc;
 	static int cd_send_prev=0;
-	
+
 
 	if(!pflag) return;
 	//		fprintf(stderr, "send\n");
-	
+
 	while(1){
 		for(i=0; i<nchild; i++){
 			nc = (i+cd_send_prev+1)%nchild;
@@ -300,7 +300,7 @@ void send_child_buf(buf, size)
 			}
 		}
 		// fprintf(stderr, "read_child_buf()\n");
-		
+
 		read_child_buf();
 	}
 }
@@ -328,7 +328,7 @@ int check_format(buf)
 	case 0xffff0000:
 		return(FORMAT_MARS);
 	}
-		
+
   if(dst_chk_format(buf)){
 		return(FORMAT_DST_1);
 	}
@@ -362,7 +362,7 @@ int read_in(fd, buf, pos, size)
 	return(*pos);
 }
 
-		 
+
 /* file_read */
 int file_read()
 {
@@ -546,7 +546,7 @@ int file_read()
 			}
 			write(2,dbuf,pos);  // for debug, output header data
 			reply_parent_buf();
-			
+
 			memmove(dbuf, &dbuf[pos], size-pos);
 			size -= pos;
 			bsize = blksize;
@@ -595,9 +595,9 @@ int file_read()
 			//fprintf(stderr, "remaining bufs = %d\n", res);
 			usleep(100000);
 		}
-		
+
 	}
-			
+
 	fprintf(stderr, "---- End of fread. The last block number is %d  ----\n", nblk);
 	return(0);
 }
@@ -653,7 +653,7 @@ int fread_init(bsize)
 /* do exit task */
 int fread_exit(){
   if(dr_exit()) exit(1);
-	
+
 #if USE_PAW
 	if(falias){
 		fclose(falias);
@@ -735,7 +735,7 @@ int fread_ana(fd)
   for(i=1; i<16; i++)
     signal(i, sig_handler);
 #endif
-	
+
 	signal(SIGINT,   sig_handler);
 	signal(SIGQUIT,  sig_handler);
 	signal(SIGPIPE,  sig_handler);
@@ -752,7 +752,7 @@ int fread_ana(fd)
 #define MAX_NARGS 20
 
 /* main */
-int start_analyzer(const char* filename)
+int start_analyzer(const char* cmd)
 {
 	int bsize=0;
   int fin=0; /* standard input */
@@ -762,7 +762,12 @@ int start_analyzer(const char* filename)
 
 	showerr("ROOT flag on, YEAH! You rock dude! \n");
 	rootflag = 1;
-	fin = open("./datatest/run6106.bld", O_RDONLY);
+	//fin = open("./datatest/run6106.bld", O_RDONLY);
+	//fin = open(filename, O_RDONLY);
+
+	FILE* fPipe = popen(cmd,"r");
+	fin = fileno(fPipe);
+
 	if(fin<0){
 		fprintf(stderr, "Could not open file.\n");
 		exit(1);
@@ -785,7 +790,9 @@ int start_analyzer(const char* filename)
 
   /* do end tasks */
   fread_exit();
-  
+
+	pclose(fPipe);
+
 	t2 = clock() - t1;
 	float seconds = (float)t2 / CLOCKS_PER_SEC;
 	showerr("Total running time was %f s. \n", seconds);

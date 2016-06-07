@@ -3,7 +3,7 @@
 /* main */
 int main()
 {
-	start_analyzer("./datatest/run6106.bld");
+	start_analyzer("./datatest/run1001.bld");
 	return 0;
 }
 
