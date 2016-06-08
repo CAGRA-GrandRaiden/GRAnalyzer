@@ -5,10 +5,12 @@
 #include <thread>
 
 std::atomic<int>* TerminateSig;
-void StartGRAnalyzer(const char* filename, std::atomic<int>* terminate,std::function<void(RCNPEvent*)> func)
+void StartGRAnalyzer(const char* filename, std::atomic<int>* terminate,std::function<void(RCNPEvent*)> func, bool save_tree)
 {
-	Init(func);
 	TerminateSig = terminate;
+	RCNPInterface::Instance().SaveTree(save_tree);
+
+	Init(func);
 	start_analyzer(filename);
 }
 

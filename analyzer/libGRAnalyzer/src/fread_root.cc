@@ -6,6 +6,7 @@
 #include "TTree.h"
 #include "TClonesArray.h"
 
+#include "GRUTinizerInterface.h"
 #include "RCNPEvent.h"
 #include "freadin.h"
 #include "histogram.h"
@@ -22,11 +23,12 @@ static DSTMap* table;
 static RCNPEvent* rootevent;
 static TFile *RootFile;
 static TTree *tree;
-
+static bool SaveRCNPTree;
 
 void Init(std::function<void(RCNPEvent*)> func) {
 	std:: cout << "Here" << std::endl;
 	StoreData = func;
+	SaveRCNPTree = RCNPInterface::Instance().SaveTree();
 }
 
 
@@ -56,7 +58,7 @@ static int root_write_header(char *comment)
 					break;
 				}
 				dstvar[ndstvar] = strdup(str);
-				table->Set(ndstvar,dstvar[ndstvar]);
+				if (SaveRCNPTree) { table->Set(ndstvar,dstvar[ndstvar]); }
 				dr_ref_n(str, &dstvarref[ndstvar++]);
 				/* dstvar and dstvarref are the main string and
 				   integer lookup-pairs for the DST_VARs */
@@ -105,7 +107,7 @@ int root_write_data()
 
 	StoreData(rootevent);
 
-	tree->Fill();
+	if (SaveRCNPTree) { tree->Fill(); }
 	//rootevent->Clear(); // do not clear -c.s.
 	return(0);
 }
@@ -114,15 +116,19 @@ int root_write_data()
 int root_init(int nrun){
 	int res;
 
-	char rootname[128];
-	sprintf(rootname, "rootfiles/run_%04d.root", nrun);
-	RootFile = new TFile(rootname,"RECREATE");
-	tree = new TTree("rcnptree","RCNP Data Tree");
-	// rootevent = new RCNPEvent; // allocated in root_write_data
-	table = new DSTMap;
-	fprintf(stderr,"");
+	if (SaveRCNPTree) {
+		char rootname[128];
+		sprintf(rootname, "rootfiles/run_%04d.root", nrun);
+		RootFile = new TFile(rootname,"RECREATE");
+		tree = new TTree("rcnptree","RCNP Data Tree");
+		// rootevent = new RCNPEvent; // allocated in root_write_data
+		table = new DSTMap;
+		fprintf(stderr,"");
+		tree->Branch("rcnpevent", &rootevent);
+	}
+
+	// make sure hist.def hasn't changed since compiling
 	rootevent->HistDefCheckSum();
-	tree->Branch("rcnpevent", &rootevent);
 
 	if((res=root_write_header((char*)NULL))) {
 		return(res);
@@ -132,9 +138,11 @@ int root_init(int nrun){
 
 /* exit */
 int root_exit(){
-	if(!RootFile) { return(0); }
-	RootFile->cd();
-	tree->Write("", TObject::kOverwrite);
-	table->Write("", TObject::kOverwrite);
-	RootFile->Close();
+	if (SaveRCNPTree) {
+		if(!RootFile) { return(0); }
+		RootFile->cd();
+		tree->Write("", TObject::kOverwrite);
+		table->Write("", TObject::kOverwrite);
+		RootFile->Close();
+	}
 }
