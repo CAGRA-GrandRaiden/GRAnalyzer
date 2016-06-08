@@ -736,13 +736,13 @@ int fread_ana(fd)
     signal(i, sig_handler);
 #endif
 
-	signal(SIGINT,   sig_handler);
-	signal(SIGQUIT,  sig_handler);
-	signal(SIGPIPE,  sig_handler);
+	/* signal(SIGINT,   sig_handler); */
+	/* signal(SIGQUIT,  sig_handler); */
+	/* signal(SIGPIPE,  sig_handler); */
 
-	// signal(SIGHUP,domsg);
-	//signal(SIGHUP, sig_handler);
-	signal(SIGHUP,SIG_IGN);
+	/* // signal(SIGHUP,domsg); */
+	/* //signal(SIGHUP, sig_handler); */
+	/* signal(SIGHUP,SIG_IGN); */
 
 	file_read();
 

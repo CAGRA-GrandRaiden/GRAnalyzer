@@ -84,6 +84,7 @@ int root_write_data()
 		multchan[i]=0;
 	}
 
+	rootevent = new RCNPEvent;
 	// loop on all the variables
 	for(int iv=0; iv<ndstvar; iv++){
 		ref = dstvarref[iv]; // get the index of the dst variable (built in header)
@@ -95,8 +96,8 @@ int root_write_data()
 			/// Scroll the multiplicity of current variable ///
 			for(int i=min; i<max; i++){
 				if(dr_exists(d=dr_get_ref(ref,i))){
-					//rootevent->data[dstvar[iv]].push_back(d);
 					rootevent->data[iv].push_back(d);
+					//evt->data[iv].push_back(d);
 				}
 			}
 		}
@@ -105,7 +106,7 @@ int root_write_data()
 	StoreData(rootevent);
 
 	tree->Fill();
-	rootevent->Clear();
+	//rootevent->Clear(); // do not clear -c.s.
 	return(0);
 }
 
@@ -117,7 +118,7 @@ int root_init(int nrun){
 	sprintf(rootname, "rootfiles/run_%04d.root", nrun);
 	RootFile = new TFile(rootname,"RECREATE");
 	tree = new TTree("rcnptree","RCNP Data Tree");
-	rootevent = new RCNPEvent;
+	// rootevent = new RCNPEvent; // allocated in root_write_data
 	table = new DSTMap;
 	fprintf(stderr,"");
 	rootevent->HistDefCheckSum();
