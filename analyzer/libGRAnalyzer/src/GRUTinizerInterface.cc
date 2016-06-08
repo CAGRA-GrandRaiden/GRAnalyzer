@@ -4,9 +4,18 @@
 #include <chrono>
 #include <thread>
 
-void StartGRAnalyzer(const char* filename, std::function<void(RCNPEvent*)> func)
+std::atomic<int>* TerminateSig;
+void StartGRAnalyzer(const char* filename, std::atomic<int>* terminate,std::function<void(RCNPEvent*)> func)
 {
 	Init(func);
+	TerminateSig = terminate;
 	start_analyzer(filename);
-	//std::this_thread::sleep_for(std::chrono::milliseconds(1000000000));
+}
+
+int CheckTerminateSignal() {
+	return int(*TerminateSig);
+}
+
+extern "C" int CheckSignal () {
+	return CheckTerminateSignal();
 }

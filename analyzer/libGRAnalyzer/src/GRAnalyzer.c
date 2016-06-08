@@ -91,6 +91,8 @@ char   *hbfnam = (char*)NULL;
 
 extern void yyparse();
 
+extern int CheckSignal(); // terminate signal from GRUTinizer
+
 
 /* show_info --- show information */
 static void show_info()
@@ -447,6 +449,7 @@ int file_read()
 #endif
 			size = 0;
 			if(shmflag) domsg();
+			if (CheckSignal() != 0) { break; } // checks if GRUTinizer is shutting down
 		}
 		break;
 	case FORMAT_TAMIDAQ:
@@ -620,7 +623,7 @@ void sig_handler(int signal){
 	fprintf(stderr, "Caught signal %d.\n", signal);
 	event_exit();
 	cleanup();
-	exit(1);
+	//exit(1);
 }
 
 /* do initialization task */
