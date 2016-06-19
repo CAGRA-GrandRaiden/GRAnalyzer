@@ -31,12 +31,17 @@ class RCNPEvent : public TObject {            // This indicates that the RCNPEve
 	  : fTimestamp(0) {;}
 	virtual ~RCNPEvent() {;}              // This is the class "destructor" it is run when an object of the class is destroyed
 	                                      // (virtual indicates that it overrides the destructor of the parent TObject class)
-
+        RCNPEvent(RCNPEvent& other)
+	  : TObject(other) {
+	  fTimestamp = other.GetTimestamp();
+	  data.swap(other.data);
+        }
         map<int,vector<double> > data;        // The underlying map from string to vector of data
 	void Clear() {data.clear();}
 
         long GetTimestamp() { return fTimestamp; }
         void SetTimestamp(const long& ts) { fTimestamp = ts; }
+       // TODO: make HistCheck static
 
         //[[[cog import rootalyze as root; root.definitions() ]]]
         //[[[end]]]
