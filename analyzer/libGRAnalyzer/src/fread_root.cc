@@ -128,7 +128,7 @@ int root_init(int nrun){
 	}
 
 	// make sure hist.def hasn't changed since compiling
-	rootevent->HistDefCheckSum();
+	RCNPEvent::HistDefCheckSum();
 
 	if((res=root_write_header((char*)NULL))) {
 		return(res);
