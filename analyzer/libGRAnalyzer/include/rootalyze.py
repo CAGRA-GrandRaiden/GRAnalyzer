@@ -51,7 +51,7 @@ def definitions():
     # assume that Make is run from the analyzer directory and hist.def is one level up
     fullpath = readcmd('readlink -f ../hist.def')[:-1]
     astr = """
-void HistDefCheckSum(int pid=0) {{\n\n  string record = "{0}";""".format(check_dst_vars(fullpath).replace("\"","\\\"")) + """
+static void HistDefCheckSum(int pid=0) {{\n\n  string record = "{0}";""".format(check_dst_vars(fullpath).replace("\"","\\\"")) + """
   string line, dstvars = "DST_VAR";\n"""+"""
   ifstream histdef ("{0}");""".format(fullpath) + """
   if (histdef.is_open())
