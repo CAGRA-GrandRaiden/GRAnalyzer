@@ -114,6 +114,7 @@ static int read_rgn(buf, size)
 	V1190_DATA_t   v1190;
 	int geo=0;
 	int base_time[V1190_MAX_N_MODULES];
+  unsigned long long time_stamp;
 
 	MADC32_HEADER_SIGNATURE_p    madc32_signature;
 	MADC32_DATA_HEADER_p         madc32_header;
@@ -151,10 +152,6 @@ static int read_rgn(buf, size)
 				}
 				rgn_size = ((long)rgn-(long)ptr)/2-1;
 			}
-			break;
-		case ID_TIME:
-			// define a new variable for absolute time
-			//showerr("TIME region ID. ID = %xH\n", rgn_id<<12);
 			break;
 		case ID_NimIn:
 			for(i=0; i<rgn_size && rgn<te; i++){
@@ -203,9 +200,17 @@ static int read_rgn(buf, size)
 				}
 			}
 			break;
-		case ID_TDC:
-			for(i=0; i<rgn_size && rgn<te; i++){
-				dr_append(GR_TDC_OLD, (*rgn++ & 0x0FFF));
+		case ID_MYRIAD:
+			if(rgn_size==4){
+				rgn++; // skip the MyRIAD Header
+				time_stamp
+					= ((unsigned long long)(rgn[0])<<32)
+					| ((unsigned long long)(rgn[1])<<16)
+					| ((unsigned long long)(rgn[2])<< 0);
+				rgn+=3;
+				dr_append(GR_MYRIAD, (double)time_stamp);
+			}else{
+				fprintf(stderr, "Unexpected MyRIAD data length (%d)\n", rgn_size);
 			}
 			break;
 		case ID_V830:
@@ -553,7 +558,7 @@ static int read_rgn(buf, size)
 		case ID_CHKSUM:
 			break;
 		default:
-			showerr("Never come here. Region ID= %xH\n", rgn_id>>12);
+			//showerr("Never come here. Region ID= %xH\n", rgn_id>>12);
 			break;
 		}
 		tp = &ptr[rgn_size+1];
