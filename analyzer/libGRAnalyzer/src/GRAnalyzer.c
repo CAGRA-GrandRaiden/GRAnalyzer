@@ -482,6 +482,7 @@ int file_read()
 #endif
 			size = 0;
 			//if(shmflag) domsg();
+			if (CheckSignal() != 0) { break; } // checks if GRUTinizer is shutting down
 			domsg();
 		}
 		break;
