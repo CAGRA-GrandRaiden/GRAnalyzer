@@ -67,10 +67,9 @@
   5  def   ANA_BLK_START = 10000
   5  def   ANA_BLK_END = 20000
   3. com   GR
-  4  def   ANALYZE_GR = !BLP
- -4  def   ANALYZE_GR = TRUE
+  4  def   ANALYZE_GR = TRUE
   4  def   ANALYZE_GR_VDC = TRUE
- -4  def   ANALYZE_GR_VDC = GR_PI && GR_RF
+ -4  def   ANALYZE_GR_VDC = GR_PI
   4  def   ANALYZE_GR_MATRIX = TRUE
   4  com   Cluster Analysis
   5  def   GR_VDC_ANA_MULTI_CLUST = TRUE # Analyze Multi-Cluster Event
@@ -78,12 +77,11 @@
   5  def   GR_VDC_MAX_CLUST_SIZE = 10 # Default Value
   5  def   GR_VDC_MIN_CLUST_SIZE = 2 # Default Value
   5  def   GR_VDC_MAX_CHI2 = 50 # Maximum allowed chi2 when counting number of combinations
- -3. com   LAS
-  4  def   ANALYZE_LAS = FALSE
- -4  def   ANALYZE_LAS_VDC = TRUE
-  4  def   ANALYZE_LAS_VDC = LAS_RF_G
+  3. com   LAS
+  4  def   ANALYZE_LAS = TRUE
+  4  def   ANALYZE_LAS_VDC = TRUE
  -4  def   ANALYZE_LAS_VDC = LAS_PI
- -4  com   Cluster Analysis
+  4  com   Cluster Analysis
   5  def   LAS_VDC_ANA_MULTI_CLUST = TRUE # Analyze Multi-Cluster Event
  -5  def   LAS_VDC_ANA_2HIT_CLUST = TRUE
   5  def   LAS_VDC_MAX_CLUST_SIZE = 10 # Default Value
@@ -712,18 +710,12 @@
   2  def   EVENT_TRUE = TRUE
   1  com   Drift time to distance
   2  com   GR
- -3  com   G01 295 MeV
-  4  def   GR_WTDC_FILE = "gr_wtdc1.hst"
-  4  def   GR_WTDC_X1 = {114,346} # {126,345}
-  4  def   GR_WTDC_U1 = {112,346} # {133,346}
-  4  def   GR_WTDC_X2 = {114,346} # {124,344}
-  4  def   GR_WTDC_U2 = {112,346} # {126,344}
-  3  com   G01 53 MeV
-  4  def   GR_WTDC_FILE = "gr_wtdc2.hst"
-  4  def   GR_WTDC_X1 = {116,349} # {123,349}
-  4  def   GR_WTDC_U1 = {116,349} # {122,349}
-  4  def   GR_WTDC_X2 = {116,349} # {122,346}
-  4  def   GR_WTDC_U2 = {116,349} # {121,346}
+  3  com   TDC drift correction
+  6  def   GR_WTDC_FILE = "gr_wtdc.hst"
+  6  def   GR_WTDC_X1 = {145,368}
+  6  def   GR_WTDC_U1 = {143,368}
+  6  def   GR_WTDC_X2 = {142,365}
+  6  def   GR_WTDC_U2 = {141,364}
   3. com   GR Chamber Configuration (E387)
   4  def   VDC_DX = 0
   4  def   GR_VDC_TILT = {0,45*d2r,0}
@@ -772,7 +764,7 @@
   4  hist1 GTDCU1; "GR TDC U1"; GR_TDCR_U1; 0; 500; 500; ""; "";
   4  hist1 GTDCX2; "GR TDC X2"; GR_TDCR_X2; 0; 500; 500; ""; "";
   4  hist1 GTDCU2; "GR TDC U2"; GR_TDCR_U2; 0; 500; 500; ""; "";
-  4  hist1 RAYID; "All tracks"; GR_RAYID; 0; 50; 50; ""; "";
+  4  hist1 RAYID; "All tracks"; GR_RAYID; 0; 100; 100; ""; "";
   4  hist1 GPOSX1; "GR POS X1"; GR_POS_X1; 0; 192; 192; ""; ""; 
   4  hist1 GPOSU1; "GR POS U1"; GR_POS_U1; 0; 208; 208*10; ""; ""; 
   4  hist1 GPOSX2; "GR POS X2"; GR_POS_X2; 0; 192; 192*10; ""; ""; 
@@ -782,9 +774,27 @@
   4  hist1 GDLX2; "GR Drift Length X2"; GR_DRIFT_X2; -0.5; 1.5; 200; ""; ""; 
   4  hist1 GDLU2; "GR Drift Length U2"; GR_DRIFT_U2; -0.5; 1.5; 200; ""; ""; 
   3. com   GR QTC
+  4  hist1 QTCLeading0; "QTC2Leading-0"; QTC_LEADING[0]; -40000; 40000; 8000; "ch"; ""; 
+  4  hist1 QTCLeading1; "QTC2Leading-1"; QTC_LEADING[1]; -40000; 40000; 8000; "ch"; "";
+  4  hist1 QTCLeading2; "QTC2Leading-2"; QTC_LEADING[2]; -40000; 40000; 8000; "ch"; "";
+  4  hist1 QTCLeading3; "QTC2Leading-3"; QTC_LEADING[3]; -40000; 40000; 8000; "ch"; ""; 
+  4  hist1 QTCLeading4; "QTC2Leading-4"; QTC_LEADING[4]; -40000; 40000; 8000; "ch"; ""; 
+  4  hist1 QTCLeading5; "QTC2Leading-5"; QTC_LEADING[5]; -40000; 40000; 8000; "ch"; "";  
+  4  hist1 QTCTrailing0; "QTC2Trailing-0"; QTC_TRAILING[0]; -40000; 40000; 8000; "ch"; ""; 
+  4  hist1 QTCTrailing1; "QTC2Trailing-1"; QTC_TRAILING[1]; -40000; 40000; 8000; "ch"; ""; 
+  4  hist1 QTCTrailing2; "QTC2Trailing-2"; QTC_TRAILING[2]; -40000; 40000; 8000; "ch"; ""; 
+  4  hist1 QTCTrailing3; "QTC2Trailing-3"; QTC_TRAILING[3]; -40000; 40000; 8000; "ch"; ""; 
+  4  hist1 QTCTrailing4; "QTC2Trailing-4"; QTC_TRAILING[4]; -40000; 40000; 8000; "ch"; ""; 
+  4  hist1 QTCTrailing5; "QTC2Trailing-5"; QTC_TRAILING[5]; -40000; 40000; 8000; "ch"; ""; 
+  4  hist1 QTC2W0; "QTC2 Width 0"; (QTC_TRAILING[0]-QTC_LEADING[0]); -5000; 15000; 5000; "ch"; ""; 
+  4  hist1 QTC2W1; "QTC2 Width 1"; (QTC_TRAILING[1]-QTC_LEADING[1]); -5000; 15000; 5000; "ch"; "";
+  4  hist1 QTC2W2; "QTC2 Width 2"; (QTC_TRAILING[2]-QTC_LEADING[2]); -5000; 15000; 5000; "ch"; ""; 
+  4  hist1 QTC2W3; "QTC2 Width 3"; (QTC_TRAILING[3]-QTC_LEADING[3]); -5000; 15000; 5000; "ch"; ""; 
+  4  hist1 QTC2W4; "QTC2 Width 4"; (QTC_TRAILING[4]-QTC_LEADING[4]); -5000; 15000; 5000; "ch"; ""; 
+  4  hist1 QTC2W5; "QTC2 Width 5"; (QTC_TRAILING[5]-QTC_LEADING[5]); -5000; 15000; 5000; "ch"; ""; 
   3  com   GR RAY
   4  hist1 GMYRIAD; "GR MYRIAD"; GR_MYRIAD[0]/100000000; 0; 3600; 3600; "GR MYRIAD"; "Counts/ch"; 
-  4  hist1 GX; "GR X"; GR_X; -600; 600; 3000; ""; ""; EVENT_GR_COIN
+  4  hist1 GX; "GR X"; GR_X[0]; -600; 600; 3000; ""; ""; EVENT_GR_COIN
   4  hist1 GXcorr; "GR X corr"; GR_Xcorr; 3000; 10000; 700; ""; ""; EVENT_GR_COIN
  -4  hist1 GTHC; "GR THC"; GR_THC[0]*r2d; -20; 20; 400; ""; ""; EVENT_GR_COIN
  -4  hist2 GXCTHC; "GR THC vs XC"; GR_XC[0]; -600; 600; 300; ""; GR_THC[0]*r2d; -4; 4; 60; ""; EVENT_GR_COIN

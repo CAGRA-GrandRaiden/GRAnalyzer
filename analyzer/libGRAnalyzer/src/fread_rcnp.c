@@ -80,13 +80,6 @@ static int  h_fera_data_id[16];
 #define V1190_BASE_TIME_CH (112)
 #endif
 
-static int get_qtc_ch(geo,ch){
-	if(geo<0 || 8<=geo) return -1; // module does not exist
-	if(geo % 2 == 0) return -1; // QTC are only used on odd geo TDC
-	if(ch<96 || 112<=ch) return -1; // QTC are set on the last port of each TDC
-	return (geo*16+(ch-96));
-}
-
 /* read region */
 static int read_rgn(buf, size)
 		 unsigned short  *buf;
@@ -433,8 +426,9 @@ static int read_rgn(buf, size)
 						ddata = -ddata;  // for online VDC2013 25-SEP-2013
 
 						// if QTC
-						qtc_ch = (get_qtc_ch(geo,ch))%16; // only 16 chan at the moment
-						if(qtc_ch>=0){
+						//qtc_ch = (get_qtc_ch(geo,ch))%16; // only 16 chan at the moment
+						if (geo==0 && (ch>=96 && ch<112)) {
+							qtc_ch = ch%16;
 							if(v1190.tdc_measurement.trailing) {
 								dr_append(QTC_TRAILING_CH, qtc_ch);
 								dr_append(QTC_TRAILING_TDC, v1190.tdc_measurement.measurement - base_time[geo]);
