@@ -719,7 +719,7 @@
   3. com   GR Chamber Configuration (E387)
   4  def   VDC_DX = 0
   4  def   GR_VDC_TILT = {0,45*d2r,0}
-  1  com   Definition of Histograms
+ -1  com   Definition of Histograms
   2  com   GR
   3  com   GR ADC
   5  hist1 GADC1L; "GR ADC 1L"; GR_ADC[1]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN

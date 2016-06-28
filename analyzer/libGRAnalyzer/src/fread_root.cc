@@ -105,7 +105,14 @@ int root_write_data()
 		}
 	}
 
-	StoreData(rootevent);
+	// Check that the scalars flag is not set
+	// Only save nonscalar data
+	// (ie only save data with a timestamp)
+	UShort_t ipr = (UShort_t)dr_get(IPR);
+	ipr = (ipr & 0x8000) >> 15;
+	if (ipr != 1) {
+		StoreData(rootevent);
+	}
 
 	if (SaveRCNPTree) { tree->Fill(); }
 	//rootevent->Clear(); // do not clear -c.s.
