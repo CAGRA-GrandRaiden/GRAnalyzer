@@ -40,6 +40,8 @@ extern int pflag;    /* parent flag */
 extern int cflag;    /* child flag */
 extern int childn;   /* child process number */
 
+extern int ShowStatus();  // print status flag from GRUTinizer
+
 
 /* initialize */
 static void init_hist(){
@@ -337,20 +339,22 @@ int evt_start(){
 void show_blk_num(flag)
 		 int flag;
 {
-	if(flag || cflag || nblk/10*10==nblk){
-		if(nblk>1){
+	if (ShowStatus()) {
+		if(flag || cflag || nblk/10*10==nblk){
+			if(nblk>1){
 #if 1
-			fprintf(stderr, "%5d - blocks  A/R = %5.2f%%   \n%c%c",
-						 nblk, (double)ablk/(double)(nblk-cblk+1)*100.,
-						 27, 'M');
+				fprintf(stderr, "%5d - blocks  A/R = %5.2f%%   \n%c%c",
+								nblk, (double)ablk/(double)(nblk-cblk+1)*100.,
+								27, 'M');
 #else
-			fprintf(stderr, "%5d - blocks  A/R = %5.2f%%   \n",
-						 nblk, (double)ablk/(double)(nblk-cblk+1)*100.);
+				fprintf(stderr, "%5d - blocks  A/R = %5.2f%%   \n",
+								nblk, (double)ablk/(double)(nblk-cblk+1)*100.);
 #endif
-		}else{
-			fprintf(stderr, "%5d - blocks\n%c%c", nblk, 27, 'M');
-		}
+			}else{
+				fprintf(stderr, "%5d - blocks\n%c%c", nblk, 27, 'M');
+			}
     }
+	}
 }
 
 /* check block number (return with 1 ... no analysis, 0 ... analysis) */
