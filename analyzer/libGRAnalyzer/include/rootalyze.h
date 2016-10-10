@@ -5,7 +5,6 @@
 
 #include <stdio.h>
 #include <ctype.h>
-#include <sstream>
 #include <iostream>
 #include <algorithm>
 #include <functional>
