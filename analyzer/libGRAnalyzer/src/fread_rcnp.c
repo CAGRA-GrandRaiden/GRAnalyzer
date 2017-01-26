@@ -71,6 +71,15 @@ static char *fera_name[16] = {
 };
 static int  h_fera_data_id[16];
 
+//-- Added on 2017.1.25 by A. Tamii
+static int get_qtc_ch(geo,ch){
+	// modified on 2017.1.20
+	if(geo<0 || geo==2 || geo==6 || 8<=geo) return -1; // correct
+	//	if(geo<0 || 8<=geo) return -1; // wrong for U1 and U2 channel 0-15
+	if(ch<96 || 112<=ch) return -1;
+	return (geo*16+(ch-96));
+}
+//-- End added
 
 #if 1 // 13-July-2014
 #define V1190_BASE_TIME_CH (127)
@@ -99,6 +108,8 @@ static int read_rgn(buf, size)
 	int type, id;
 	int data;
 	double ddata;
+	double pdata; //-- added on 2017.1.25 by A. Tamii
+  int idata; // --- newer code 2016.11.9 according to the discussion with Y. Watanabe --- // inserted on 2017.1.25 by A. Tamii
 	int mid;
 	int pl;
 	int ch;
@@ -417,8 +428,13 @@ static int read_rgn(buf, size)
 						ch = v1190.tdc_measurement.channel;
 						//if(base_time[geo]<-1000)
 							//fprintf(stderr, "no base time for geo %d\n", geo);
-							
-						ddata = (v1190.tdc_measurement.measurement - base_time[geo])/10.0;
+#if 1     // --- newer code 2016.11.9 according to the discussion with Y. Watanabe --- // inserted on 2017.1.25 by A. Tamii
+					idata = (v1190.tdc_measurement.measurement - base_time[geo])&0x7FFFF;
+					if(idata>=0x40000) idata -= 0x80000;
+					ddata = idata/10.0;
+#else  		// ---older code---
+					ddata = (v1190.tdc_measurement.measurement - base_time[geo])/10.0;
+#endif							
 						wire = v1190_wire_map(geo,ch);
 						wire2 = (geo%2)*128+ch;
 						dr_append(V1190_RAW_CH, geo*128+wire);
@@ -438,6 +454,24 @@ static int read_rgn(buf, size)
 								dr_append(QTC_LEADING_TDC, v1190.tdc_measurement.measurement - base_time[geo]);
 							}
 						}
+						
+//-- Added on 2017.1.25 by Tamii
+					qtc_ch = get_qtc_ch(geo,ch); 
+					if(qtc_ch>=0){
+						ddata = v1190.tdc_measurement.measurement - base_time[geo];
+						if(v1190.tdc_measurement.trailing){
+					    pdata = dr_get(QTC_TRAILING[qtc_ch]);
+							if(dr_is_nothing(pdata) || pdata>ddata){  // use the first data
+									dr_set(QTC_TRAILING[qtc_ch], ddata);
+				      }
+     				}else{
+					    pdata = dr_get(QTC_LEADING[qtc_ch]);
+					    if (dr_is_nothing(pdata) || pdata>ddata){  // use the first data
+					      dr_set(QTC_LEADING[qtc_ch],  ddata);
+							}
+				    }
+				  }
+//--
 						if(ch==V1190_BUFCH_CH){
 							dr_set(BUFCH[geo], ddata);
 						}

@@ -19,7 +19,7 @@ ROOTGLIBS  =   $(shell root-config --glibs)
 ROOTINC    = -I$(shell root-config --incdir)
 
 # Flags to be passed to both C and C++ code
-CPPFLAGS =  -D`uname -m` -D`uname -s` -DLinux86 -Df2cFortran -DUSE_PAW -Wno-unused-variable -Wno-unused-parameter -g -O3 
+CPPFLAGS =  -D`uname -m` -D`uname -s` -DLinux86 -Df2cFortran -DUSE_GRUTINIZER -DUSE_PAW -Wno-unused-variable -Wno-unused-parameter -g -O3
 
 # Flags to be passed to C code
 CFLAGS   =

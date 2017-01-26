@@ -1,5 +1,5 @@
-# Created by /home/g01/daq/bin/hm on aino-1, 21:13:25 17-Oct-2015 
-  1  com   Definition of Parameters
+# Created by /home/tamii/daq/bin/hm on aino-1, 09:55:16 25-Jan-2017 
+  1. com   Definition of Parameters
   2. com   Constants
   3  def   FALSE = 0
   3  def   TRUE = 1
@@ -26,7 +26,7 @@
   4  def   M_n = 939.56563
   3  com   Deuteron mass = 1875.61339(57) [MeV/c2]
   4  def   M_d = 1875.61339
-  3. com   Nuclear masses [MeV/c2]
+  3  com   Nuclear masses [MeV/c2]
   4  def   M_3He = 2808.392
   4  def   M_4He = 3728.4
   4  def   M_10B = 10*AMU+12.0508-5*M_e
@@ -45,164 +45,57 @@
   4  def   M_90Y = 197*AMU-31.157-79*M_e
   4  def   M_197Au = 197*AMU-31.157-79*M_e
   4  def   M_208Pb = 208*AMU-21.764-82*M_e
-  3. com   Debug Variables
- -4  def   DEBUG_DUMP_VARIABLES = 1
- -4  def   DEBUG_DUMP_DEBUG = 1
-  4  def   DEBUG_DUMP_SHOW_NONE = 1
- -4  def   DEBUG = GR_ADC
- -4  def   DEBUG_GR_N_OUTPUTRAY = 200
- -4  def   DEBUG_LAS_N_OUTPUTRAY = 1000
-  2  com   Analysis Parameters
-  3. com   Analyzing System
- -4. com   Blocks (ANA_BLK_START <= BLOCK_N <= ANA_BLK_END)
-  5  def   ANA_BLK_START = 23000
-  5  def   ANA_BLK_END = 24000
- -4. com   Blocks (ANA_BLK_START <= BLOCK_N <= ANA_BLK_END)
-  5  def   ANA_BLK_START = 24000
-  5  def   ANA_BLK_END = 25000
- -4. com   Blocks (ANA_BLK_START <= BLOCK_N <= ANA_BLK_END)
-  5  def   ANA_BLK_START = 34000
-  5  def   ANA_BLK_END = 35000
- -4. com   Blocks (ANA_BLK_START <= BLOCK_N <= ANA_BLK_END)
-  5  def   ANA_BLK_START = 10000
-  5  def   ANA_BLK_END = 20000
-  3. com   GR
-  4  def   ANALYZE_GR = TRUE
-  4  def   ANALYZE_GR_VDC = TRUE
- -4  def   ANALYZE_GR_VDC = GR_PI
+  2. com   Debug Variables
+ -3  def   DEBUG_DUMP_DEBUG = 1
+  3  def   DEBUG = {GR_V830[0], GR_V830[1], EVENT_N[0], BLOCK_N[0]}
+ -3  def   DEBUG_DUMP_VARIABLES = 1
+ -3  def   DEBUG_DUMP_SHOW_NONE = 1
+ -3  def   DEBUG_GR_N_OUTPUTRAY = 200
+ -3  def   DEBUG_LAS_N_OUTPUTRAY = 1000
+  1  com   Analysis Parameters
+  2  com   Analyzing System
+ -3. com   Blocks (ANA_BLK_START <= BLOCK_N <= ANA_BLK_END)
+  4  def   ANA_BLK_START = 10000
+  4  def   ANA_BLK_END = 20000
+  3  com   GR
+  4  def   ANALYZE_GR = TRUE # Analyzer GR Data
+  4  def   ANALYZE_GR_VDC = TRUE # Analyze GR VDC data alwayas
+ -4  def   ANALYZE_GR_VDC = GR_PI # Analyzer GR VDC data according to the condition
   4  def   ANALYZE_GR_MATRIX = TRUE
   4  com   Cluster Analysis
   5  def   GR_VDC_ANA_MULTI_CLUST = TRUE # Analyze Multi-Cluster Event
- -5  def   GR_VDC_ANA_2HIT_CLUST = TRUE
+  5  def   GR_VDC_ANA_2HIT_CLUST = TRUE
   5  def   GR_VDC_MAX_CLUST_SIZE = 10 # Default Value
   5  def   GR_VDC_MIN_CLUST_SIZE = 2 # Default Value
   5  def   GR_VDC_MAX_CHI2 = 50 # Maximum allowed chi2 when counting number of combinations
-  3. com   LAS
-  4  def   ANALYZE_LAS = TRUE
-  4  def   ANALYZE_LAS_VDC = TRUE
- -4  def   ANALYZE_LAS_VDC = LAS_PI
-  4  com   Cluster Analysis
-  5  def   LAS_VDC_ANA_MULTI_CLUST = TRUE # Analyze Multi-Cluster Event
- -5  def   LAS_VDC_ANA_2HIT_CLUST = TRUE
-  5  def   LAS_VDC_MAX_CLUST_SIZE = 10 # Default Value
-  5  def   LAS_VDC_MIN_CLUST_SIZE = 2 # Default Value
-  5  def   LAS_VDC_MAX_CHI2 = 50. # Maximum allowed chi2 when counting number of combinations
- -3. com   GR-FPP
-  4  def   ANALYZE_GR_FPP = TRUE
- -4  def   ANALYZE_GR_FPP = GF_ANA_G
-  3. com   Multi-Cluster Analysis (Method#1)
- -4. com   Set#1 (see Analysis book pp.33)
-  5  def   GF_ANA_MULTI_CLUST = TRUE # Analyze Multi-Cluster Event
-  5  def   GF_V_POS = {1759.4, 0.0, 0.0} # Assumed vertex position plane in mm {z, theta, phi} (the center of the carbon scatterer)
-  5  def   GF_MAX_CHI2 = 9 # Maximum allowed chi2 when counting number of combinations
-  5  def   GF_MAX_NCOMB = 4 # Maximum allowed number of combinations in wire positions
-  5  def   GF_MAX_NCLUST = 2 # Maximum allowed number of clusters in a plane
- -5  def   GF_VD_RES = 10 # Vertex distance resolution (in mm)
-  5  def   GF_VX_RES = 7 # Vertex X position resolution (in mm)
-  5  def   GF_VY_RES = 7 # Vertex Y position resolution (in mm)
-  4  com   Set#2 (see Analysis book pp.33)
-  5  def   GF_ANA_MULTI_CLUST = TRUE # Analyze Multi-Cluster Event
-  5  def   GF_V_POS = {1759.4, 0.0, 0.0} # Assumed vertex position plane in mm {z, theta, phi} (the center of the carbon scatterer)
-  5  def   GF_MAX_CHI2 = 9 # Maximum allowed chi2 when counting number of combinations
-  5  def   GF_MAX_NCOMB = 9 # Maximum allowed number of combinations in wire positions
-  5  def   GF_MAX_NCLUST = 4 # Maximum allowed number of clusters in a plane
- -5  def   GF_VD_RES = 10 # Vertex distance resolution (in mm)
-  5  def   GF_VX_RES = 7 # Vertex X position resolution (in mm)
-  5  def   GF_VY_RES = 7 # Vertex Y position resolution (in mm)
- -3. com   Multi-Cluster Analysis (Method#2)
-  4  def   GF_ANA_MULTI_CLUST = TRUE # Analyze Multi-Cluster Event
-  4  def   GF_V_POS = {1759.4, 0.0, 0.0} # Assumed vertex position plane in mm {z, theta, phi} (the center of the carbon scatterer)
- -3. com   Scaler Output
+  3. com   Scaler Output
+  4  def   PRINT_SCALER = FALSE
  -4  def   PRINT_SCALER = TRUE
- -4  def   PRINT_SCALER = FALSE
-  4  def   PRINT_SCALER = EVENT_BEND && BLOCK_N[0]%100==0
+ -4  def   PRINT_SCALER = EVENT_BEND && BLOCK_N[0]%100==0
   3. com   DST Output
   4  def   DST_CONDITION = 1 # No Condition
   4. com   DST Step #2 (VDC-Ray-Analyzed, GR data)
   5  def   DST_VAR = "QTC_TRAILING_TDC:QTC_TRAILING_CH:QTC_LEADING_TDC:QTC_LEADING_CH:GR_ADC:GR_TDC:GR_RAYID:GR_RF:GR_X:GR_Y:GR_TH:GR_PH:GR_MYRIAD" 
   5. com   Variables for ROOT conversion (arrays reduced to single variables)
-  5  def   GR_MYRIAD1  = GR_MYRIAD[0]
-  5  def   GR_ADC1 = GR_FERA_ADC[0x10]
-  5  def   GR_ADC2 = GR_FERA_ADC[0x11]
-  5  def   GR_ADC3 = GR_FERA_ADC[0x12]
-  5  def   GR_ADC4 = GR_FERA_ADC[0x13]
-  5  def   GR_ADC5 = GR_FERA_ADC[0x20]
-  5  def   GR_ADC6 = GR_FERA_ADC[0x28]
-  5  def   GR_TDC1 = GR_FERA_TDC[0x16] 
-  5  def   GR_TDC2 = GR_FERA_TDC[0x11]
-  5  def   GR_TDC3 = GR_FERA_TDC[0x12]
-  5  def   GR_TDC4 = GR_FERA_TDC[0x13]
-  5  def   GR_TDC5 = GR_FERA_TDC[0x20]
-  5  def   GR_TDC6 = GR_FERA_TDC[0x28] 
-  5  def   LAS_ADC1 = LAS_FERA_ADC[0x10]
-  5  def   LAS_ADC2 = LAS_FERA_ADC[0x11]
-  5  def   LAS_ADC3 = LAS_FERA_ADC[0x12]
-  5  def   LAS_ADC4 = LAS_FERA_ADC[0x13]
-  5  def   LAS_ADC5 = LAS_FERA_ADC[0x14]
-  5  def   LAS_ADC6 = LAS_FERA_ADC[0x15]
-  5  def   LAS_ADC7 = LAS_FERA_ADC[0x16]
-  5  def   LAS_ADC8 = LAS_FERA_ADC[0x17]
-  5  def   LAS_ADC9 = LAS_FERA_ADC[0x18]
-  5  def   LAS_ADC10= LAS_FERA_ADC[0x19]
-  5  def   LAS_ADC11= LAS_FERA_ADC[0x1a]
-  5  def   LAS_ADC12= LAS_FERA_ADC[0x1b]
-  5  def   LAS_TDC1 = LAS_FERA_TDC[0x10]
-  5  def   LAS_TDC2 = LAS_FERA_TDC[0x12]
-  5  def   LAS_TDC3 = LAS_FERA_TDC[0x14]
-  5  def   LAS_TDC4 = LAS_FERA_TDC[0x16]
-  5  def   LAS_TDC5 = LAS_FERA_TDC[0x18]
-  5  def   LAS_TDC6 = LAS_FERA_TDC[0x1a]
-  5  def   LAS_TDC7 = LAS_FERA_TDC[0x1c]
-  5  def   LAS_TDC8 = LAS_FERA_TDC[0x1e]
-  5  def   LAS_TDC9 = LAS_FERA_TDC[0x20]
-  5  def   LAS_TDC10= LAS_FERA_TDC[0x22]
-  5  def   LAS_TDC11= LAS_FERA_TDC[0x24]
-  5  def   LAS_TDC12= LAS_FERA_TDC[0x26]
-  5  def   LAS_RF1 = LAS_FERA_TDC[0x2a]
-  5  def   LAS_RF2 = LAS_FERA_TDC[0x2c]
-  5  def   LAS_RF3 = LAS_FERA_TDC[0x2e]
-  5  def   GR_TPOS1 = GR_TDC[2]-GR_TDC[1]
-  5  def   GR_TPOS2 = GR_TDC[4]-GR_TDC[3]  
-  5  def   GR_MADC1 = sqrt(GR_ADC[1]*GR_ADC[2])
-  5  def   GR_MADC2 = sqrt(GR_ADC[3]*GR_ADC[4])
-  5  def   GR_MADC3 = sqrt(GR_ADC[5]*GR_ADC[6]) 
-  5  def   BLP_ADC1 = GR_ADC_OLD[0]
-  5  def   BLP_ADC2 = GR_ADC_OLD[1]
-  5  def   BLP_ADC3 = GR_ADC_OLD[2]
-  5  def   BLP_ADC4 = GR_ADC_OLD[3]
-  5  def   BLP_ADC5 = GR_ADC_OLD[4]
-  5  def   BLP_ADC6 = GR_ADC_OLD[5]
-  5  def   BLP_ADC7 = GR_ADC_OLD[6]
-  5  def   BLP_ADC8 = GR_ADC_OLD[7]
-  5  def   BLP_TDC1 = GR_TDC_OLD[0]
-  5  def   BLP_TDC2 = GR_TDC_OLD[1]
-  5  def   BLP_TDC3 = GR_TDC_OLD[2]
-  5  def   BLP_TDC4 = GR_TDC_OLD[3]
-  5  def   BLP_TDC5 = GR_TDC_OLD[4]
-  5  def   BLP_TDC6 = GR_TDC_OLD[5]
-  5  def   BLP_TDC7 = GR_TDC_OLD[6]
-  5  def   BLP_TDC8 = GR_TDC_OLD[7]
-  3. com   Detector Configurations
-  4  com   GR Chamber Configuration
-  5  def   VDC_U_DX = 0
-  5  def   GR_PL_X1 = {573.0+VDC_DX,0,0,   -6,  0.00, 10.}
-  5  def   GR_PL_U1 = {602.9+VDC_DX+VDC_U_DX,0,20,  -4, -48.19, 10.}
-  5  def   GR_PL_X2 = {323.0+VDC_DX,0,250, -6,  0.00, 10}
-  5  def   GR_PL_U2 = {352.7+VDC_DX+VDC_U_DX,0,270, -4, -48.19, 10.}
- -5  def   GR_VDC_TILT = {0,45.25*d2r,0} # E316 09nov
-  5  com   Angular Resolution of each Plane [deg]
-  6  def   GR_ARES = {1.05, 1.97, 1.97, 1.05}
-  4  com   LAS Chamber Configuration (UV)
-  5  def   LAS_VDC_DY = +38.671 # The LAS detector is lifted by ~40mm (by Noro group). E282 08Nov
- -5  def   LAS_PL_X1 = {-757.76,LAS_VDC_DY,0,   6.,  0.0, 10.}
-  5  def   LAS_PL_U1 = {-825.76,LAS_VDC_DY,20,  6.,-31.0, 10.}
-  5  def   LAS_PL_V1 = {-821.26,LAS_VDC_DY,40,  6.,+31.0, 10.} # E249 05Jul
- -5  def   LAS_PL_X2 = {-508.36,LAS_VDC_DY,164, 6.,  0.0, 10.}
-  5  def   LAS_PL_U2 = {-576.36,LAS_VDC_DY,184, 6.,-31.0, 10.}
-  5  def   LAS_PL_V2 = {-571.86,LAS_VDC_DY,204, 6.,+31.0, 10.}
-  5  def   LAS_VDC_TILT = {0,-54.04*d2r,0}
+  2  com   Detector Configurations
+  3. com   GR Chamber Configuration
+  4  def   VDC_DX = 0
+  4  def   GR_PL_X1 = {573.0+VDC_DX,0,0,   -6,  0.00, 10.}
+  4  def   GR_PL_U1 = {602.9+VDC_DX,0,20,  -4, -48.19, 10.}
+  4  def   GR_PL_X2 = {323.0+VDC_DX,0,250, -6,  0.00, 10}
+  4  def   GR_PL_U2 = {352.7+VDC_DX,0,270, -4, -48.19, 10.}
+  4  def   GR_VDC_TILT = {0,45*d2r,0}
+  4  com   Angular Resolution of each Plane [deg]
+  5  def   GR_ARES = {1.05, 1.97, 1.05, 1.97}
+  3. com   Drift time to distance
+  4  com   GR
+  6  def   GR_WTDC_FILE = "gr_wtdc.hst"
+  6  def   GR_WTDC_X1 = {141,362}
+  6  def   GR_WTDC_U1 = {141,362}
+  6  def   GR_WTDC_X2 = {141,362}
+  6  def   GR_WTDC_U2 = {141,362}
   3. com   Projection Plane {z,theta,phi}
-  4  def   GR_N_VPLANE = 8
+  4. def   GR_N_VPLANE = 8
   5  com   at Z=0
   6  def   GR_PLANE_0 = {0,GR_VDC_TILT[1],0}
   5  com   at X1
@@ -219,80 +112,37 @@
   6  def   GR_PLANE_6 = {1873,0,0}
   5  com   at FPP-U4
   6  def   GR_PLANE_7 = {2233,0,0}
-  4  def   LAS_N_VPLANE = 2
-  5  def   LAS_PLANE_0 = {0,LAS_VDC_TILT[1],0}
-  5  def   LAS_PLANE_1 = {LAS_PL_X1[2],LAS_VDC_TILT[1],0}
-  4  def   GF_OUT_N_VPLANE = 2
-  5  com   at FPP-U3
-  6  def   GF_OUT_PLANE_0 = {1873,0,0}
-  5  com   at FPP-U4
-  6  def   GF_OUT_PLANE_1 = {2233,0,0}
-  2. com   GR Trace-Back Matrix
-  3  def   GR_EN = GR_XC*0.0247+18.147-0.4
-  3  def   GR_YC = GR_Y+700.*GR_PH-(6.4-4.7) # for main target E421 E422
-  3  def   GR_PHC = GR_PH-0.000000001*GR_Y-0.002 # for main target E421 E422
-  2. com   XC for e421online
-  3  def   GR_XC = GR_X - polynom(GR_TH*r2d, GR_XC_C)
- -3  def   GR_XC = GR_X - polynom(GR_THC*r2d, GR_XC_C)
- -3  def   GR_XC_C = { 0,14.488,-1.2052} # 0deg
- -3  def   GR_XC_C = { 0,14.373,-0.70152} # Au elstic 8deg
-  3  def   GR_XC_C = { 0,14.373-0.886295,-0.70152-0.00248843} # Au elstic 8deg on 7-June-2015
- -3  def   GR_XC_C = { 0,11.45,-0.5225} # C elstic 8deg
- -3  def   GR_XC_C = { -0.375, -7.54} # Au(d,d0) at 10 deg
- -3  def   GR_XC_C = { 0.00,  +6} # Au(d,d0) at 10 deg
- -2. com   Matrix for E282-mag2 070507 for NIM
- -4. com   Matrix for A (for E282-mag2 070507 for NIM)
+  3. com   GR Trace-Back Matrix
+  4. com   Matrix for A (for E282-mag2 070109#1 = Standard)
   5  def   GR_AMAT_01 = { 0000,   1.61034e-02}
   5  def   GR_AMAT_02 = { 0100,  -4.17069e-01}
   5  def   GR_AMAT_03 = { 1000,   2.36614e-05}
- -4. com   Matrix for B (for E282-mag2 070507 for NIM)
-  5  def   GR_BMAT_01 = { 0000,  -6.80045e-03}
-  5  def   GR_BMAT_02 = { 0000,  -1.75957e-03*RUN_LAS_YG}
-  5  def   GR_BMAT_03 = { 0001,   2.46027e+00}
-  5  def   GR_BMAT_04 = { 0010,  -3.26673e-03}
-  5  def   GR_BMAT_05 = { 0011,  -4.29038e-03}
-  5  def   GR_BMAT_06 = { 0100,  -2.76651e-02}
-  5  def   GR_BMAT_07 = { 0101,   2.37656e+01}
-  5  def   GR_BMAT_08 = { 0110,   1.20404e-02}
-  5  def   GR_BMAT_09 = { 0111,   8.86801e-02}
-  5  def   GR_BMAT_10 = { 1000,   7.38007e-06}
-  5  def   GR_BMAT_11 = { 1000,  -1.16108e-07*RUN_LAS_YG}
-  5  def   GR_BMAT_12 = { 1001,  -1.75519e-03}
-  5  def   GR_BMAT_13 = { 1010,  -1.86523e-06}
-  5  def   GR_BMAT_14 = { 1011,   2.90648e-06}
-  5  def   GR_BMAT_15 = { 1100,   4.98760e-05}
-  5  def   GR_BMAT_16 = { 1101,   1.02579e-02}
-  5  def   GR_BMAT_17 = { 1110,   6.02465e-06}
-  5  def   GR_BMAT_18 = { 1111,   4.02911e-04}
- -3  com   Matrix for E316 09Nov
-  4. com   Matrix for A (not calibratied yet)
-  5  def   GR_AMAT_01 = { 0000,   1.61034e-02}
-  5  def   GR_AMAT_02 = { 0100,  -4.17069e-01}
-  5  def   GR_AMAT_03 = { 1000,   2.36614e-05}
-  5  def   GR_AMAT_04 = { 0000,   1.09e-03} # Offset due to mis-alignment of the sieve-slit, see log note vol1-p.36, analysis note p.58
-  4. com   Matrix for B (not calibrated yet)
- -5  def   GR_BMAT_01 = { 0000,  -9.65234e-03+0.008}
+  5  def   GR_AMAT_04 = { 0000,   -0.0235} # offset from E282 06nov
+  4. com   Matrix for B (for E282-mag2 070109#2 = Standard)
+  5  def   b_factor = 0.850
   5  def   GR_BMAT_01 = { 0000,  -9.65234e-03}
   5  def   GR_BMAT_02 = { 0000,  -1.07086e-03*RUN_LAS_YG}
   5  def   GR_BMAT_03 = { 0001,   4.17063e+00}
-  5  def   GR_BMAT_04 = { 0010,  -1.99037e-03}
+  5  def   GR_BMAT_04 = { 0010,  -1.99037e-03*b_factor}
   5  def   GR_BMAT_05 = { 1000,   6.16186e-06}
   5  def   GR_BMAT_06 = { 1000,   6.17463e-07*RUN_LAS_YG}
   5  def   GR_BMAT_07 = { 0000,  +(2.15e-04*RUN_LAS_YG)} # calculated ideal slope, see analysis note p.43
-  4. com   Matrix for YC (not calibrated yet)
+  5  def   GR_BMAT_08 = { 0000,  -0.005}
+  4. com   Matrix for YC (for E316-09nov from Run9049 1st order for all 20121114)
   5  def   GR_YMAT_01 = { 0010,   1.00000e+00}
-  5  def   GR_YMAT_02 = { 0000,  -3.74081e-01+2.720}
-  5  def   GR_YMAT_03 = { 0000,   1.05732e+00*RUN_LAS_YG}
-  5  def   GR_YMAT_04 = { 0001,   7.17335e+02+700}
-  5  def   GR_YMAT_05 = { 0100,  -5.20327e+01}
-  5  def   GR_YMAT_06 = { 0101,   9.00266e+03}
-  5  def   GR_YMAT_07 = { 1000,   1.24845e-02}
-  5  def   GR_YMAT_08 = { 1001,  -3.22387e+00}
-  5  def   GR_YMAT_09 = { 1101,  -1.37672e+01}
-  4  com   Matrix for Xc
+  5  def   GR_YMAT_02 = { 0000,  -5.95045e+00}
+  5  def   GR_YMAT_03 = { 0001,   2.36363e+03}
+  5  def   GR_YMAT_04 = { 0100,  -4.08823e+01}
+  5  def   GR_YMAT_05 = { 0101,   1.25884e+04}
+  5  def   GR_YMAT_06 = { 1000,   1.46217e-02}
+  5  def   GR_YMAT_07 = { 1001,  -3.75711e+00}
+  5  def   GR_YMAT_08 = { 1100,   1.01238e-01}
+  5  def   GR_YMAT_09 = { 1101,  -2.26667e+01}
+ -5  def   GR_YMAT_10 = { 0000,   5.61352e-01*RUN_LAS_YG}
+  4. com   Matrix for Xc by Tamii 01-JUNE-2006 with kinematical correction
  -5. com   no correction
   6  def   GR_XMAT_01 = { 1000,  1.000e-00 }
-  5. com   xc-th (not calibrated yet)
+  5. com   xc-th for E282 oct06 mag#2 with kin. corr. (X:1,TH:4) 070207
   6  def   GR_XMAT_01 = { 0000,   0.00000e+00}
   6  def   GR_XMAT_02 = { 0100,  -4.95293e+02}
   6  def   GR_XMAT_03 = { 0200,   5.35956e+03}
@@ -303,108 +153,21 @@
   6  def   GR_XMAT_08 = { 1200,   2.79054e+00}
   6  def   GR_XMAT_09 = { 1300,  -2.76952e+01}
   6  def   GR_XMAT_10 = { 1400,   4.44175e+02}
-  4. com   Matrix for PHC  (not calibrated yet)
+  4. com   Matrix for PHC  (for E282)
   5  def   GR_PHMAT_01 = { 0000,  0.000 }
   5  def   GR_PHMAT_02 = { 0001,  1.000 }
   5  def   GR_PHMAT_03 = { 0010, -2.27E-4}
-  2. com   LAS Trace-Back Matrix
-  3  com   converted on 27-JUL-2000 from jul93las_xmat.par by Noro-group
-  4  com   akv1=0.2e-4 k-value of this matrix
-  2. com   Matrix for X
-  3  def   LAS_XMAT_01 = { 0000,  0.22806E-01 }
-  3  def   LAS_XMAT_02 = { 1000,  0.23392E-03 }
-  3  def   LAS_XMAT_03 = { 0100, -0.29214E-01 }
-  3  def   LAS_XMAT_04 = { 0010,  0.90449E-05 }
-  3  def   LAS_XMAT_05 = { 0001,  0.61528E-02 }
-  3  def   LAS_XMAT_06 = { 2000,  0.65014E-07 }
-  3  def   LAS_XMAT_07 = { 1100, -0.33089E-05 }
-  3  def   LAS_XMAT_08 = { 1010, -0.10777E-07 }
-  3  def   LAS_XMAT_09 = { 1001,  0.11167E-04 }
-  3  def   LAS_XMAT_10 = { 0200,  0.16362E-01 }
-  3  def   LAS_XMAT_11 = { 0110, -0.76469E-05 }
-  3  def   LAS_XMAT_12 = { 0101, -0.14984E-01 }
-  3  def   LAS_XMAT_13 = { 0020,  0.89652E-07 }
-  3  def   LAS_XMAT_14 = { 0011, -0.22450E-04 }
-  3  def   LAS_XMAT_15 = { 0002, -0.10874E-02 }
-  3  def   LAS_XMAT_16 = { 3000,  0.49676E-11 }
-  3  def   LAS_XMAT_17 = { 2100, -0.48154E-07 }
-  3  def   LAS_XMAT_18 = { 2010, -0.44922E-11 }
-  3  def   LAS_XMAT_19 = { 2001, -0.21891E-08 }
-  3  def   LAS_XMAT_20 = { 1200, -0.77687E-05 }
-  3  def   LAS_XMAT_21 = { 1110,  0.61315E-08 }
-  3  def   LAS_XMAT_22 = { 1101, -0.83385E-05 }
-  3  def   LAS_XMAT_23 = { 1020,  0.40743E-10 }
-  3  def   LAS_XMAT_24 = { 1011,  0.20944E-07 }
-  3  def   LAS_XMAT_25 = { 1002,  0.17309E-05 }
-  3  def   LAS_XMAT_26 = { 0300, -0.48981E-02 }
-  3  def   LAS_XMAT_27 = { 0210,  0.20841E-05 }
-  3  def   LAS_XMAT_28 = { 0201,  0.53219E-02 }
-  3  def   LAS_XMAT_29 = { 0120,  0.32648E-08 }
-  3  def   LAS_XMAT_30 = { 0111,  0.11717E-04 }
-  3  def   LAS_XMAT_31 = { 0102, -0.73120E-03 }
-  3  def   LAS_XMAT_32 = { 0021,  0.12566E-06 }
-  3  def   LAS_XMAT_33 = { 0012, -0.52859E-04 }
-  3  def   LAS_XMAT_34 = { 0003,  0.35165E-01 }
-  3  def   LAS_XMAT_35 = { 4000, -0.35735E-13 }
-  3  def   LAS_XMAT_36 = { 0400, -0.13701E-03 }
-  3  def   LAS_XMAT_37 = { 0040, -0.66081E-11 }
-  3  def   LAS_XMAT_38 = { 0004,  0.10286E-01 }
-  3  def   LAS_XMAT_39 = { 3100,  0.30037E-10 }
-  3  def   LAS_XMAT_40 = { 2200, -0.32596E-08 }
-  3  def   LAS_XMAT_41 = { 1300,  0.75084E-05 }
-  2. com   Matrix for A
-  3  def   LAS_AMAT_01 = { 0000, -0.90882E+03}
-  3  def   LAS_AMAT_02 = { 1000, -0.98402E+00}
-  3  def   LAS_AMAT_03 = { 0100,  0.21078E+04}
-  3  def   LAS_AMAT_04 = { 0010, -0.81389E-02}
-  3  def   LAS_AMAT_05 = { 0001, -0.15176E+03}
-  3  def   LAS_AMAT_06 = { 2000, -0.47535E-03}
-  3  def   LAS_AMAT_07 = { 1100,  0.20539E+01}
-  3  def   LAS_AMAT_08 = { 1010,  0.82019E-05}
-  3  def   LAS_AMAT_09 = { 1001, -0.10719E+00}
-  3  def   LAS_AMAT_10 = { 0200, -0.20867E+04}
-  3  def   LAS_AMAT_11 = { 0110, -0.39076E-02}
-  3  def   LAS_AMAT_12 = { 0101,  0.23063E+03}
-  3  def   LAS_AMAT_13 = { 0020,  0.17441E-02}
-  3  def   LAS_AMAT_14 = { 0011,  0.17144E+00}
-  3  def   LAS_AMAT_15 = { 0002,  0.46881E+02}
-  3  def   LAS_AMAT_16 = { 3000, -0.12898E-06}
-  3  def   LAS_AMAT_17 = { 2100,  0.72953E-03}
-  3  def   LAS_AMAT_18 = { 2010, -0.50616E-09}
-  3  def   LAS_AMAT_19 = { 2001,  0.72687E-05}
-  3  def   LAS_AMAT_20 = { 1200, -0.15317E+01}
-  3  def   LAS_AMAT_21 = { 1110, -0.72434E-05}
-  3  def   LAS_AMAT_22 = { 1101,  0.76453E-01}
-  3  def   LAS_AMAT_23 = { 1020,  0.38152E-06}
-  3  def   LAS_AMAT_24 = { 1011,  0.44978E-04}
-  3  def   LAS_AMAT_25 = { 1002,  0.41038E-01}
-  3  def   LAS_AMAT_26 = { 0300,  0.10045E+04}
-  3  def   LAS_AMAT_27 = { 0210,  0.33079E-02}
-  3  def   LAS_AMAT_28 = { 0201, -0.76794E+02}
-  3  def   LAS_AMAT_29 = { 0120, -0.94281E-03}
-  3  def   LAS_AMAT_30 = { 0111, -0.38992E-01}
-  3  def   LAS_AMAT_31 = { 0102, -0.10189E+01}
-  3  def   LAS_AMAT_32 = { 0021, -0.62901E-03}
-  3  def   LAS_AMAT_33 = { 0012, -0.92175E-01}
-  3  def   LAS_AMAT_34 = { 0003, -0.21562E+03}
-  3  def   LAS_AMAT_35 = { 4000, -0.13113E-10}
-  3  def   LAS_AMAT_36 = { 0400, -0.18417E+03}
-  3  def   LAS_AMAT_37 = { 0040, -0.23016E-07}
-  3  def   LAS_AMAT_38 = { 0004, -0.30098E+03}
-  3  def   LAS_AMAT_39 = { 3100,  0.97679E-07}
-  3  def   LAS_AMAT_40 = { 2200, -0.27604E-03}
-  3  def   LAS_AMAT_41 = { 1300,  0.38034E+00}
-  2. com   Reaction
-  3  com   Run Dependent Default Value
+  2  com   Reaction
+  3. com   Run Dependent Default Value
   4  def   RUN_dEX = 0.000 # Excitation Energy Shift
   4  def   RUN_dYC = 0.000 # YC Shift (mm)
   4  def   RUN_dPHC = 0.000 # PHC Shift (rad)
   4  def   RUN_LAS_YG = 0.000 # LAS Y Central Position for (-50<=LAS_X<=50mm)
-  4  def   M2 = M_12C # Target Mass [MeV/c2]
+  4  def   M2 = M_208Pb # Target Mass [MeV/c2]
   4  def   GR_ANG = 0.0
-  3  com   Common
+  3. com   Common
   4  com   Projectile Kinetic Energy [MeV]
-  5  def   T1 = 65
+  5  def   T1 = 302.772-1.5
   4  com   Projectile Mass [MeV/c2]
   5  def   M1 = M_p
   4  com   Scattered Particle Mass [MeV/c2]
@@ -421,51 +184,11 @@
   5  def   M5 = 0.0
   4  com   Energy loss of the ejectile in the target [MeV]
   5  def   GR_DE = 0
-  3  com   faint
-  4  com   Target Mass [MeV/c2]
-  5  def   M2 = M_p
-  4  com   Magnetic field of the Dipoles [mT]
-  5  def   GR_B = 868.3 # 0deg for oct06
- -3. com   p+12C   inelastic
+  3. com   p+12C   inelastic
   4  com   Target Mass [MeV/c2]
   5  def   M2 = M_12C
   4  com   Magnetic field of the Dipoles [mT]
   5  def   GR_B = 868.3 # 0deg for oct06
- -3. com   p+27Al   inelastic
-  4  com   Target Mass [MeV/c2]
-  5  def   M2 = 25133.150 # 27Al mass MeV/c^2
- -3. com   p+58Ni  inelastic
-  4  com   Target Mass [MeV/c2]
-  5  def   M2 = M_58Ni
-  4  com   Magnetic field of the Dipoles [mT]
-  5  def   GR_B = 871.5 # 0deg for oct06
- -3  com   p+120Sn inelastic
- -3. com   a+90Zr inelastic
-  5  com   Magnetic field of the Dipoles [mT]
-  6  def   GR_B = 950.621 # 2.8deg 90Zr
-  4. com   Target Mass [MeV/c2]
-  5  def   M2 = 83745.7 # 90Zr mass MeV/c^2
- -3. com   p+154Sm inelastic
-  4  com   Target Mass [MeV/c2]
-  5  def   M2 = 143377.660 # 154Sm mass MeV/c^2
-  4  com   Magnetic field of the Dipoles [mT]
- -3. com   p+197Au elastic
-  4  com   Projectile Kinetic Energy [MeV]
-  5  def   T1 = 301.84
-  4  com   Energy loss of the ejectile in the target [MeV]
-  5  def   GR_DE = 0
-  4  com   Target Mass [MeV/c2]
-  5  def   M2 = 197*AMU
-  4  com   Spectrometer angle
-  5  def   GR_ANG = 8.0
-  5  def   LAS_ANG = 33.7
-  4  com   Magnetic field of the Dipoles [mT]
-  5  def   GR_B = 889.187
-  5  def   LAS_B = 1511.325
- -3. com   p+208Pb inelastic
-  4  com   Target Mass [MeV/c2]
-  5  def   M2 = M_208Pb
-  4  com   Magnetic field of the Dipoles [mT]
   1  com   Definition of Variables
   2. com   Spin
   3  def   SPIN_UP = !(IPR&0x0002)
@@ -491,12 +214,16 @@
   4  def   EVENT_BEND = bit(IPR,16-1)
   3  def   EVENT_GR_COIN = EVENT_GR || EVENT_COIN
   3  def   EVENT_LAS_COIN = EVENT_LAS || EVENT_COIN
+ -3  def   EVENT_GR_FPP = EVENT_GR_COIN && EVENT_FPP
+  3  def   EVENT_GR_FPP = EVENT_GR_COIN
   3  def   EVENT_1ST = EVENT_LAS_COIN && EVENT_2FPP
+ -3  def   EVENT_2ND = EVENT_GR && EVENT_2FPP && EVENT_SLEVEL
+ -3  def   EVENT_2ND_SAMP = EVENT_GR && EVENT_2FPP && EVENT_SLEVEL
   3  def   EVENT_2ND = EVENT_SLEVEL
   3  def   EVENT_2ND_SAMP = !EVENT_SLEVEL
   3  def   EVENT = EVENT_SLEVEL | (EVENT_FPP<<1) | (EVENT_GR<<2) | (EVENT_LAS<<3) | (EVENT_COIN<<4)
   3  def   SLEVEL = SLEVEL_ACC | (SLEVEL_REJ<<1)
-  2  com   GR ADC 
+  2. com   GR ADC 
   3  def   GR_ADC[1] = GR_FERA_ADC[0x10]
   3  def   GR_ADC[2] = GR_FERA_ADC[0x11]
   3  def   GR_ADC[3] = GR_FERA_ADC[0x12]
@@ -517,423 +244,384 @@
   3  def   GR_TLAS = GR_FERA_TDC[0x15]
   3  def   GR_TPOS[1] = GR_TDC[2]-GR_TDC[1]
   3  def   GR_TPOS[2] = GR_TDC[4]-GR_TDC[3]
+  3  def   GR_TPOS[3] = GR_TDC[6]-GR_TDC[5]
+  2. com   LaBr3 (QTC)
+  3  com   Timing
+  4  def   LaBr3_T[1] = QTC_LEADING[0]
+  4  def   LaBr3_T[2] = QTC_LEADING[3]
+  4  def   LaBr3_T[3] = QTC_LEADING[8]
+  4  def   LaBr3_T[4] = QTC_LEADING[14]
+  3  com   Energy
+  4  def   LaBr3_W[1] = QTC_TRAILING[0]-QTC_LEADING[0]
+  4  def   LaBr3_W[2] = QTC_TRAILING[3]-QTC_LEADING[3]
+  4  def   LaBr3_W[3] = QTC_TRAILING[8]-QTC_LEADING[8]
+  4  def   LaBr3_W[4] = QTC_TRAILING[14]-QTC_LEADING[14]
+  3  com   Calibrated Energy
+  4  def   LaBr3_E[1] = -1.196+1.720E-3*analog(LaBr3_W[1])
+  4  def   LaBr3_E[2] = -1.170+1.818E-3*analog(LaBr3_W[2])
+  4  def   LaBr3_E[3] = -1.059+1.860E-3*analog(LaBr3_W[3])
+  4  def   LaBr3_E[4] = -1.221+1.722E-3*analog(LaBr3_W[4])
+  3  com   Enegy of one of the hit LaBr3
+  4  def   LaBr3_E_G = if(LaBr3_T_G[1],LaBr3_E[1],if(LaBr3_T_G[2],LaBr3_E[2],if(LaBr3_T_G[3],LaBr3_E[3],if(LaBr3_T_G[4],LaBr3_E[4],NaN))))
+  4  def   LaBr3_E_B = if(LaBr3_T_B[1],LaBr3_E[1],if(LaBr3_T_B[2],LaBr3_E[2],if(LaBr3_T_B[3],LaBr3_E[3],if(LaBr3_T_B[4],LaBr3_E[4],NaN))))
+  3  com   Timing Parameters
+  4  def   LaBr3_T_BUNCH = 822
+  4  def   LaBr3_T_WIDTH = 934
+  4  def   LaBr3_T_START = -4146
+  4  def   LaBr3_T_END = LaBr3_T_START+LaBr3_T_WIDTH
   2. com   GR Optics
   3. com   RFC
   4  def   GR_RFC = GR_RF[0]-0.067*GR_X[0]-31.0*GR_THC[0]*r2d-2.23e-3*GR_X[0]-1.67e-5*GR_X[0]*GR_X[0]
+ -4  def   GR_RFC = GR_RF[0]-0.067*GR_X[0]-31.0*GR_THC[0]*r2d
+ -4  def   GR_RFC = GR_RF[0]-0.067*GR_X[0]
   3  com   Ray
-  4  com   No B.G. Correction
+  4. com   No B.G. Correction
   5  def   GR_X = GR_XP[0]
   5  def   GR_Y = GR_YP[0]
   5  def   GR_TH = GR_RAY_TH[0]
   5  def   GR_PH = GR_RAY_PH[0]
-  5  def   GR_Xcorr = 6370.060 + 4.118480*(GR_X - ((104.391 + 0.4646720*GR_X)*GR_TH + (-6571.53 - 3.50184*GR_X)*GR_TH*GR_TH + (30927.3 + 264.465*GR_X)*GR_TH*GR_TH*GR_TH + (-911763 - 551.451*GR_X)*GR_TH*GR_TH*GR_TH*GR_TH)) # for 53 MeV
+ -4. com   With B.G. Correction 08Nov
+  5  def   GR_Y_SHIFT = 0 # identical to no correction
+ -5  def   GR_Y_SHIFT = 10 # Background-1 [mm]
+ -5  def   GR_Y_SHIFT = -10 # Background-2 [mm]
+ -5  def   GR_Y_SHIFT = 13 # Background-1 [mm]
+ -5  def   GR_Y_SHIFT = -13 # Background-2 [mm]
+  5  def   GR_X = GR_XP[0]
+  5  def   GR_Y = GR_YP[0]+GR_Y_SHIFT[0]
+  5  def   GR_TH = GR_RAY_TH[0]
+  5  def   GR_PH = GR_RAY_PH[0]
+ -5  def   GR_PH = GR_RAY_PH[0]+GR_Y_SHIFT[0]*0.2e-3
   3  com   Particle momentum [MeV/c]
+  4  def   GR_DP = (-88-GR_XC[0])*cos45/15138 # 08nov DSR+
+  4  def   GR_P = (1+GR_DP)*0.3*GR_B*GR_Rho*GR_q
   3  com   Horizontal scattering angle [rad]
-  4  def   GR_THC = -0.4191*(GR_TH-6.770e-2-9.591e-5*GR_X)
+  4  def   GR_THC = -0.4191*(GR_TH-8.770e-3-3.591e-5*GR_X)-0.1*d2r
+  3  com   Scattering angle [rad]
+  4  def   GR_TH3 = sqrt(pow2(GR_ANG*d2r+GR_AI[0])+pow2(GR_BI[0]))
+  3  com   XC
+  4  def   GR_XC = GR_X - polynom(GR_TH*r2d, GR_XC_C)
+  4  def   GR_XC_C = { 0, -2.5} # Au(d,d0) at 10 deg
+  3  com   EXC
+  4  def   GR_EX_AI_CORR = {0.0} # Normal
   4  def   GR_EX_BI_CORR = {0.0} # Normal
+  4  def   GR_EX = 6.872+GR_X[0]*0.01074 # calibrated for 12C 4.5 deg D1=D2=536.191 mT
   4  def   GR_EX_C = polynom(GR_EX[0], GR_EX_C_EX)+RUN_dEX # 06Nov
-  2. com   LAS ADC 
-  3  def   LAS_ADC[1] = LAS_FERA_ADC[0x10]
-  3  def   LAS_ADC[2] = LAS_FERA_ADC[0x11]
-  3  def   LAS_ADC[3] = LAS_FERA_ADC[0x12]
-  3  def   LAS_ADC[4] = LAS_FERA_ADC[0x13]
-  3  def   LAS_ADC[5] = LAS_FERA_ADC[0x14]
-  3  def   LAS_ADC[6] = LAS_FERA_ADC[0x15]
-  3  def   LAS_ADC[7] = LAS_FERA_ADC[0x16]
-  3  def   LAS_ADC[8] = LAS_FERA_ADC[0x17]
-  3  def   LAS_ADC[9] = LAS_FERA_ADC[0x18]
-  3  def   LAS_ADC[10] = LAS_FERA_ADC[0x19]
-  3  def   LAS_ADC[11] = LAS_FERA_ADC[0x1a]
-  3  def   LAS_ADC[12] = LAS_FERA_ADC[0x1b]
-  3  def   LAS_MADC[1] = sqrt(LAS_ADC[1]*LAS_ADC[2])
-  3  def   LAS_MADC[2] = sqrt(LAS_ADC[3]*LAS_ADC[4])
-  3  def   LAS_MADC[3] = sqrt(LAS_ADC[5]*LAS_ADC[6])
-  3  def   LAS_MADC[4] = sqrt(LAS_ADC[7]*LAS_ADC[8])
-  3  def   LAS_MADC[5] = sqrt(LAS_ADC[9]*LAS_ADC[10])
-  3  def   LAS_MADC[6] = sqrt(LAS_ADC[11]*LAS_ADC[12])
-  2. com   LAS TDC 
-  3  def   LAS_TDC[1] = LAS_FERA_TDC[0x10]
-  3  def   LAS_TDC[2] = LAS_FERA_TDC[0x12]
-  3  def   LAS_TDC[3] = LAS_FERA_TDC[0x14]
-  3  def   LAS_TDC[4] = LAS_FERA_TDC[0x16]
-  3  def   LAS_TDC[5] = LAS_FERA_TDC[0x18]
-  3  def   LAS_TDC[6] = LAS_FERA_TDC[0x1a]
-  3  def   LAS_TDC[7] = LAS_FERA_TDC[0x1c]
-  3  def   LAS_TDC[8] = LAS_FERA_TDC[0x1e]
-  3  def   LAS_TDC[9] = LAS_FERA_TDC[0x20]
-  3  def   LAS_TDC[10] = LAS_FERA_TDC[0x22]
-  3  def   LAS_TDC[11] = LAS_FERA_TDC[0x24]
-  3  def   LAS_TDC[12] = LAS_FERA_TDC[0x26]
-  3  def   LAS_RF[1] = LAS_FERA_TDC[0x2a]
-  3  def   LAS_RF[2] = LAS_FERA_TDC[0x2c]
-  3  def   LAS_RF[3] = LAS_FERA_TDC[0x2e]
-  3  def   LAS_TPOS[1] = LAS_TDC[2]-LAS_TDC[1]
-  3  def   LAS_TPOS[2] = LAS_TDC[4]-LAS_TDC[3]
-  3  def   LAS_TPOS[3] = LAS_TDC[6]-LAS_TDC[5]
-  3  def   LAS_TPOS[4] = LAS_TDC[8]-LAS_TDC[7]
-  3  def   LAS_TPOS[5] = LAS_TDC[10]-LAS_TDC[9]
-  3  def   LAS_TPOS[6] = LAS_TDC[12]-LAS_TDC[11]
-  2. com   EVENT LAS
-  3  def   EVENT_LAS_TRUE = LAS_PI_P && LAS_RAYID[0]==0 && LAS_CHI2 < 10
- -3  def   EVENT_LAS_TRUE = LAS_PI_P && LAS_RAYID[0]==0
-  2. com   LAS Optics
-  3  com   Particle momentum [MeV/c]
-  4  def   LAS_P = (LAS_DP+1)*0.3*LAS_B*LAS_Rho*LAS_q
-  3  com   Scattering angle [red]
-  4  def   LAS_TH3 = LAS_ANG*d2r+LAS_AI
-  4  def   LAS_EXC = LAS_EX
-  2. com   GR-FPP Hodoscope ADC 
-  3  def   GF_ADC_XU[1] = GR_FERA_ADC[0x20]
-  3  def   GF_ADC_XU[2] = GR_FERA_ADC[0x21]
-  3  def   GF_ADC_XU[3] = GR_FERA_ADC[0x22]
-  3  def   GF_ADC_XU[4] = GR_FERA_ADC[0x23]
-  3  def   GF_ADC_XU[5] = GR_FERA_ADC[0x24]
-  3  def   GF_ADC_XU[6] = GR_FERA_ADC[0x25]
-  3  def   GF_ADC_XU[7] = GR_FERA_ADC[0x26]
-  3  def   GF_ADC_XU[8] = GR_FERA_ADC[0x27]
-  3  def   GF_ADC_XD[1] = GR_FERA_ADC[0x28]
-  3  def   GF_ADC_XD[2] = GR_FERA_ADC[0x29]
-  3  def   GF_ADC_XD[3] = GR_FERA_ADC[0x2a]
-  3  def   GF_ADC_XD[4] = GR_FERA_ADC[0x2b]
-  3  def   GF_ADC_XD[5] = GR_FERA_ADC[0x2c]
-  3  def   GF_ADC_XD[6] = GR_FERA_ADC[0x2d]
-  3  def   GF_ADC_XD[7] = GR_FERA_ADC[0x2e]
-  3  def   GF_ADC_XD[8] = GR_FERA_ADC[0x2f]
-  3  def   GF_ADC_YL[1] = GR_FERA_ADC[0x16]
-  3  def   GF_ADC_YL[2] = GR_FERA_ADC[0x17]
-  3  def   GF_ADC_YL[3] = GR_FERA_ADC[0x18]
-  3  def   GF_ADC_YL[4] = GR_FERA_ADC[0x19]
-  3  def   GF_ADC_YL[5] = GR_FERA_ADC[0x1a]
-  3  def   GF_ADC_YR[1] = GR_FERA_ADC[0x1b]
-  3  def   GF_ADC_YR[2] = GR_FERA_ADC[0x1c]
-  3  def   GF_ADC_YR[3] = GR_FERA_ADC[0x1d]
-  3  def   GF_ADC_YR[4] = GR_FERA_ADC[0x1e]
-  3  def   GF_ADC_YR[5] = GR_FERA_ADC[0x1f]
-  3  def   GF_MADC_X[1] = sqrt(GF_ADC_XU[1]*GF_ADC_XD[1])
-  3  def   GF_MADC_X[2] = sqrt(GF_ADC_XU[2]*GF_ADC_XD[2])
-  3  def   GF_MADC_X[3] = sqrt(GF_ADC_XU[3]*GF_ADC_XD[3])
-  3  def   GF_MADC_X[4] = sqrt(GF_ADC_XU[4]*GF_ADC_XD[4])
-  3  def   GF_MADC_X[5] = sqrt(GF_ADC_XU[5]*GF_ADC_XD[5])
-  3  def   GF_MADC_X[6] = sqrt(GF_ADC_XU[6]*GF_ADC_XD[6])
-  3  def   GF_MADC_X[7] = sqrt(GF_ADC_XU[7]*GF_ADC_XD[7])
-  3  def   GF_MADC_X[8] = sqrt(GF_ADC_XU[8]*GF_ADC_XD[8])
-  3  def   GF_MADC_Y[1] = sqrt(GF_ADC_YL[1]*GF_ADC_YR[1])
-  3  def   GF_MADC_Y[2] = sqrt(GF_ADC_YL[2]*GF_ADC_YR[2])
-  3  def   GF_MADC_Y[3] = sqrt(GF_ADC_YL[3]*GF_ADC_YR[3])
-  3  def   GF_MADC_Y[4] = sqrt(GF_ADC_YL[4]*GF_ADC_YR[4])
-  3  def   GF_MADC_Y[5] = sqrt(GF_ADC_YL[5]*GF_ADC_YR[5])
-  2. com   GR-FPP Hodoscope TDC 
-  3  def   GF_TDC_XU[1] = GR_FERA_TDC[0x20]
-  3  def   GF_TDC_XU[2] = GR_FERA_TDC[0x21]
-  3  def   GF_TDC_XU[3] = GR_FERA_TDC[0x22]
-  3  def   GF_TDC_XU[4] = GR_FERA_TDC[0x23]
-  3  def   GF_TDC_XU[5] = GR_FERA_TDC[0x24]
-  3  def   GF_TDC_XU[6] = GR_FERA_TDC[0x25]
-  3  def   GF_TDC_XU[7] = GR_FERA_TDC[0x26]
-  3  def   GF_TDC_XU[8] = GR_FERA_TDC[0x27]
-  3  def   GF_TDC_XD[1] = GR_FERA_TDC[0x28]
-  3  def   GF_TDC_XD[2] = GR_FERA_TDC[0x29]
-  3  def   GF_TDC_XD[3] = GR_FERA_TDC[0x2a]
-  3  def   GF_TDC_XD[4] = GR_FERA_TDC[0x2b]
-  3  def   GF_TDC_XD[5] = GR_FERA_TDC[0x2c]
-  3  def   GF_TDC_XD[6] = GR_FERA_TDC[0x2d]
-  3  def   GF_TDC_XD[7] = GR_FERA_TDC[0x2e]
-  3  def   GF_TDC_XD[8] = GR_FERA_TDC[0x2f]
-  3  def   GF_TDC_YL[1] = GR_FERA_TDC[0x16]
-  3  def   GF_TDC_YL[2] = GR_FERA_TDC[0x17]
-  3  def   GF_TDC_YL[3] = GR_FERA_TDC[0x18]
-  3  def   GF_TDC_YL[4] = GR_FERA_TDC[0x19]
-  3  def   GF_TDC_YL[5] = GR_FERA_TDC[0x1a]
-  3  def   GF_TDC_YR[1] = GR_FERA_TDC[0x1b]
-  3  def   GF_TDC_YR[2] = GR_FERA_TDC[0x1c]
-  3  def   GF_TDC_YR[3] = GR_FERA_TDC[0x1d]
-  3  def   GF_TDC_YR[4] = GR_FERA_TDC[0x1e]
-  3  def   GF_TDC_YR[5] = GR_FERA_TDC[0x1f]
-  3  def   GF_TPOS_X[1] = GF_TDC_XD[1]-GF_TDC_XU[1]
-  3  def   GF_TPOS_X[2] = GF_TDC_XD[2]-GF_TDC_XU[2]
-  3  def   GF_TPOS_X[3] = GF_TDC_XD[3]-GF_TDC_XU[3]
-  3  def   GF_TPOS_X[4] = GF_TDC_XD[4]-GF_TDC_XU[4]
-  3  def   GF_TPOS_X[5] = GF_TDC_XD[5]-GF_TDC_XU[5]
-  3  def   GF_TPOS_X[6] = GF_TDC_XD[6]-GF_TDC_XU[6]
-  3  def   GF_TPOS_X[7] = GF_TDC_XD[7]-GF_TDC_XU[7]
-  3  def   GF_TPOS_X[8] = GF_TDC_XD[8]-GF_TDC_XU[8]
-  3  def   GF_TPOS_Y[1] = GF_TDC_YR[1]-GF_TDC_YL[1]
-  3  def   GF_TPOS_Y[2] = GF_TDC_YR[2]-GF_TDC_YL[2]
-  3  def   GF_TPOS_Y[3] = GF_TDC_YR[3]-GF_TDC_YL[3]
-  3  def   GF_TPOS_Y[4] = GF_TDC_YR[4]-GF_TDC_YL[4]
-  3  def   GF_TPOS_Y[5] = GF_TDC_YR[5]-GF_TDC_YL[5]
-  2. com   GR-FPP Optics
-  3  def   GF_IN_X = GF_IN_XP[0]
-  3  def   GF_IN_Y = GF_IN_YP[0]
-  3  def   GF_IN_TH = GF_IN_RAY_TH[0]
-  3  def   GF_IN_PH = GF_IN_RAY_PH[0]
-  3  def   GF_OUT_X = GF_OUT_XP[0]
-  3  def   GF_OUT_Y = GF_OUT_YP[0]
-  3  def   GF_OUT_TH = GF_OUT_RAY_TH[0]
-  3  def   GF_OUT_PH = GF_OUT_RAY_PH[0]
-  3  def   GF_X = GF_OUT_X[0]
-  3  def   GF_Y = GF_OUT_P[0]
-  2. com   BLP
-  3. com   BLP ADC
-  4  def   BLP_ADC[1] = GR_ADC_OLD[0]
-  4  def   BLP_ADC[2] = GR_ADC_OLD[1]
-  4  def   BLP_ADC[3] = GR_ADC_OLD[2]
-  4  def   BLP_ADC[4] = GR_ADC_OLD[3]
-  4  def   BLP_ADC[5] = GR_ADC_OLD[4]
-  4  def   BLP_ADC[6] = GR_ADC_OLD[5]
-  4  def   BLP_ADC[7] = GR_ADC_OLD[6]
-  4  def   BLP_ADC[8] = GR_ADC_OLD[7]
-  3. com   BLP TDC
-  4  def   BLP_TDC[1] = GR_TDC_OLD[0]
-  4  def   BLP_TDC[2] = GR_TDC_OLD[1]
-  4  def   BLP_TDC[3] = GR_TDC_OLD[2]
-  4  def   BLP_TDC[4] = GR_TDC_OLD[3]
-  4  def   BLP_TDC[5] = GR_TDC_OLD[4]
-  4  def   BLP_TDC[6] = GR_TDC_OLD[5]
-  4  def   BLP_TDC[7] = GR_TDC_OLD[6]
-  4  def   BLP_TDC[8] = GR_TDC_OLD[7]
-  3. com   BLP TDC True Range
-  4  def   BLP1_T = {0,4096}
-  4  def   BLP2_T = {0,4096}
+  4  def   GR_EX_C_EX = { 0.3355, 0.9402, -9.837e-04, 1.543e-4 } # Ex correction for 08Nov 208Pb, fitted to 06oct data 2009.12.29
   1  com   Definition of Gates
-  2  com   GR Particle ID
-  3  def   WIREX1_notgood = GR_PI_ADC && GR_RFGate
-  3  def   GR_PI = GR_PI_ADC && GR_RFGate
-  3  def   GR_PI_ADC = gate(GR_MADC[1],184,276)  && gate(GR_MADC[2],194,302)
-  3  def   GR_RFGate = gate(GR_RF,454,628) || gate(GR_RF,997,1184) # E421 Online until June5
-  3  def   GR_BLK = gate(BLOCK_N[0],0,30000)
-  2. com   LAS Optics
-  3  def   LAS_X = LAS_XP[0]
-  3  def   LAS_Y = LAS_YP[0]
-  3  def   LAS_TH = LAS_RAY_TH[0]
-  3  def   LAS_PH = LAS_RAY_PH[0]
-  2  def   EVENT_TRUE = TRUE
-  1  com   Drift time to distance
-  2  com   GR
-  3  com   TDC drift correction
-  6  def   GR_WTDC_FILE = "gr_wtdc.hst"
-  6  def   GR_WTDC_X1 = {145,368}
-  6  def   GR_WTDC_U1 = {143,368}
-  6  def   GR_WTDC_X2 = {142,365}
-  6  def   GR_WTDC_U2 = {141,364}
-  3. com   GR Chamber Configuration (E387)
-  4  def   VDC_DX = 0
-  4  def   GR_VDC_TILT = {0,45*d2r,0}
+  2. com   GR Particle ID
+ -3  def   GR_PI = TRUE
+  3  def   GR_PI = GR_PI_4He
+  3  def   GR_PI_p = GR_PI_p_dE && GR_PI_p_RF
+  3  def   GR_PI_p_dE = gate(GR_MADC[1],155,273) && gate(GR_MADC[2], 238, 365)
+  3  def   GR_PI_p_RF = gate(GR_RF[0], 375, 525) || gate(GR_RF[0], 1040, 1190)
+  3  def   GR_PI_4He = GR_PI_4He_dE && GR_PI_4He_RF
+  3  def   GR_PI_4He_dE = gate(GR_MADC[1],150,400) && gate(GR_MADC[2], 250, 400)
+  3  def   GR_PI_4He_RF = gate(GR_RF[0], 375, 525) || gate(GR_RF[0], 1040, 1190)
+  2. com   GR Optics
+  3  def   GR_TH_NAR = gate(GR_THC[0]*r2d, 0, 0.5)
+  3  def   GR_TH_G = gate(GR_TH[0]*r2d,-2, 2)
+  3  def   G_ELASTIC = gate(GR_X[0], -400, -300)
+  3  def   GR_EX_G = gate(GR_EX,-2,2)
+  3  def   GR_CHI2_G = gate(GR_CHI2, 0, 50)
+  3  def   GR_THC_G = gate(GR_THC[0]*r2d,-0.5,0.5)
+  3  def   GR_Y_G = gate(GR_Y[0],-6.9,19.0)
+  3  def   GR_YC_G = TRUE # full open
+ -3  def   GR_YC_G = gate(GR_YC[0], -7, 7) # for calibrated YC
+  3  def   GR_TRUE = GR_YC_G && GR_PHC_G
+  3. com   AI Gates
+  4  def   GR_AI_G = GR_AI_G17
+  4  def   GR_AI_G0 = gate(GR_AI[0]*r2d, -0.2, 0.2)
+  4  def   GR_AI_G1 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G2 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G3 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G4 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G5 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G7 = gate(GR_AI[0]*r2d, -0.5, 0.0)
+  4  def   GR_AI_G8 = gate(GR_AI[0]*r2d,  0.0, 0.5)
+  4  def   GR_AI_G9 = gate(GR_AI[0]*r2d, -1.0,-0.5)
+  4  def   GR_AI_G10 = gate(GR_AI[0]*r2d,  0.5, 1.0)
+  4  def   GR_AI_G11 = gate(GR_AI[0]*r2d, -0.5, 0.0)
+  4  def   GR_AI_G12 = gate(GR_AI[0]*r2d,  0.0, 0.5)
+  4  def   GR_AI_G13 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G14 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G15 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G16 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G17 = gate(GR_AI[0]*r2d, -1.0, 1.0)
+  4  def   GR_AI_G20 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G21 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G22 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  4  def   GR_AI_G23 = gate(GR_AI[0]*r2d, -0.5, 0.5)
+  3. com   BI Gates
+  4  def   GR_BI_G = GR_BI_G17
+  4  def   GR_BI_G0 = gate(GR_BI[0]*r2d, -0.5, 0.5)
+  4  def   GR_BI_G1 = gate(GR_BI[0]*r2d, -2.5, -1.5)
+  4  def   GR_BI_G2 = gate(GR_BI[0]*r2d, -1.5, -0.5)
+  4  def   GR_BI_G3 = gate(GR_BI[0]*r2d, -0.5,  0.5)
+  4  def   GR_BI_G4 = gate(GR_BI[0]*r2d,  0.5,  1.5)
+  4  def   GR_BI_G5 = gate(GR_BI[0]*r2d,  1.5,  2.5)
+  4  def   GR_BI_G7 = gate(GR_BI[0]*r2d,  -2.0,  2.0)
+  4  def   GR_BI_G8 = gate(GR_BI[0]*r2d,  -2.0,  2.0)
+  4  def   GR_BI_G9 = gate(GR_BI[0]*r2d,  -1.0,  1.0)
+  4  def   GR_BI_G10 = gate(GR_BI[0]*r2d,  -1.0,  1.0)
+  4  def   GR_BI_G12 = TRUE
+  4  def   GR_BI_G13 = gate(GR_BI[0]*r2d,  -0.5,  0.5)
+  4  def   GR_BI_G14 = gate(GR_BI[0]*r2d,  -2.0,  2.0)
+  4  def   GR_BI_G15 = gate(GR_BI[0]*r2d,  -1.0,  1.0)
+  4  def   GR_BI_G16 = gate(GR_BI[0]*r2d,  -2.5,  2.5)
+  4  def   GR_BI_G17 = gate(GR_BI[0]*r2d,  -2.5,  2.5)
+  4  def   GR_BI_G20 = gate(abs(GR_BI[0]*r2d),  0.0,  0.8)
+  4  def   GR_BI_G21 = gate(abs(GR_BI[0]*r2d),  0.8,  1.6)
+  4  def   GR_BI_G22 = gate(abs(GR_BI[0]*r2d),  1.6,  2.4)
+  4  def   GR_BI_G23 = gate(abs(GR_BI[0]*r2d),  0.0,  2.5)
+  2. com   LaBr3 (QTC)
+  3  com   Timing Gate (Prompt)
+  4  def   LaBr3_T_G[1] = gate(LaBr3_T[1], LaBr3_T_START, LaBr3_T_END)
+  4  def   LaBr3_T_G[2] = gate(LaBr3_T[2], LaBr3_T_START, LaBr3_T_END)
+  4  def   LaBr3_T_G[3] = gate(LaBr3_T[3], LaBr3_T_START, LaBr3_T_END)
+  4  def   LaBr3_T_G[4] = gate(LaBr3_T[4], LaBr3_T_START, LaBr3_T_END)
+  3  com   Timing Gate (Random)
+  4  def   LaBr3_T_B[1] = gate(LaBr3_T[1]+LaBr3_T_BUNCH, LaBr3_T_START, LaBr3_T_END)
+  4  def   LaBr3_T_B[2] = gate(LaBr3_T[2]+LaBr3_T_BUNCH, LaBr3_T_START, LaBr3_T_END)
+  4  def   LaBr3_T_B[3] = gate(LaBr3_T[3]+LaBr3_T_BUNCH, LaBr3_T_START, LaBr3_T_END)
+  4  def   LaBr3_T_B[4] = gate(LaBr3_T[4]+LaBr3_T_BUNCH, LaBr3_T_START, LaBr3_T_END)
+  3  com   Energy Differene
+  4  def   LaBr3_EDIFF_MIN = -1.0 # MeV
+  4  def   LaBr3_EDIFF_MAX = 1.0 # MeV
+  4  def   LaBr3_EDIFF_G = gate(LaBr3_E_G - GR_EX, LaBr3_EDIFF_MIN, LaBr3_EDIFF_MAX)
+  4  def   LaBr3_EDIFF_B = gate(LaBr3_E_B - GR_EX, LaBr3_EDIFF_MIN, LaBr3_EDIFF_MAX)
+  2. com   Event Selection
+  3  def   EVENT_TRUE = TRUE
  -1  com   Definition of Histograms
+  2. com   Analysis
+  3  hist1 BLK; "Block Number"; BLOCK_N[0]; 0; 200000; 20000; "Block Number"; "Number of Events/10Block"; 
+  3  hist2 BLKT; "Block Number vs Time (Hour)"; TIME[0]; int(TIME[0]); int(TIME[0])+4; 240; "Time (Hour)"; BLOCK_N[0] % 10000; 0; 10000; 200; "Block Number (mod 10000)"; 
+  3  hist2 AR; "Analyzing Ratio vs Time (Hour)"; TIME[0]; int(TIME[0]); int(TIME[0])+4; 120; "Time (Hour)"; BLOCK_ANA[0]/BLOCK_N[0]*100; 0; 110; 110; "Analyzing Ratio (%) per Child Process"; 
+  3  hist2 PNBLK; "Process Number vs Block Number"; BLOCK_N[0]; 0; 65536; 128; "Block Number (mod 10000)"; PROC_NUM[0]; -3; 13; 16; "Child Process Number"; 
+  3  hist1 GMYRIAD; "GR MYRIAD"; (GR_MYRIAD[0]/100000000)%10000; 0; 10000; 10000; "GR MYRIAD"; "Counts/ch"; 
+  2. com   Input Register
+  3  hist1 IPRBIT; "Input Register Bit"; IPRBIT; 0; 32; 32; "Input Register Bits [bit]"; "Counts/ch"; 
+  3  hist1 RUN; "Run Number"; RUN_N[0]; 8000; 8200; 200; "Run Number"; "Number of Events"; 
+ -3  hist1 SPIN; "SPIN Mode"; SPIN; 0; 10; 10; ""; ""; !EVENT_BEND
+ -3  hist1 BLP; "BLP Mode"; BLP; 0; 10; 10; ""; ""; !EVENT_BEND
+  3  hist1 EVENT; "EVENT Mode"; EVENT; 0; 32; 32; "Event Mode"; "Number of Events"; !EVENT_BEND
+ -3  hist1 SND; "Second Level Trigger Mode"; SLEVEL; 0; 10; 10; "Second Level Trigger Mode"; "Counts/ch"; !EVENT_BEND
+ -3  hist1 CURINT; "Current Integrator Range"; IPR[1]&0x000F; -2; 18; 20; "C.I. Range"; "Counts/ch"; 
   2  com   GR
-  3  com   GR ADC
-  5  hist1 GADC1L; "GR ADC 1L"; GR_ADC[1]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN
-  5  hist1 GADC1R; "GR ADC 1R"; GR_ADC[2]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN
-  5  hist1 GADC2L; "GR ADC 2L"; GR_ADC[3]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN
-  5  hist1 GADC2R; "GR ADC 2R"; GR_ADC[4]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN
-  4  com   GR DE
-  5  hist1 GDE1; "GR DE 1"; GR_MADC[1]; 0; 1500; 500; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN
-  5  hist1 GDE2; "GR DE 2"; GR_MADC[2]; 0; 1500; 500; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN
-  5  hist2 GDE12; "GR DE 2 vs DE 1"; GR_MADC[1]; 0; 600; 60; "DE 1 [ch]"; GR_MADC[2]; 0; 600; 60; "DE 3 [ch]"; EVENT_GR_COIN
-  3  com   GR TDC
-  4  com   GR TDC
-  5  hist1 GTDC1L; "GR TDC 1L"; GR_TDC[1]; 0; 2048; 512; ""; ""; 
-  5  hist1 GTDC1R; "GR TDC 1R"; GR_TDC[2]; 0; 2048; 512; ""; ""; 
-  5  hist1 GTDC2L; "GR TDC 2L"; GR_TDC[3]; 0; 2048; 512; ""; ""; 
-  5  hist1 GTDC2R; "GR TDC 2R"; GR_TDC[4]; 0; 2048; 512; ""; "";
-  4  com   GR RF
-  5  hist1 GRF; "GR RF"; GR_RF[0]; 1; 2048; 512; ""; ""; EVENT_GR_COIN
-  4  com   GR TPOS 
-  5  hist2 GTPOS1ADC1L; "GR adc1l vs TPOS 1"; GR_TPOS[1]; -200; 200; 100; "GR TPOS 1"; GR_ADC[1]; 0; 500; 100; "ADC 1l [ch]"; 
-  5  hist2 GTPOS1ADC1R; "GR adc1r vs TPOS 1"; GR_TPOS[1]; -200; 200; 100; "GR TPOS 1"; GR_ADC[2]; 0; 500; 100; "ADC 1r [ch]"; 
-  5  hist2 GTPOS1ADC2L; "GR adc2l vs TPOS 1"; GR_TPOS[1]; -200; 200; 100; "GR TPOS 1"; GR_ADC[3]; 0; 500; 100; "ADC 2l [ch]"; 
-  5  hist2 GTPOS1ADC2R; "GR adc2r vs TPOS 1"; GR_TPOS[1]; -200; 200; 100; "GR TPOS 1"; GR_ADC[4]; 0; 500; 100; "ADC 2R[ch]"; 
-  5  hist2 GTPOS1DE1; "GR DE1 vs TPOS 1"; GR_TPOS[1]; -200; 200; 100; "GR TPOS 1"; GR_MADC[1]; 0; 2000; 100; "DE 1 [ch]"; 
-  5  hist2 GTPOS2DE2; "GR DE2 vs TPOS 2"; GR_TPOS[2]; -200; 200; 100; "GR TPOS 2"; GR_MADC[2]; 0; 2000; 100; "DE 2 [ch]"; 
-  5  hist1 GTPOS1_PI; "GR TDC POS 1 PIGated"; GR_TPOS[1]; -200; 200; 400; ""; ""; GR_PI && GR_RFGate
-  5  hist1 GTPOS1; "GR TDC POS 1"; GR_TPOS[1]; -200; 200; 400; ""; ""; 
-  5  hist1 GTPOS2; "GR TDC POS 2"; GR_TPOS[2]; -200; 200; 400; ""; ""; 
-  4  com   GR PI
-  5  hist2 GDE1RF; "GR DE 1 vs GR RF"; GR_RF[0]; 200; 1400; 100; "RF [ch]"; GR_MADC[1]; 0; 500; 50; "DE 1 [ch]"; EVENT_GR_COIN
-  5  hist2 GDE2RF; "GR DE 2 vs GR RF"; GR_RF[0]; 200; 1400; 100; "RF [ch]"; GR_MADC[2]; 0; 500; 50; "DE 2 [ch]"; EVENT_GR_COIN
-  3  com   GR VDC
-  4  hist1 GWIREMX1; "GR WIRE X1 (Multi Hit)"; GR_WIRE_X1; 0; 192; 192; ""; "";
-  4  hist1 GWIREMU1; "GR WIRE U1 (Multi Hit)"; GR_WIRE_U1; 0; 192; 192; ""; ""; 
-  4  hist1 GWIREMX2; "GR WIRE X2 (Multi Hit)"; GR_WIRE_X2; 0; 192; 192; ""; ""; 
-  4  hist1 GWIREMU2; "GR WIRE U2 (Multi Hit)"; GR_WIRE_U2; 0; 192; 192; ""; ""; 
-  4  hist1 GWIREX1; "GR WIRER X1"; GR_WIRER_X1; 0; 192; 192; ""; ""; 
-  4  hist1 GWIREU1; "GR WIRER U1"; GR_WIRER_U1; 0; 206; 206; ""; ""; 
-  4  hist1 GWIREX2; "GR WIRER X2"; GR_WIRER_X2; 0; 192; 192; ""; ""; 
-  4  hist1 GWIREU2; "GR WIRER U2"; GR_WIRER_U2; 0; 206; 206; ""; ""; 
-  4  hist1 GTDCX1; "GR TDC X1"; GR_TDCR_X1; 0; 500; 500; ""; "";
-  4  hist1 GTDCU1; "GR TDC U1"; GR_TDCR_U1; 0; 500; 500; ""; "";
-  4  hist1 GTDCX2; "GR TDC X2"; GR_TDCR_X2; 0; 500; 500; ""; "";
-  4  hist1 GTDCU2; "GR TDC U2"; GR_TDCR_U2; 0; 500; 500; ""; "";
-  4  hist1 RAYID; "All tracks"; GR_RAYID; 0; 100; 100; ""; "";
-  4  hist1 GPOSX1; "GR POS X1"; GR_POS_X1; 0; 192; 192; ""; ""; 
-  4  hist1 GPOSU1; "GR POS U1"; GR_POS_U1; 0; 208; 208*10; ""; ""; 
-  4  hist1 GPOSX2; "GR POS X2"; GR_POS_X2; 0; 192; 192*10; ""; ""; 
-  4  hist1 GPOSU2; "GR POS U2"; GR_POS_U2; 0; 208; 208*10; ""; ""; 
-  4  hist1 GDLX1; "GR Drift Length X1"; GR_DRIFT_X1; -0.5; 1.5; 200; ""; ""; 
-  4  hist1 GDLU1; "GR Drift Length U1"; GR_DRIFT_U1; -0.5; 1.5; 200; ""; ""; 
-  4  hist1 GDLX2; "GR Drift Length X2"; GR_DRIFT_X2; -0.5; 1.5; 200; ""; ""; 
-  4  hist1 GDLU2; "GR Drift Length U2"; GR_DRIFT_U2; -0.5; 1.5; 200; ""; ""; 
-  3. com   GR QTC
-  4  hist1 QTCLeading0; "QTC2Leading-0"; QTC_LEADING[0]; -40000; 40000; 8000; "ch"; ""; 
-  4  hist1 QTCLeading1; "QTC2Leading-1"; QTC_LEADING[1]; -40000; 40000; 8000; "ch"; "";
-  4  hist1 QTCLeading2; "QTC2Leading-2"; QTC_LEADING[2]; -40000; 40000; 8000; "ch"; "";
-  4  hist1 QTCLeading3; "QTC2Leading-3"; QTC_LEADING[3]; -40000; 40000; 8000; "ch"; ""; 
-  4  hist1 QTCLeading4; "QTC2Leading-4"; QTC_LEADING[4]; -40000; 40000; 8000; "ch"; ""; 
-  4  hist1 QTCLeading5; "QTC2Leading-5"; QTC_LEADING[5]; -40000; 40000; 8000; "ch"; "";  
-  4  hist1 QTCTrailing0; "QTC2Trailing-0"; QTC_TRAILING[0]; -40000; 40000; 8000; "ch"; ""; 
-  4  hist1 QTCTrailing1; "QTC2Trailing-1"; QTC_TRAILING[1]; -40000; 40000; 8000; "ch"; ""; 
-  4  hist1 QTCTrailing2; "QTC2Trailing-2"; QTC_TRAILING[2]; -40000; 40000; 8000; "ch"; ""; 
-  4  hist1 QTCTrailing3; "QTC2Trailing-3"; QTC_TRAILING[3]; -40000; 40000; 8000; "ch"; ""; 
-  4  hist1 QTCTrailing4; "QTC2Trailing-4"; QTC_TRAILING[4]; -40000; 40000; 8000; "ch"; ""; 
-  4  hist1 QTCTrailing5; "QTC2Trailing-5"; QTC_TRAILING[5]; -40000; 40000; 8000; "ch"; ""; 
-  4  hist1 QTC2W0; "QTC2 Width 0"; (QTC_TRAILING[0]-QTC_LEADING[0]); -5000; 15000; 5000; "ch"; ""; 
-  4  hist1 QTC2W1; "QTC2 Width 1"; (QTC_TRAILING[1]-QTC_LEADING[1]); -5000; 15000; 5000; "ch"; "";
-  4  hist1 QTC2W2; "QTC2 Width 2"; (QTC_TRAILING[2]-QTC_LEADING[2]); -5000; 15000; 5000; "ch"; ""; 
-  4  hist1 QTC2W3; "QTC2 Width 3"; (QTC_TRAILING[3]-QTC_LEADING[3]); -5000; 15000; 5000; "ch"; ""; 
-  4  hist1 QTC2W4; "QTC2 Width 4"; (QTC_TRAILING[4]-QTC_LEADING[4]); -5000; 15000; 5000; "ch"; ""; 
-  4  hist1 QTC2W5; "QTC2 Width 5"; (QTC_TRAILING[5]-QTC_LEADING[5]); -5000; 15000; 5000; "ch"; ""; 
-  3  com   GR RAY
-  4  hist1 GMYRIAD; "GR MYRIAD"; GR_MYRIAD[0]/100000000; 0; 3600; 3600; "GR MYRIAD"; "Counts/ch"; 
-  4  hist1 GX; "GR X"; GR_X[0]; -600; 600; 3000; ""; ""; EVENT_GR_COIN
-  4  hist1 GXcorr; "GR X corr"; GR_Xcorr; 3000; 10000; 700; ""; ""; EVENT_GR_COIN
- -4  hist1 GTHC; "GR THC"; GR_THC[0]*r2d; -20; 20; 400; ""; ""; EVENT_GR_COIN
- -4  hist2 GXCTHC; "GR THC vs XC"; GR_XC[0]; -600; 600; 300; ""; GR_THC[0]*r2d; -4; 4; 60; ""; EVENT_GR_COIN
-  4  hist1 GTH; "GR TH"; GR_TH[0]*r2d; -20; 20; 400; ""; ""; EVENT_GR_COIN
-  4  hist1 GPH; "GR PH"; GR_PH[0]*r2d; -5; 5; 400; ""; ""; EVENT_GR_COIN
- -4  hist2 GXY; "GR Y vs X"; GR_X[0]; -600; 400; 300; "GR X [mm]"; GR_Y[0]; -100; 100; 100; "GR Y [mm]"; EVENT_GR_COIN
-  4  hist2 GXTH; "GR TH vs X"; GR_Xcorr; 3000; 10000; 700; ""; GR_TH; -0.1; 0.1; 100; ""; EVENT_GR_COIN
- -2  com   LAS
- -3  com   LAS ADC
-  5  hist1 LADC1L; "LAS ADC 1L"; LAS_ADC[1]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN
-  5  hist1 LADC1R; "LAS ADC 1R"; LAS_ADC[2]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN
-  5  hist1 LADC2L; "LAS ADC 2L"; LAS_ADC[3]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN
-  5  hist1 LADC2R; "LAS ADC 2R"; LAS_ADC[4]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN
-  5  hist1 LADC3L; "LAS ADC 3L"; LAS_ADC[5]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN
-  5  hist1 LADC3R; "LAS ADC 3R"; LAS_ADC[6]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN
-  5  hist1 LADC4L; "LAS ADC 4L"; LAS_ADC[7]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN&&LAS_TDC[7]
-  5  hist1 LADC4R; "LAS ADC 4R"; LAS_ADC[8]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN&&LAS_TDC[8]
-  5  hist1 LADC5L; "LAS ADC 5L"; LAS_ADC[9]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN&&LAS_TDC[9]
-  5  hist1 LADC5R; "LAS ADC 5R"; LAS_ADC[10]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN&&LAS_TDC[10]
-  5  hist1 LADC6L; "LAS ADC 6L"; LAS_ADC[11]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN&&LAS_TDC[11]
-  5  hist1 LADC6R; "LAS ADC 6R"; LAS_ADC[12]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN&&LAS_TDC[12]
- -4. com   LAS DE
- -5  hist1 LDE1; "LAS MEAN ADC 1"; LAS_MADC[1]; 1; 1500; 500; ""; ""; EVENT_LAS_COIN&&LAS_TPOS[1]
- -5  hist1 LDE2; "LAS MEAN ADC 2"; LAS_MADC[2]; 1; 1500; 500; ""; ""; EVENT_LAS_COIN&&LAS_TPOS[2]
- -5  hist1 LDE3; "LAS MEAN ADC 3"; LAS_MADC[3]; 1; 1500; 500; ""; ""; EVENT_LAS_COIN&&LAS_TPOS[3]
- -5  hist1 LDE4; "LAS MEAN ADC 4"; LAS_MADC[4]; 1; 1500; 500; ""; ""; EVENT_LAS_COIN&&LAS_TPOS[4]
- -5  hist1 LDE5; "LAS MEAN ADC 5"; LAS_MADC[5]; 1; 1500; 500; ""; ""; EVENT_LAS_COIN&&LAS_TPOS[5]
- -5  hist1 LDE6; "LAS MEAN ADC 6"; LAS_MADC[6]; 1; 1500; 500; ""; ""; EVENT_LAS_COIN&&LAS_TPOS[6]
- -4  com   LAS ADC Correlation
- -5  hist2 LADC1LR; "LAS ADC 1R vs 1L"; LAS_ADC[1]; 0; 500; 50; "LAS ADC 1L [ch]"; LAS_ADC[2]; 0; 500; 50; "LAS ADC 1R [ch]"; EVENT_LAS_COIN&&LAS_TDC[1]&&LAS_TDC[2]
- -5  hist2 LADC2LR; "LAS ADC 2R vs 2L"; LAS_ADC[3]; 0; 500; 50; "LAS ADC 2L [ch]"; LAS_ADC[4]; 0; 500; 50; "LAS ADC 2R [ch]"; EVENT_LAS_COIN&&LAS_TDC[3]&&LAS_TDC[4]
-  5  hist2 LADC3LR; "LAS ADC 3R vs 3L"; LAS_ADC[5]; 0; 500; 50; "LAS ADC 3L [ch]"; LAS_ADC[6]; 0; 500; 50; "LAS ADC 3R [ch]"; EVENT_LAS_COIN&&LAS_TDC[5]&&LAS_TDC[6]
- -5  hist2 LADC4LR; "LAS ADC 4R vs 4L"; LAS_ADC[7]; 0; 500; 50; "LAS ADC 4L [ch]"; LAS_ADC[8]; 0; 500; 50; "LAS ADC 4R [ch]"; EVENT_LAS_COIN&&LAS_TDC[7]&&LAS_TDC[8]
-  5  hist2 LADC5LR; "LAS ADC 5R vs 5L"; LAS_ADC[9]; 0; 500; 50; "LAS ADC 5L [ch]"; LAS_ADC[10]; 0; 500; 50; "LAS ADC 5R [ch]"; EVENT_LAS_COIN&&LAS_TDC[9]&&LAS_TDC[10]
- -5  hist2 LADC6LR; "LAS ADC 6R vs 6L"; LAS_ADC[11]; 0; 500; 50; "LAS ADC 6L [ch]"; LAS_ADC[12]; 0; 500; 50; "LAS ADC 6R [ch]"; EVENT_LAS_COIN&&LAS_TDC[11]&&LAS_TDC[12]
- -4. com   LAS DE Correlation
- -5  hist2 LDE14; "LAS MEAN ADC 4 vs 1"; LAS_MADC[1]; 1; 1500; 50; "LAS Mean ADC 1"; LAS_MADC[4]; 1; 1500; 50; "LAS Mean ADC 4"; EVENT_LAS_COIN&&LAS_TPOS[1]&&LAS_TPOS[4]
-  5  hist2 LDE35; "LAS MEAN ADC 5 vs 3"; LAS_MADC[3]; 1; 1500; 50; "LAS Mean ADC 3"; LAS_MADC[5]; 1; 1500; 50; "LAS Mean ADC 5"; EVENT_LAS_COIN&&LAS_TPOS[2]&&LAS_TPOS[5]
- -5  hist2 LDE25; "LAS MEAN ADC 5 vs 2"; LAS_MADC[2]; 1; 1500; 50; "LAS Mean ADC 2"; LAS_MADC[5]; 1; 1500; 50; "LAS Mean ADC 5"; EVENT_LAS_COIN&&LAS_TPOS[2]&&LAS_TPOS[5]
- -5  hist2 LDE36; "LAS MEAN ADC 6 vs 3"; LAS_MADC[3]; 1; 1500; 50; "LAS Mean ADC 3"; LAS_MADC[6]; 1; 1500; 50; "LAS Mean ADC 6"; EVENT_LAS_COIN&&LAS_TPOS[3]&&LAS_TPOS[6]
- -3. com   LAS TDC
- -4  hist1 LTDC1L; "LAS TDC 1L"; LAS_TDC[1]; 1; 2048; 512; ""; ""; 
- -4  hist1 LTDC1R; "LAS TDC 1R"; LAS_TDC[2]; 1; 2048; 512; ""; ""; 
- -4  hist1 LTDC2L; "LAS TDC 2L"; LAS_TDC[3]; 1; 2048; 512; ""; ""; 
- -4  hist1 LTDC2R; "LAS TDC 2R"; LAS_TDC[4]; 1; 2048; 512; ""; ""; 
-  4  hist1 LTDC3L; "LAS TDC 3L"; LAS_TDC[5]; 1; 2048; 512; ""; ""; 
-  4  hist1 LTDC3R; "LAS TDC 3R"; LAS_TDC[6]; 1; 2048; 512; ""; ""; 
- -4  hist1 LTDC4L; "LAS TDC 4L"; LAS_TDC[7]; 1; 2048; 512; ""; ""; 
- -4  hist1 LTDC4R; "LAS TDC 4R"; LAS_TDC[8]; 1; 2048; 512; ""; ""; 
-  4  hist1 LTDC5L; "LAS TDC 5L"; LAS_TDC[9]; 1; 2048; 512; ""; ""; 
-  4  hist1 LTDC5R; "LAS TDC 5R"; LAS_TDC[10]; 1; 2048; 512; ""; ""; 
- -4  hist1 LTDC6L; "LAS TDC 6L"; LAS_TDC[11]; 1; 2048; 512; ""; ""; 
- -4  hist1 LTDC6R; "LAS TDC 6R"; LAS_TDC[12]; 1; 2048; 512; ""; ""; 
- -4  hist2 LTDC1LR; "LAS TDC 1L"; LAS_TDC[1]; 1; 2048; 64; "LAS TDC 1L"; LAS_TDC[2]; 1; 2048; 64; "LAS TDC 1R"; 
- -4  hist2 LTDC2LR; "LAS TDC 2L"; LAS_TDC[3]; 1; 2048; 64; "LAS TDC 2L"; LAS_TDC[4]; 1; 2048; 64; "LAS TDC 2R"; 
- -4  hist2 LTDC3LR; "LAS TDC 3L"; LAS_TDC[5]; 1; 2048; 64; "LAS TDC 3L"; LAS_TDC[6]; 1; 2048; 64; "LAS TDC 3R"; 
- -4  hist2 LTDC4LR; "LAS TDC 4L"; LAS_TDC[7]; 1; 2048; 64; "LAS TDC 4L"; LAS_TDC[8]; 1; 2048; 64; "LAS TDC 4R"; 
- -4  hist2 LTDC5LR; "LAS TDC 5L"; LAS_TDC[9]; 1; 2048; 64; "LAS TDC 5L"; LAS_TDC[10]; 1; 2048; 64; "LAS TDC 5R"; 
- -4  hist2 LTDC6LR; "LAS TDC 6L"; LAS_TDC[11]; 1; 2048; 64; "LAS TDC 6L"; LAS_TDC[12]; 1; 2048; 64; "LAS TDC 6R"; 
- -4  hist1 LTPOS1; "LAS TDC POS 1"; LAS_TPOS[1]; -600; 200; 400; ""; ""; 
- -4  hist1 LTPOS2; "LAS TDC POS 2"; LAS_TPOS[2]; -200; 400; 300; ""; ""; 
- -4  hist1 LTPOS3; "LAS TDC POS 3"; LAS_TPOS[3]; -600; 200; 400; ""; ""; 
- -4  hist1 LTPOS4; "LAS TDC POS 4"; LAS_TPOS[4]; -600; 200; 400; ""; ""; 
- -4  hist1 LTPOS5; "LAS TDC POS 5"; LAS_TPOS[5]; -600; 200; 400; ""; ""; 
- -4  hist1 LTPOS6; "LAS TDC POS 6"; LAS_TPOS[6]; -600; 200; 400; ""; ""; 
- -4  hist1 LRF1; "LAS RF 1"; LAS_RF[1]; 1; 2048; 512; ""; ""; EVENT_GR_COIN
-  4  hist1 LRF1; "LAS RF 1"; LAS_RF[1]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN
-  4  hist1 LRF2; "LAS RF 2"; LAS_RF[2]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN
-  4  hist1 LRF3; "LAS RF 3"; LAS_RF[3]; 1; 2048; 512; ""; ""; EVENT_LAS_COIN
- -3. com   LAS VDC
- -4  hist1 LWIREX1; "LAS WIRE X1"; LAS_WIRE_X1; 0; 272; 272; ""; ""; 
-  4  hist1 LWIREU1; "LAS WIRE U1"; LAS_WIRE_U1; 0; 256; 256; ""; ""; 
-  4  hist1 LWIREV1; "LAS WIRE V1"; LAS_WIRE_V1; 0; 256; 256; ""; ""; 
- -4  hist1 LWIREX2; "LAS WIRE X2"; LAS_WIRE_X2; 0; 272; 272; ""; ""; 
-  4  hist1 LWIREU2; "LAS WIRE U2"; LAS_WIRE_U2; 0; 256; 256; ""; ""; 
-  4  hist1 LWIREV2; "LAS WIRE V2"; LAS_WIRE_V2; 0; 256; 256; ""; ""; 
- -4  hist1 LWIREX1; "LAS WIRE X1"; LAS_WIRER_X1; 0; 272; 272; ""; ""; 
- -4  hist1 LWIREU1; "LAS WIRE U1"; LAS_WIRER_U1; 0; 256; 256; ""; ""; 
- -4  hist1 LWIREV1; "LAS WIRE V1"; LAS_WIRER_V1; 0; 256; 256; ""; ""; 
- -4  hist1 LWIREX2; "LAS WIRE X2"; LAS_WIRER_X2; 0; 272; 272; ""; ""; 
- -4  hist1 LWIREU2; "LAS WIRE U2"; LAS_WIRER_U2; 0; 256; 256; ""; ""; 
- -4  hist1 LWIREV2; "LAS WIRE V2"; LAS_WIRER_V2; 0; 256; 256; ""; ""; 
- -4  hist1 LTDCX1; "LAS TDC X1"; LAS_TDCR_X1; 0; 1024; 1024; ""; ""; 
- -4  hist1 LTDCU1; "LAS TDC U1"; LAS_TDCR_U1; 0; 1024; 1024; ""; ""; 
- -4  hist1 LTDCV1; "LAS TDC V1"; LAS_TDCR_V1; 0; 1024; 1024; ""; ""; 
- -4  hist1 LTDCX2; "LAS TDC X2"; LAS_TDCR_X2; 0; 1024; 1024; ""; ""; 
- -4  hist1 LTDCU2; "LAS TDC U2"; LAS_TDCR_U2; 0; 1024; 1024; ""; ""; 
- -4  hist1 LTDCV2; "LAS TDC V2"; LAS_TDCR_V2; 0; 1024; 1024; ""; ""; 
- -4  hist1 LDLX1; "LAS Drift Length X1"; LAS_DRIFT_X1; -0.5; 1.5; 200; ""; ""; 
- -4  hist1 LDLU1; "LAS Drift Length U1"; LAS_DRIFT_U1; -0.5; 1.5; 200; ""; ""; 
- -4  hist1 LDLV1; "LAS Drift Length V1"; LAS_DRIFT_V1; -0.5; 1.5; 200; ""; ""; 
- -4  hist1 LDLX2; "LAS Drift Length X2"; LAS_DRIFT_X2; -0.5; 1.5; 200; ""; ""; 
- -4  hist1 LDLU2; "LAS Drift Length U2"; LAS_DRIFT_U2; -0.5; 1.5; 200; ""; ""; 
- -4  hist1 LDLV2; "LAS Drift Length V2"; LAS_DRIFT_V2; -0.5; 1.5; 200; ""; ""; 
- -4  hist1 LNHITX1; "LAS NHIT X1"; LAS_NHIT_X1; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNHITU1; "LAS NHIT U1"; LAS_NHIT_U1; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNHITV1; "LAS NHIT V1"; LAS_NHIT_V1; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNHITX2; "LAS NHIT X2"; LAS_NHIT_X2; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNHITU2; "LAS NHIT U2"; LAS_NHIT_U2; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNHITV2; "LAS NHIT V2"; LAS_NHIT_V2; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNCLUSTX1; "LAS NCLUST X1"; LAS_NCLUST_X1; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNCLUSTU1; "LAS NCLUST U1"; LAS_NCLUST_U1; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNCLUSTV1; "LAS NCLUST V1"; LAS_NCLUST_V1; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNCLUSTX2; "LAS NCLUST X2"; LAS_NCLUST_X2; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNCLUSTU2; "LAS NCLUST U2"; LAS_NCLUST_U2; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LNCLUSTV2; "LAS NCLUST V2"; LAS_NCLUST_V2; 0; 32; 32; ""; ""; EVENT_LAS_COIN
- -4  hist1 LCSX1; "LAS CLUST SIZE X1"; LAS_CLUSTSZ_X1; 0; 32; 32; ""; ""; 
- -4  hist1 LCSU1; "LAS CLUST SIZE U1"; LAS_CLUSTSZ_U1; 0; 32; 32; ""; ""; 
- -4  hist1 LCSV1; "LAS CLUST SIZE V1"; LAS_CLUSTSZ_V1; 0; 32; 32; ""; ""; 
- -4  hist1 LCSX2; "LAS CLUST SIZE X2"; LAS_CLUSTSZ_X2; 0; 32; 32; ""; ""; 
- -4  hist1 LCSU2; "LAS CLUST SIZE U2"; LAS_CLUSTSZ_U2; 0; 32; 32; ""; ""; 
- -4  hist1 LCSV2; "LAS CLUST SIZE V2"; LAS_CLUSTSZ_V2; 0; 32; 32; ""; ""; 
- -4  hist1 LPOSX1; "LAS POS X1"; LAS_POS_X1; 0; 272; 272; ""; ""; 
- -4  hist1 LPOSU1; "LAS POS U1"; LAS_POS_U1; 0; 256; 256; ""; ""; 
- -4  hist1 LPOSV1; "LAS POS V1"; LAS_POS_V1; 0; 256; 256; ""; ""; 
- -4  hist1 LPOSX2; "LAS POS X2"; LAS_POS_X2; 0; 272; 272; ""; ""; 
- -4  hist1 LPOSU2; "LAS POS U2"; LAS_POS_U2; 0; 256; 256; ""; ""; 
- -4  hist1 LPOSV2; "LAS POS V2"; LAS_POS_V2; 0; 256; 256; ""; ""; 
- -4  hist1 LPOSIDX1; "LAS POSID X1"; LAS_POSID_X1; -10; 40; 50; ""; ""; EVENT_LAS_COIN
- -4  hist1 LPOSIDU1; "LAS POSID U1"; LAS_POSID_U1; -10; 40; 50; ""; ""; EVENT_LAS_COIN
- -4  hist1 LPOSIDV1; "LAS POSID V1"; LAS_POSID_V1; -10; 40; 50; ""; ""; EVENT_LAS_COIN
- -4  hist1 LPOSIDX2; "LAS POSID X2"; LAS_POSID_X2; -10; 40; 50; ""; ""; EVENT_LAS_COIN
- -4  hist1 LPOSIDU2; "LAS POSID U2"; LAS_POSID_U2; -10; 40; 50; ""; ""; EVENT_LAS_COIN
- -4  hist1 LPOSIDV2; "LAS POSID V2"; LAS_POSID_V2; -10; 40; 50; ""; ""; EVENT_LAS_COIN
- -3  com   LAS Ray
- -4  hist1 LRAYID; "LAS RAYID"; LAS_RAYID; -20; 40; 60; "LAS Ray ID"; "Counts"; EVENT_LAS_COIN && LAS_RF_G
- -4  hist1 LCHI2; "LAS Chi Square"; LAS_CHI2[0]; -3; 50; 530; "LAS Chi Square"; "Counts/0.01"; EVENT_LAS_COIN
- -4  hist1 LX; "LAS X"; LAS_X[0]; -600; 600; 300; "LAS X [mm]"; "Counts/mm"; EVENT_LAS_COIN
-  4  hist1 LY; "LAS Y"; LAS_Y[0]; -200; 200; 200; "LAS Y [mm]"; "Counts/2mm"; EVENT_LAS_COIN
- -4  hist1 LTH; "LAS TH"; LAS_TH[0]*r2d; -30; 30; 600; "LAS Theta [deg]"; "Counts/0.1deg"; EVENT_LAS_COIN
- -4  hist1 LPH; "LAS PH"; LAS_PH[0]*r2d; -20; 20; 400; "LAS Phi"; "Counts/0.1deg"; EVENT_LAS_COIN
- -4  hist2 LXTH; "LAS TH vs X"; LAS_X[0]; -1000; 1000; 100; "LAS X [mm]"; LAS_TH[0]*r2d; -20; 20; 100; "LAS Theta [deg]"; EVENT_LAS_COIN
-  4  hist2 LXY; "LAS Y vs X"; LAS_X[0]; -1000; 1000; 100; "LAS X [mm]"; LAS_Y[0]; -100; 100; 100; "LAS Y [mm]"; EVENT_LAS_COIN
- -4  hist2 LYPH; "LAS Phi vs Y"; LAS_Y[0]; -200; 200; 100; "LAS Y [mm]"; LAS_PH[0]*r2d; -20; 20; 100; "LAS Phi [deg]"; EVENT_LAS_COIN
- -4  hist2 LTHPH; "LAS Phi vs Theta"; LAS_TH[0]*r2d; -20; 20; 100; "LAS Theta [deg]"; LAS_PH[0]*r2d; -20; 20; 100; "LAS Phi [deg]"; EVENT_LAS_COIN
- -4  hist2 LXRF1; "LAS LAS RF1 X"; LAS_X[0]; -600; 600; 60; "LAS X [mm]"; LAS_RF[1]; 0; 2048; 128; "LAS RF1 [ch]"; EVENT_LAS_COIN
- -3. com   LAS Optics
-  4  hist1 LDP; "LAS dp/p"; LAS_DP[0]; -0.2; 0.2; 1000; "LAS dp/p"; "Counts/4x10^-4"; EVENT_LAS_COIN
-  4  hist1 LAI; "LAS AI"; LAS_AI[0]*r2d; -3; 3; 600; "LAS AI [deg]"; "Counts/0.01deg"; EVENT_LAS_COIN
-  4  hist2 LDPAI; "LAS AI vs dp/p"; LAS_DP[0]; -0.25; 0.25; 100; "LAS dp/p"; LAS_AI[0]*r2d; -5; 5; 100; "LAS AI [deg]"; EVENT_LAS_COIN
-  4  hist1 LP; "LAS p"; LAS_P[0]; 0.3*LAS_B*LAS_Rho*LAS_q*0.80; 0.3*LAS_B*LAS_Rho*LAS_q*1.20; 1200; "LAS Momentum [MeV/c]"; "Counts/ch"; EVENT_LAS_COIN
-  4  hist1 LTH3; "LAS TH3"; LAS_TH3[0]*r2d; LAS_TH3_MIN; LAS_TH3_MAX; 200; "LAS Scattering Angle [deg]"; "Counts/0.01deg"; EVENT_LAS_COIN
+  3. com   GR ADC
+  4. com   GR ADC
+  5  hist1 GADC1L; "GR ADC 1L"; GR_ADC[1]; 0; 2048; 512; "ADC 1L [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GADC1R; "GR ADC 1R"; GR_ADC[2]; 0; 2048; 512; "ADC 1R [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GADC2L; "GR ADC 2L"; GR_ADC[3]; 0; 2048; 512; "ADC 2L [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GADC2R; "GR ADC 2R"; GR_ADC[4]; 0; 2048; 512; "ADC 2R [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GADC3L; "GR ADC 3L"; GR_ADC[5]; 0; 2048; 512; "ADC 3L [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GADC3R; "GR ADC 3R"; GR_ADC[6]; 0; 2048; 512; "ADC 3R [ch]"; "Counts/ch"; EVENT_GR_COIN
+ -4. com   GR ADC VDC-Gated
+  5  hist1 GADC1LG; "GR ADC 1L VDC-Gated"; GR_ADC[1]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_RAYID[0]==0
+  5  hist1 GADC1RG; "GR ADC 1R VDC-Gated"; GR_ADC[2]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_RAYID[0]==0
+  5  hist1 GADC2LG; "GR ADC 2L VDC-Gated"; GR_ADC[3]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_RAYID[0]==0
+  5  hist1 GADC2RG; "GR ADC 2R VDC-Gated"; GR_ADC[4]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_RAYID[0]==0
+  5  hist1 GADC3LG; "GR ADC 3L VDC-Gated"; GR_ADC[5]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_RAYID[0]==0
+  5  hist1 GADC3RG; "GR ADC 3R VDC-Gated"; GR_ADC[6]; 0; 2048; 512; "ADC [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_RAYID[0]==0
+ -4. com   GR ADC Correlation
+  5  hist2 GADC1LR; "GR ADC 1R vs 1L"; GR_ADC[1]; 0; 2048; 64; "1L ADC [ch]"; GR_ADC[2]; 0; 2048; 64; "1R ADC [ch]"; EVENT_GR_COIN
+  5  hist2 GADC2LR; "GR ADC 2R vs 2L"; GR_ADC[3]; 0; 2048; 64; "2L ADC [ch]"; GR_ADC[4]; 0; 2048; 64; "2R ADC [ch]"; EVENT_GR_COIN
+  5  hist2 GADC3LR; "GR ADC 3R vs 3L"; GR_ADC[5]; 0; 2048; 64; "3L ADC [ch]"; GR_ADC[6]; 0; 2048; 64; "3R ADC [ch]"; EVENT_GR_COIN
+  5  hist2 GADC1LRG; "GR ADC 1R vs 1L VDC-Gated"; GR_ADC[1]; 0; 2048; 64; "1L ADC [ch]"; GR_ADC[2]; 0; 2048; 64; "1R ADC [ch]"; EVENT_GR_COIN && GR_RAYID[0]==0
+  5  hist2 GADC2LRG; "GR ADC 2R vs 2L VDC-Gated"; GR_ADC[3]; 0; 2048; 64; "2L ADC [ch]"; GR_ADC[4]; 0; 2048; 64; "2R ADC [ch]"; EVENT_GR_COIN && GR_RAYID[0]==0
+  5  hist2 GADC3LRG; "GR ADC 3R vs 3L VDC-Gated"; GR_ADC[5]; 0; 2048; 64; "3L ADC [ch]"; GR_ADC[6]; 0; 2048; 64; "3R ADC [ch]"; EVENT_GR_COIN && GR_RAYID[0]==0
+  4. com   GR DE
+  5  hist1 GDE1; "GR DE 1"; GR_MADC[1]; 0; 1500; 500; "Mean ADC 1 LR [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GDE2; "GR DE 2"; GR_MADC[2]; 0; 1500; 500; "Mean ADC 2 LR [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GDE3; "GR DE 3"; GR_MADC[3]; 0; 1500; 500; "Mean ADC 3 LR [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist2 GDE12; "GR DE 2 vs DE 1"; GR_MADC[1]; 0; 1500; 50; "DE 1 [ch]"; GR_MADC[2]; 0; 1500; 50; "DE 2 [ch]"; EVENT_GR_COIN
+  5  hist2 GDE12T; "GR DE 2 vs DE 1"; GR_MADC[1]; 0; 1500; 50; "DE 1 [ch]"; GR_MADC[2]; 0; 1500; 50; "DE 2 [ch]"; EVENT_GR_COIN && GR_PI
+ -5  hist2 GDE13; "GR DE 3 vs DE 1"; GR_MADC[1]; 0; 1500; 50; "DE 1 [ch]"; GR_MADC[3]; 0; 1500; 50; "DE 3 [ch]"; EVENT_GR_COIN
+ -5  hist2 GDE23; "GR DE 3 vs DE 2"; GR_MADC[2]; 0; 1500; 50; "DE 2 [ch]"; GR_MADC[3]; 0; 1500; 50; "DE 3 [ch]"; EVENT_GR_COIN
+  4. com   GR DE VDC-Gated
+  5  hist1 GDE1G; "GR DE 1 VDC-Gated"; GR_MADC[1]; 0; 1500; 500; "DE1 [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_RAYID[0]==0
+  5  hist1 GDE2G; "GR DE 2 VDC-Gated"; GR_MADC[2]; 0; 1500; 500; "DE2 [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_RAYID[0]==0
+  5  hist1 GDE3G; "GR DE 3 VDC-Gated"; GR_MADC[3]; 0; 1500; 500; "DE3 [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_RAYID[0]==0
+  4. com   GR ADC vs X
+  5  hist2 GXDE1; "GR DE1 vs X"; GR_X[0]; -600; 600; 100; "GR X [mm]"; GR_MADC[1]; 0; 1000; 100; "DE1 [ch]"; EVENT_GR_COIN
+  5  hist2 GXDE2; "GR DE2 vs X"; GR_X[0]; -600; 600; 100; "GR X [mm]"; GR_MADC[2]; 0; 1000; 100; "DE2 [ch]"; EVENT_GR_COIN
+  5  hist2 GXDE3; "GR DE3 vs X"; GR_X[0]; -600; 600; 100; "GR X [mm]"; GR_MADC[3]; 0; 1000; 100; "DE3 [ch]"; EVENT_GR_COIN
+  5  hist2 GXADC1LG; "GR ADC 1L vs X"; GR_X[0]; -600; 600; 50; "GR X [mm]"; GR_ADC[1]; 0; 1500; 100; "GR ADC 1L [ch]"; EVENT_GR_COIN && GR_TDC[1] && GR_RAYID[0]==0
+  5  hist2 GXADC1RG; "GR ADC 1R vs X"; GR_X[0]; -600; 600; 50; "GR X [mm]"; GR_ADC[2]; 0; 1500; 100; "GR ADC 1R [ch]"; EVENT_GR_COIN && GR_TDC[2] && GR_RAYID[0]==0
+  5  hist2 GXADC2LG; "GR ADC 2L vs X"; GR_X[0]; -600; 600; 50; "GR X [mm]"; GR_ADC[3]; 0; 1500; 100; "GR ADC 2L [ch]"; EVENT_GR_COIN && GR_TDC[3] && GR_RAYID[0]==0
+  5  hist2 GXADC2RG; "GR ADC 2R vs X"; GR_X[0]; -600; 600; 50; "GR X [mm]"; GR_ADC[4]; 0; 1500; 100; "GR ADC 2R [ch]"; EVENT_GR_COIN && GR_TDC[4] && GR_RAYID[0]==0
+  3. com   GR TDC
+  4. com   GR TDC
+  5  hist1 GTDC1L; "GR TDC 1L"; GR_TDC[1]; 0; 2048; 512; "TDC 1L [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GTDC1R; "GR TDC 1R"; GR_TDC[2]; 0; 2048; 512; "TDC 1R [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GTDC2L; "GR TDC 2L"; GR_TDC[3]; 0; 2048; 512; "TDC 2L [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GTDC2R; "GR TDC 2R"; GR_TDC[4]; 0; 2048; 512; "TDC 2R [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GTDC3L; "GR TDC 3L"; GR_TDC[5]; 0; 2048; 512; "TDC 3L [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GTDC3R; "GR TDC 3R"; GR_TDC[6]; 0; 2048; 512; "TDC 3R [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4. com   GR TDC vs X
+  5  hist2 GXTPOS1; "GR TPOS 1 vs X3"; GR_XP[3]; -600; 600; 50; "GR XP[3] [mm]"; GR_TPOS[1]; -150; 150; 100; "TPOS 1"; EVENT_GR_COIN
+  5  hist2 GXTPOS2; "GR TPOS 2 vs X3"; GR_XP[3]; -600; 600; 50; "GR XP[3] [mm]"; GR_TPOS[2]; -150; 150; 100; "TPOS 2"; EVENT_GR_COIN
+  4. com   GR RF
+  5  hist1 GRF; "GR RF"; GR_RF[0]; 0; 2048; 512; "GR RF [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GRFT; "GR RF (PI-Gated)"; GR_RF[0]; 0; 2048; 512; "GR RF [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_PI
+  5  hist1 GRFC; "GR RFC"; GR_RFC[0]; 0; 2048; 512; "GR RFC [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GRFCG; "GR RFC (VDC Gate)"; GR_RFC[0]; 0; 2048; 512; "GR RFC [ch]"; "Counts/ch"; EVENT_GR_COIN && GR_RAYID==0
+  5  hist2 GRFX; "GR X vs RF"; GR_RF[0]; 0; 2048; 128; "GR RF [ch]"; GR_X[0]; -600; 600; 120; "GR X [mm]"; EVENT_GR_COIN
+  5  hist2 GRFCX; "GR X vs RFC"; GR_RFC[0]; 0; 2048; 128; "GR RFC [ch]"; GR_X[0]; -600; 600; 120; "GR X [mm]"; EVENT_GR_COIN
+  5  hist2 GRFCTH; "GR TH vs RFC"; GR_RFC[0]; 0; 2048; 128; "GR RFC [ch]"; GR_TH[0]*r2d; -5; 5; 100; "GR TH [deg]"; EVENT_GR_COIN
+  4. com   GR TPOS
+  5  hist1 GTPOS1; "GR TDC POS 1"; GR_TPOS[1]; -200; 200; 400; "GR TPOS 1 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  5  hist1 GTPOS2; "GR TDC POS 2"; GR_TPOS[2]; -200; 200; 400; "GR TPOS 2"; "Counts/ch"; EVENT_GR_COIN
+  5  hist2 GTPOS1DE1; "GR DE1 vs TPOS 1"; GR_TPOS[1]; -200; 200; 100; "GR TPOS 1 [ch]"; GR_MADC[1]; 0; 2000; 100; "DE 1 [ch]"; EVENT_GR_COIN
+  5  hist2 GTPOS2DE2; "GR DE2 vs TPOS 2"; GR_TPOS[2]; -200; 200; 100; "GR TPOS 2 [ch]"; GR_MADC[1]; 0; 2000; 100; "DE 2 [ch]"; EVENT_GR_COIN
+  4. com   GR PI
+  5  hist2 GDE1RF; "GR DE 1 vs GR RF"; GR_RF[0]; 0; 2048; 128; "GR RF [ch]"; GR_MADC[1]; 0; 2048; 64; "DE 1 [ch]"; EVENT_GR_COIN
+  5  hist2 GDE2RF; "GR DE 2 vs GR RF"; GR_RF[0]; 0; 2048; 64; "RF [ch]"; GR_MADC[2]; 0; 2048; 64; "DE 2 [ch]"; EVENT_GR_COIN
+  5  hist2 GDE1RFG; "GR DE 1 vs GR RF (VDC-Gated)"; GR_RF[0]; 0; 2048; 128; "GR RF [ch]"; GR_MADC[1]; 0; 2048; 64; "DE 1 [ch]"; EVENT_GR_COIN && GR_RAYID==0
+  5  hist2 GDE2RFG; "GR DE 2 vs GR RF (VDC-Gated)"; GR_RF[0]; 0; 2048; 128; "GR RF [ch]"; GR_MADC[2]; 0; 2048; 64; "DE 2 [ch]"; EVENT_GR_COIN && GR_RAYID==0
+  5  hist2 GDE1RFT; "GR DE 1 vs GR RF (PI-Gated)"; GR_RF[0]; 0; 2048; 128; "GR RF [ch]"; GR_MADC[1]; 0; 2048; 64; "DE 1 [ch]"; EVENT_GR_COIN && GR_PI
+  5  hist2 GDE2RFT; "GR DE 2 vs GR RF (PI-Gated)"; GR_RF[0]; 0; 2048; 128; "GR RF [ch]"; GR_MADC[2]; 0; 2048; 64; "DE 2 [ch]"; EVENT_GR_COIN && GR_PI
+ -5  hist2 GDE1RFC; "GR DE 1 vs GR RFC"; GR_RFC[0]; 0; 2048; 128; "GR RFC [ch]"; GR_MADC[1]; 0; 2048; 64; "GR DE 1"; EVENT_GR_COIN && GR_RAYID==0
+ -5  hist2 GDE2RFC; "GR DE 2 vs GR RFC"; GR_RFC[0]; 0; 2048; 128; "GR RFC [ch]"; GR_MADC[2]; 0; 2048; 64; "GR DE 2"; EVENT_GR_COIN && GR_RAYID==0
+  3. com   LaBr3 (QTC)
+  4  hist1 LaT1; "LaBr3 Timing 1"; LaBr3_T[1]; -40000; 40000; 800; "LaBr3 Timing 1 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaT2; "LaBr3 Timing 2"; LaBr3_T[2]; -40000; 40000; 800; "LaBr3 Timing 2 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaT3; "LaBr3 Timing 3"; LaBr3_T[3]; -40000; 40000; 800; "LaBr3 Timing 3 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaT4; "LaBr3 Timing 4"; LaBr3_T[4]; -40000; 40000; 800; "LaBr3 Timing 4 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaW1; "LaBr3 Width 1"; LaBr3_W[1]; 0; 10000; 1000; "LaBr3 Width 1 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaW2; "LaBr3 Width 2"; LaBr3_W[2]; 0; 10000; 1000; "LaBr3 Width 2 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaW3; "LaBr3 Width 3"; LaBr3_W[3]; 0; 10000; 1000; "LaBr3 Width 3 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaW4; "LaBr3 Width 4"; LaBr3_W[4]; 0; 10000; 1000; "LaBr3 Width 4 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaW1G; "LaBr3 Width 1 (Prompt)"; LaBr3_W[1]; 0; 10000; 1000; "LaBr3 Width 1 [ch]"; "Counts/ch"; EVENT_GR_COIN && LaBr3_T_G[1]
+  4  hist1 LaW2G; "LaBr3 Width 2 (Prompt)"; LaBr3_W[2]; 0; 10000; 1000; "LaBr3 Width 2 [ch]"; "Counts/ch"; EVENT_GR_COIN && LaBr3_T_G[2]
+  4  hist1 LaW3G; "LaBr3 Width 3 (Prompt)"; LaBr3_W[3]; 0; 10000; 1000; "LaBr3 Width 3 [ch]"; "Counts/ch"; EVENT_GR_COIN && LaBr3_T_G[3]
+  4  hist1 LaW4G; "LaBr3 Width 4 (Prompt)"; LaBr3_W[4]; 0; 10000; 1000; "LaBr3 Width 4 [ch]"; "Counts/ch"; EVENT_GR_COIN && LaBr3_T_G[4]
+  4  hist1 LaW1B; "LaBr3 Width 1 (Random)"; LaBr3_W[1]; 0; 10000; 1000; "LaBr3 Width 1 [ch]"; "Counts/ch"; EVENT_GR_COIN && LaBr3_T_B[1]
+  4  hist1 LaW2B; "LaBr3 Width 2 (Random)"; LaBr3_W[2]; 0; 10000; 1000; "LaBr3 Width 2 [ch]"; "Counts/ch"; EVENT_GR_COIN && LaBr3_T_B[2]
+  4  hist1 LaW3B; "LaBr3 Width 3 (Random)"; LaBr3_W[3]; 0; 10000; 1000; "LaBr3 Width 3 [ch]"; "Counts/ch"; EVENT_GR_COIN && LaBr3_T_B[3]
+  4  hist1 LaW4B; "LaBr3 Width 4 (Random)"; LaBr3_W[4]; 0; 10000; 1000; "LaBr3 Width 4 [ch]"; "Counts/ch"; EVENT_GR_COIN && LaBr3_T_B[4]
+  4  hist1 LaE1; "LaBr3 Energy 1"; LaBr3_E[1]; -1; 13; 1400; "LaBr3 Energy 1 [MeV]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaE2; "LaBr3 Energy 2"; LaBr3_E[2]; -1; 13; 1400; "LaBr3 Energy 2 [MeV]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaE3; "LaBr3 Energy 3"; LaBr3_E[3]; -1; 13; 1400; "LaBr3 Energy 3 [MeV]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 LaE4; "LaBr3 Energy 4"; LaBr3_E[4]; -1; 13; 1400; "LaBr3 Energy 4 [MeV]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist2 GEXLA1G; "LaBr3 Energy 1 vs GR Excitation Energy (Prompt)"; GR_EX; 0; 13; 130; "GR Excitation Energy (MeV)"; LaBr3_E[1]; 0; 13; 130; "LaBr3 Energy 1 (MeV)"; EVENT_GR_COIN && LaBr3_T_G[1]
+  4  hist2 GEXLA2G; "LaBr3 Energy 2 vs GR Excitation Energy (Prompt)"; GR_EX; 0; 13; 130; "GR Excitation Energy (MeV)"; LaBr3_E[2]; 0; 13; 130; "LaBr3 Energy 2 (MeV)"; EVENT_GR_COIN && LaBr3_T_G[2]
+  4  hist2 GEXLA3G; "LaBr3 Energy 3 vs GR Excitation Energy (Prompt)"; GR_EX; 0; 13; 130; "GR Excitation Energy (MeV)"; LaBr3_E[3]; 0; 13; 130; "LaBr3 Energy 3 (MeV)"; EVENT_GR_COIN && LaBr3_T_G[3]
+  4  hist2 GEXLA4G; "LaBr3 Energy 4 vs GR Excitation Energy (Prompt)"; GR_EX; 0; 13; 130; "GR Excitation Energy (MeV)"; LaBr3_E[4]; 0; 13; 130; "LaBr3 Energy 4 (MeV)"; EVENT_GR_COIN && LaBr3_T_G[4]
+  4  hist2 GEXLA1B; "LaBr3 Energy 1 vs GR Excitation Energy (Random)"; GR_EX; 0; 13; 130; "GR Excitation Energy (MeV)"; LaBr3_E[1]; 0; 13; 130; "LaBr3 Energy 1 (MeV)"; EVENT_GR_COIN && LaBr3_T_B[1]
+  4  hist2 GEXLA2B; "LaBr3 Energy 2 vs GR Excitation Energy (Random)"; GR_EX; 0; 13; 130; "GR Excitation Energy (MeV)"; LaBr3_E[2]; 0; 13; 130; "LaBr3 Energy 2 (MeV)"; EVENT_GR_COIN && LaBr3_T_B[2]
+  4  hist2 GEXLA3B; "LaBr3 Energy 3 vs GR Excitation Energy (Random)"; GR_EX; 0; 13; 130; "GR Excitation Energy (MeV)"; LaBr3_E[3]; 0; 13; 130; "LaBr3 Energy 3 (MeV)"; EVENT_GR_COIN && LaBr3_T_B[3]
+  4  hist2 GEXLA4B; "LaBr3 Energy 4 vs GR Excitation Energy (Random)"; GR_EX; 0; 13; 130; "GR Excitation Energy (MeV)"; LaBr3_E[4]; 0; 13; 130; "LaBr3 Energy 4 (MeV)"; EVENT_GR_COIN && LaBr3_T_B[4]
+  4  hist2 GEXLAG; "LaBr3 Energy vs GR Excitation Energy (Prompt)"; GR_EX; 0; 13; 390; "GR Excitation Energy (MeV)"; LaBr3_E_G; 0; 13; 130; "LaBr3 Energy (MeV)"; EVENT_GR_COIN
+  4  hist2 GEXLAB; "LaBr3 Energy vs GR Excitation Energy (Random)"; GR_EX; 0; 13; 390; "GR Excitation Energy (MeV)"; LaBr3_E_B; 0; 13; 130; "LaBr3 Energy (MeV)"; EVENT_GR_COIN
+  4  hist1 GEXLAGSG; "GR Excitation Energy for GS Decay (Prompt)"; GR_EX; 0; 13; 390; "GR Excitation Energy (MeV)"; ""; EVENT_GR_COIN && LaBr3_EDIFF_G
+  4  hist1 GEXLAGSB; "GR Excitation Energy for GS Decay (Random)"; GR_EX; 0; 13; 390; "GR Excitation Energy (MeV)"; ""; EVENT_GR_COIN && LaBr3_EDIFF_B
+  3. com   GR VDC
+  4  hist1 V1190HIT; "V1190 HIT Channel"; V1190_RAW_CH; 0; 1024; 1024; "V1190 Channel"; "Counts/ch"; 
+ -4  hist1 GWIREMX1; "GR WIRE X1 (Multi Hit)"; GR_WIRE_X1; 0; 192; 192; ""; ""; 
+ -4  hist1 GWIREMU1; "GR WIRE U1 (Multi Hit)"; GR_WIRE_U1; 0; 192; 192; ""; ""; 
+ -4  hist1 GWIREMX2; "GR WIRE X2 (Multi Hit)"; GR_WIRE_X2; 0; 192; 192; ""; ""; 
+ -4  hist1 GWIREMU2; "GR WIRE U2 (Multi Hit)"; GR_WIRE_U2; 0; 192; 192; ""; ""; 
+  4  hist1 GWIREX1; "GR WIRE X1"; GR_WIRER_X1; 0; 192; 192; "GR VDC X1 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GWIREU1; "GR WIRE U1"; GR_WIRER_U1; 0; 206; 206; "GR VDC U1 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GWIREX2; "GR WIRE X2"; GR_WIRER_X2; 0; 192; 192; "GR VDC X2 [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GWIREU2; "GR WIRE U2"; GR_WIRER_U2; 0; 206; 206; "GR VDC U2 [ch]"; "Counts/ch"; EVENT_GR_COIN
+ -4  hist2 GWIREX1TPOS1; "GR TPOS1 vs WIRE X1"; GR_WIRER_X1; 0; 192; 192; "GR Wire X1"; GR_TPOS[1]; -200; 200; 100; "GR TPOS 1"; EVENT_GR_COIN
+ -4  hist2 GWIREU1TPOS1; "GR TPOS1 vs WIRE U1"; GR_WIRER_U1; 0; 208; 208; "GR Wire U1"; GR_TPOS[1]; -200; 200; 100; "GR TPOS 1"; EVENT_GR_COIN
+ -4  hist2 GWIREX2TPOS1; "GR TPOS1 vs WIRE X2"; GR_WIRER_X2; 0; 192; 192; "GR Wire X2"; GR_TPOS[1]; -200; 200; 100; "GR TPOS 1"; EVENT_GR_COIN
+ -4  hist2 GWIREU2TPOS1; "GR TPOS1 vs WIRE U2"; GR_WIRER_U2; 0; 208; 208; "GR Wire U2"; GR_TPOS[1]; -200; 200; 100; "GR TPOS 1"; EVENT_GR_COIN
+ -4  hist2 GWIREX1TPOS2; "GR TPOS1 vs WIRE X1"; GR_WIRER_X1; 0; 192; 192; "GR Wire X1"; GR_TPOS[2]; -200; 200; 100; "GR TPOS 2"; EVENT_GR_COIN
+  4  hist1 GTDCX1; "GR TDC X1"; GR_TDCR_X1; 0; 500; 500; "TDC [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GTDCU1; "GR TDC U1"; GR_TDCR_U1; 0; 500; 500; "TDC [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GTDCX2; "GR TDC X2"; GR_TDCR_X2; 0; 500; 500; "TDC [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GTDCU2; "GR TDC U2"; GR_TDCR_U2; 0; 500; 500; "TDC [ch]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist2 GWTDCX1; "GR VDC TDC X1 vs WIRE X1"; GR_WIRER_X1; 0; 192; 192; ""; GR_TDCR_X1; 0; 500; 50; ""; EVENT_GR_COIN
+  4  hist2 GWTDCU1; "GR VDC TDC U1 vs WIRE U1"; GR_WIRER_U1; 0; 208; 208; ""; GR_TDCR_U1; 0; 500; 50; ""; EVENT_GR_COIN
+  4  hist2 GWTDCX2; "GR VDC TDC X2 vs WIRE X2"; GR_WIRER_X2; 0; 192; 192; ""; GR_TDCR_X2; 0; 500; 50; ""; EVENT_GR_COIN
+  4  hist2 GWTDCU2; "GR VDC TDC U2 vs WIRE U2"; GR_WIRER_U2; 0; 208; 208; ""; GR_TDCR_U2; 0; 500; 50; ""; EVENT_GR_COIN
+  4  hist1 GDLX1; "GR Drift Length X1"; GR_DRIFT_X1; -0.5; 1.5; 200; "GR Drift Length X1"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GDLU1; "GR Drift Length U1"; GR_DRIFT_U1; -0.5; 1.5; 200; "GR Drift Length U1"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GDLX2; "GR Drift Length X2"; GR_DRIFT_X2; -0.5; 1.5; 200; "GR Drift Length X2"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GDLU2; "GR Drift Length U2"; GR_DRIFT_U2; -0.5; 1.5; 200; "GR Drift Length Uw"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GNHITX1; "GR NHIT X1"; GR_NHIT_X1; 0; 32; 32; "GR Number of Hits X1"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GNHITU1; "GR NHIT U1"; GR_NHIT_U1; 0; 32; 32; "GR Number of Hits U1"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GNHITX2; "GR NHIT X2"; GR_NHIT_X2; 0; 32; 32; "GR Number of Hits X2"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GNHITU2; "GR NHIT U2"; GR_NHIT_U2; 0; 32; 32; "GR Number of Hits U2"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GNCLUSTX1; "GR NCLUST X1"; GR_NCLUST_X1; 0; 10; 10; "GR Number of Clusters X1"; ""; EVENT_GR_COIN
+  4  hist1 GNCLUSTU1; "GR NCLUST U1"; GR_NCLUST_U1; 0; 10; 10; "GR Number of Clusters U1"; ""; EVENT_GR_COIN
+  4  hist1 GNCLUSTX2; "GR NCLUST X2"; GR_NCLUST_X2; 0; 10; 10; "GR Number of Clusters X2"; ""; EVENT_GR_COIN
+  4  hist1 GNCLUSTU2; "GR NCLUST U2"; GR_NCLUST_U2; 0; 10; 10; "GR Number of Clusters U2"; ""; EVENT_GR_COIN
+  4  hist1 GCSX1; "GR CLUST SIZE X1"; GR_CLUSTSZ_X1; 0; 32; 32; "GR Cluster Size X1"; "Size [wires]"; EVENT_GR_COIN
+  4  hist1 GCSU1; "GR CLUST SIZE U1"; GR_CLUSTSZ_U1; 0; 32; 32; "GR Cluster Size U1"; "Size [wires]"; EVENT_GR_COIN
+  4  hist1 GCSX2; "GR CLUST SIZE X2"; GR_CLUSTSZ_X2; 0; 32; 32; "GR Cluster Size X2"; "Size [wires]"; EVENT_GR_COIN
+  4  hist1 GCSU2; "GR CLUST SIZE U2"; GR_CLUSTSZ_U2; 0; 32; 32; "GR Cluster Size U2"; "Size [wires]"; EVENT_GR_COIN
+  4  hist1 GPOSX1; "GR POS X1"; GR_POS_X1; 0; 192; 192*10; "GR Position X1 [wire]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GPOSU1; "GR POS U1"; GR_POS_U1; 0; 208; 208*10; "GR Position U1 [wire]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GPOSX2; "GR POS X2"; GR_POS_X2; 0; 192; 192*10; "GR Position X2 [wire]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GPOSU2; "GR POS U2"; GR_POS_U2; 0; 208; 208*10; "GR Position U2 [wire]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist2 GPOSX1X2; "GR POS X2 vs X1"; GR_POS_X1; 0; 192; 48; "GR POS X1 [wire]"; GR_POS_X2; 0; 192; 48; "GR POS X2 [wire]"; EVENT_GR_COIN
+  4  hist2 GPOSU1U2; "GR POS U2 vs U1"; GR_POS_U1; 0; 192; 48; "GR POS U1 [wire]"; GR_POS_U2; 0; 192; 48; "GR POS U2 [wire]"; EVENT_GR_COIN
+  4  hist2 GPOSX1U1; "GR POS U1 vs X1"; GR_POS_X1; 0; 192; 48; "GR POS X1 [wire]"; GR_POS_U1; 0; 192; 48; "GR POS U1 [wire]"; EVENT_GR_COIN
+  4  hist2 GPOSX2U2; "GR POS U2 vs X2"; GR_POS_X2; 0; 192; 48; "GR POS X2 [wire]"; GR_POS_U2; 0; 192; 48; "GR POS U2 [wire]"; EVENT_GR_COIN
+ -4  hist2 GRESX10; "GR Resolution X1-0"; (GR_POS_X1[0]-GR_WIRER_X1[0])*GR_PL_X1[3]*tan(GR_VDC_TILT[1]+GR_TH[0])/GR_PL_X1[5]; -1.2; 1.2; 120; "GR Pos Tracked"; GR_TDCR_X1[0]; 0; 400; 100; "GR TDC X1"; EVENT_GR_COIN && gate(GR_POS_X1[0], 50, 150)
+ -4  hist2 GRESX11; "GR Resolution X1-1"; (GR_POS_X1[0]-GR_WIRER_X1[1])*GR_PL_X1[3]*tan(GR_VDC_TILT[1]+GR_TH[0])/GR_PL_X1[5]; -1.2; 1.2; 120; "GR Pos Tracked"; GR_TDCR_X1[1]; 0; 400; 100; "GR TDC X1"; EVENT_GR_COIN && gate(GR_POS_X1[0], 50, 150)
+ -4  hist2 GRESX12; "GR Resolution X1-2"; (GR_POS_X1[0]-GR_WIRER_X1[2])*GR_PL_X1[3]*tan(GR_VDC_TILT[1]+GR_TH[0])/GR_PL_X1[5]; -1.2; 1.2; 120; "GR Pos Tracked"; GR_TDCR_X1[2]; 0; 400; 100; "GR TDC X1"; EVENT_GR_COIN && gate(GR_POS_X1[0], 50, 150)
+ -4  hist2 GRESX13; "GR Resolution X1-3"; (GR_POS_X1[0]-GR_WIRER_X1[3])*GR_PL_X1[3]*tan(GR_VDC_TILT[1]+GR_TH[0])/GR_PL_X1[5]; -1.2; 1.2; 120; "GR Pos Tracked"; GR_TDCR_X1[3]; 0; 400; 100; "GR TDC X1"; EVENT_GR_COIN && gate(GR_POS_X1[0], 50, 150)
+  4  hist2 GRESX10; "GR Resolution X1-0"; (GR_POS_X1[0]-GR_WIRER_X1[0])*GR_PL_X1[3]*tan(GR_VDC_TILT[1]+GR_TH[0])/GR_PL_X1[5]; -1.2; 1.2; 120; "GR Pos Tracked"; GR_DRIFT_X1[0]; -0.1; 1.1; 120; "GR Drift Length X1"; EVENT_GR_COIN && gate(GR_POS_X1[0], 50, 150)
+  4  hist2 GRESX11; "GR Resolution X1-1"; (GR_POS_X1[0]-GR_WIRER_X1[1])*GR_PL_X1[3]*tan(GR_VDC_TILT[1]+GR_TH[0])/GR_PL_X1[5]; -1.2; 1.2; 120; "GR Pos Tracked"; GR_DRIFT_X1[1]; -0.1; 1.1; 120; "GR Drift Length X1"; EVENT_GR_COIN && gate(GR_POS_X1[0], 50, 150)
+  4  hist2 GRESX12; "GR Resolution X1-2"; (GR_POS_X1[0]-GR_WIRER_X1[2])*GR_PL_X1[3]*tan(GR_VDC_TILT[1]+GR_TH[0])/GR_PL_X1[5]; -1.2; 1.2; 120; "GR Pos Tracked"; GR_DRIFT_X1[2]; -0.1; 1.1; 120; "GR Drift Length X1"; EVENT_GR_COIN && gate(GR_POS_X1[0], 50, 150)
+  4  hist2 GRESX13; "GR Resolution X1-3"; (GR_POS_X1[0]-GR_WIRER_X1[3])*GR_PL_X1[3]*tan(GR_VDC_TILT[1]+GR_TH[0])/GR_PL_X1[5]; -1.2; 1.2; 120; "GR Pos Tracked"; GR_DRIFT_X1[3]; -0.1; 1.1; 120; "GR Drift Length X1"; EVENT_GR_COIN && gate(GR_POS_X1[0], 50, 150)
+  4  hist1 GPOSIDX1; "GR POSID X1"; GR_POSID_X1; -10; 40; 50; "Position Determination ID X1"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GPOSIDU1; "GR POSID U1"; GR_POSID_U1; -10; 40; 50; "Position Determination ID U1"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GPOSIDX2; "GR POSID X2"; GR_POSID_X2; -10; 40; 50; "Position Determination ID X2"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GPOSIDU2; "GR POSID U2"; GR_POSID_U2; -10; 40; 50; "Position Determination ID U2"; "Counts/ch"; EVENT_GR_COIN
+ -4  hist2 GARESX1; "GR Grad X vs Grad X1 - X"; (atan(GR_GRAD_X1[0])-atan(GR_GRAD_X[0]))*r2d; -7; 7; 70; "Angular Resolution X1[deg]"; atan(GR_GRAD_X[0])*r2d; -60; -30; 60; "GR Grad X [deg]"; GR_RAYID[0]==0
+ -4  hist2 GARESX2; "GR Grad X vs Grad X2 - X"; (atan(GR_GRAD_X2[0])-atan(GR_GRAD_X[0]))*r2d; -7; 7; 70; "Angular Resolution X1[deg]"; atan(GR_GRAD_X[0])*r2d; -60; -30; 60; "GR Grad X [deg]"; GR_RAYID[0]==0
+ -4  hist2 GARESU1; "GR Grad U vs Grad U1 - U"; (atan(GR_GRAD_U1[0])-atan(GR_GRAD_X[0]*cos(48.19*d2r)-GR_GRAD_Y[0]*sin(48.19*d2r)))*r2d; -7; 7; 70; "Angular Resolution X1[deg]"; atan(GR_GRAD_X[0]*cos(48.19*d2r)-GR_GRAD_Y[0]*sin(48.19*d2r))*r2d; -45; -15; 80; "GR Grad U [deg]"; EVENT_GR_COIN && GR_RAYID[0]==0
+ -4  hist2 GARESU2; "GR Grad U vs Grad U2 - U"; (atan(GR_GRAD_U2[0])-atan(GR_GRAD_X[0]*cos(48.19*d2r)-GR_GRAD_Y[0]*sin(48.19*d2r)))*r2d; -7; 7; 70; "Angular Resolution X1[deg]"; atan(GR_GRAD_X[0]*cos(48.19*d2r)-GR_GRAD_Y[0]*sin(48.19*d2r))*r2d; -45; -15; 80; "GR Grad U [deg]"; EVENT_GR_COIN && GR_RAYID[0]==0
+  3. com   GR Ray
+  4  hist1 GRAYID; "GR RAYID (PI-Gated)"; GR_RAYID; -20; 40; 60; "GR Ray-ID"; "Counts/ch"; EVENT_GR_COIN && GR_PI
+ -4  hist1 GRAYIDU; "GR RAYID (Spin-Up)"; GR_RAYID; -20; 40; 60; "GR Ray-ID"; "Counts/ch"; EVENT_GR_COIN && GR_PI && SPIN_UP
+ -4  hist1 GRAYIDD; "GR RAYID (Spin-Dwon)"; GR_RAYID; -20; 40; 60; "GR Ray-ID"; "Counts/ch"; EVENT_GR_COIN && GR_PI && SPIN_DN
+ -4  hist1 GCHI2; "GR Chi Square"; GR_CHI2[0]; -10; 500; 510; "GR Chi Square"; "Counts/0.01"; EVENT_GR_COIN && GR_PI
+ -4  hist1 GNCOMB; "GR VDC Number of Combinations"; GR_NCOMB[0]; -10; 100; 110; "GR VDC Number of Combinations"; "Counts/ch"; EVENT_GR_COIN && GR_PI
+  4  hist1 GRAYX; "GR RAY X"; GR_RAY_X[0]; -600; 600; 800; "GR Ray X [mm]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GRAYY; "GR RAY Y"; GR_RAY_Y[0]; -100; 100; 200; "GR Ray Y [mm]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GX; "GR X"; GR_X[0]; -600; 600; 1200; "GR X [mm]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GXPI; "GR X (PI-Gated)"; GR_X[0]; -600; 600; 1200; "GR X [mm]"; "Counts/ch"; EVENT_GR_COIN && GR_PI
+  4  hist1 GXN; "GR X (Narrow cut by Theta)"; GR_X[0]; -600; 600; 1200; "GR X [mm]"; "Counts/ch"; EVENT_GR_COIN && GR_TH_NAR
+  4  hist1 GXG; "GR X (Gated by THC)"; GR_X[0]; -600; 600; 1200; "GR X [mm]"; "Counts/ch"; EVENT_GR_COIN && GR_THC_G
+ -4  hist1 GXE; "GR X (Elastic)"; GR_X[0]; -600; 600; 1200; "GR X [mm]"; "Counts/ch"; EVENT_GR_COIN && G_ELASTIC
+  4  hist1 GY; "GR Y"; GR_Y[0]; -200; 200; 800; "GR Y [mm]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GTH; "GR TH"; GR_TH[0]*r2d; -20; 20; 400; "GR Theta [deg]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GTHE; "GR TH (Expanded)"; GR_TH[0]*r2d; -2; 4; 400; "GR Theta [deg]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GPH; "GR PH"; GR_PH[0]*r2d; -5; 5; 400; "GR Phi [deg]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist2 GXY; "GR Y vs X"; GR_X[0]; -400; 400; 200; "GR X [mm]"; GR_Y[0]; -100; 100; 100; "GR Y [mm]"; EVENT_GR_COIN
+ -4  hist2 GXYE; "GR Y vs X (Expanded)"; GR_X[0]; 180; 230; 200; "GR X [mm]"; GR_Y[0]; 20; 100; 120; "GR Y [mm]"; EVENT_GR_COIN
+  4  hist2 GXRF; "GR RF vs X"; GR_X[0]; -600; 600; 50; "GR X [mm]"; GR_RF[0]; 0; 2048; 64; "GR RF [ch]"; EVENT_GR_COIN
+  4  hist2 GXTH; "GR TH vs X"; GR_X[0]; -600; 600; 300; "GR X [mm]"; GR_TH[0]*r2d; -8; 10; 60; "GR Theta [deg]"; EVENT_GR_COIN
+  4  hist2 GXTHE; "GR TH vs X (Expanded)"; GR_X[0]; -100; 100; 100; "GR X [mm]"; GR_TH[0]*r2d; -3; 1; 40; "GR Theta [deg]"; EVENT_GR_COIN
+  4  hist2 GXTHG; "GR TH vs X (YC-Gated)"; GR_X[0]; -600; 600; 240; "GR X [mm]"; GR_TH[0]*r2d; -6; 6; 36; "GR Theta [deg]"; EVENT_GR_COIN && GR_YC_G
+  4  hist1 GXCN; "GR XC (Narrow-cut by Theta)"; GR_XC[0]; -600; 600; 6000; "GR X-Corrected [mm]"; "Counts/ch"; EVENT_GR_COIN && GR_TH_NAR
+  4  hist2 GYPH; "GR Phi vs Y"; GR_Y[0]; -50; 50; 100; "GR Y [mm]"; GR_PH[0]*r2d; -2; 2; 100; "GR Phi [deg]"; EVENT_GR_COIN
+  4  hist2 GTHPH; "GR Phi vs Theta"; GR_TH[0]*r2d; -5.; 5.; 50; "GR Theta [deg]"; GR_PH[0]*r2d; -2; 2; 50; "GR Phi [deg]"; EVENT_GR_COIN
+  4  hist2 GTHY; "GR Y vs Theta"; GR_TH[0]*r2d; -5; 5; 200; "GR Theta [deg]"; GR_Y[0]; -100; 100; 100; "GR Y [mm]"; EVENT_GR_COIN
+  3. com   GR Optics
+  4  hist2 GPTH; "GR theta vs momentum"; GR_P[0]; 0.3*GR_q*GR_B*3.00*0.97; 0.3*GR_q*GR_B*3.00*1.03; 50; "GR Momentum [MeV/c]"; GR_TH[0]*r2d; -5.; 5.; 50; "GR Theta [deg]"; EVENT_GR_COIN
+  4  hist1 GTHC; "GR THC"; GR_THC[0]*r2d; -2; 2; 400; "GR Theta-Corrected [deg]"; "Counts/ch"; EVENT_GR_COIN
+ -4  hist2 GTHCY; "GR Y vs THC"; GR_THC[0]*r2d; -2; 2; 100; "GR Theta-Corrected [deg]"; GR_Y[0]; -20; 20; 100; "GR Y [mm]"; EVENT_GR_COIN
+  4  hist2 GXTHC; "GR THC vs X"; GR_X[0]; -600; 600; 300; "GR X [mm]"; GR_THC[0]*r2d; -3; 3; 60; "GR Theta-Corrected [deg]"; EVENT_GR_COIN
+ -4  hist2 GXTHCE; "GR THC vs X (expanded)"; GR_X[0]; -500; -300; 100; "GR X [mm]"; GR_THC[0]*r2d; -3; 3; 50; "GR Theta-Corrected [deg]"; EVENT_GR_COIN
+  4  hist2 GXCTHC; "GR THC vs XC"; GR_XC[0]; -600; 600; 1200; "GR X-Corrected [mm]"; GR_THC[0]*r2d; -2; 2; 50; "GR Theta-Corrected [deg]"; EVENT_GR_COIN
+ -4  hist2 GXCTHE; "GR TH vs XC (Expanded)"; GR_XC[0]; -100; 100; 100; "GR X-Corrected[mm]"; GR_TH[0]*r2d; -3; 1; 40; "GR Theta [deg]"; EVENT_GR_COIN
+ -4  hist2 GXCTHCE; "GR THC vs XC (expanded)"; GR_XC[0]; -500; -300; 200; "GR X-Corrected [mm]"; GR_THC[0]*r2d; -3; 3; 50; "GR Theta-Corrected [deg]"; EVENT_GR_COIN
+  4  hist1 GXC; "GR XC"; GR_XC[0]; -600; 600; 2400; "GR X-Corrected [mm]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GXCN; "GR XC (Narrow-cut by Theta)"; GR_XC[0]; -600; 600; 2400; "GR X-Corrected [mm]"; "Counts/ch"; EVENT_GR_COIN && GR_TH_NAR
+  4  hist2 GXCTHC; "GR THC vs XC"; GR_XC[0]; -600; 600; 1200; "GR X-Corrected [mm]"; GR_THC[0]*r2d; -2; 2; 50; "GR Theta-Corrected [deg]"; EVENT_GR_COIN
+  4  hist1 GYC; "GR YC"; GR_YC[0]; -100; 100; 200; "GR Y-Corrected [mm]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GYCN; "GR YC (Narrow-cut by Theta)"; GR_YC[0]; -100; 100; 200; "GR Y-Corrected [mm]"; "Counts/ch"; EVENT_GR_COIN && GR_TH_NAR
+  4  hist2 GXYC; "GR YC vs X"; GR_X[0]; -600; 600; 100; "GR X [mm]"; GR_YC[0]; -100; 100; 100; "GR Y-Corrected [mm]"; EVENT_GR_COIN
+ -4  hist1 GP; "GR Momentum"; GR_P[0]; 0.3*GR_B*GR_Rho*GR_q*0.97; 0.3*GR_B*GR_Rho*GR_q*1.03; 1600; "GR Momentum [MeV/c]"; "Counts/ch"; EVENT_GR_COIN
+  4  hist1 GEX; "GR Excitation Energy"; GR_EX; -1; 14; 1500; "GR Excitation Energy [MeV]"; "Counts/ch"; EVENT_GR_COIN
+ -4  hist1 GTH3; "GR scattering angle"; GR_TH3[0]*r2d; GR_ANG-2; GR_ANG+2; 400; "GR scattering angle [deg]"; "Counts/ch"; EVENT_GR_COIN
+ -4  hist2 GPTH3; "GR Scatt. ang. vs momentum"; GR_P[0]; 0.3*GR_B*GR_Rho*GR_q*0.97; 0.3*GR_B*GR_Rho*GR_q*1.03; 50; "GR momentum [MeV/c]"; GR_TH3[0]*r2d; GR_ANG-2; GR_ANG+2; 50; "GR scattering angle [deg]"; EVENT_GR_COIN
+ -4  hist2 GAIBI; "GR Bi vs Ai"; GR_AI[0]*r2d; -2; 2; 100; "GR AI [deg]"; GR_BI[0]*r2d; -5; 5; 100; "GR BI [deg]"; EVENT_GR_COIN
