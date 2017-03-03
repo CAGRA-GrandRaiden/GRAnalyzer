@@ -75,7 +75,7 @@
   3. com   DST Output
   4  def   DST_CONDITION = 1 # No Condition
   4. com   DST Step #2 (VDC-Ray-Analyzed, GR data)
-  5  def   DST_VAR = "QTC_TRAILING_TDC:QTC_TRAILING_CH:QTC_LEADING_TDC:QTC_LEADING_CH:GR_ADC:GR_TDC:GR_RAYID:GR_RF:GR_X:GR_Y:GR_TH:GR_PH:GR_MYRIAD:GR_TDCR_X1:GR_TDCR_U1:GR_TDCR_X2:GR_TDCR_U2:GR_TDC_X1:GR_TDC_U1:GR_TDC_X2:GR_TDC_U2:GR_DRIFT_X1:GR_DRIFT_U1:GR_DRIFT_X2:GR_DRIFT_U2" 
+  5  def   DST_VAR = "QTC_TRAILING_TDC:QTC_TRAILING_CH:QTC_LEADING_TDC:QTC_LEADING_CH:GR_ADC:GR_TDC:GR_RAYID:GR_RF:GR_X:GR_Y:GR_TH:GR_PH:GR_MYRIAD:GR_TDCR_X1:GR_TDCR_U1:GR_TDCR_X2:GR_TDCR_U2:GR_TDC_X1:GR_TDC_U1:GR_TDC_X2:GR_TDC_U2:GR_DRIFT_X1:GR_DRIFT_U1:GR_DRIFT_X2:GR_DRIFT_U2"
   5. com   Variables for ROOT conversion (arrays reduced to single variables)
   2  com   Detector Configurations
   3. com   GR Chamber Configuration
@@ -389,12 +389,8 @@
   4  def   LaBr3_EDIFF_MAX = 1.0 # MeV
   4  def   LaBr3_EDIFF_G = gate(LaBr3_E_G - GR_EX, LaBr3_EDIFF_MIN, LaBr3_EDIFF_MAX)
   4  def   LaBr3_EDIFF_B = gate(LaBr3_E_B - GR_EX, LaBr3_EDIFF_MIN, LaBr3_EDIFF_MAX)
-  2. com   Event Selection
+  2  com   Event Selection
   3  def   EVENT_TRUE = TRUE
- -4  hist1 GTDCX1; "GR TDC X1"; GR_TDCR_X1; 0; 512; 1024; "TDC [ch]"; "Counts/ch"; EVENT_GR_COIN
- -4  hist1 GTDCU1; "GR TDC U1"; GR_TDCR_U1; 0; 512; 1024; "TDC [ch]"; "Counts/ch"; EVENT_GR_COIN
- -4  hist1 GTDCX2; "GR TDC X2"; GR_TDCR_X2; 0; 512; 1024; "TDC [ch]"; "Counts/ch"; EVENT_GR_COIN
- -4  hist1 GTDCU2; "GR TDC U2"; GR_TDCR_U2; 0; 512; 1024; "TDC [ch]"; "Counts/ch"; EVENT_GR_COIN
  -1  com   Definition of Histograms
   2. com   Analysis
   3  hist1 BLK; "Block Number"; BLOCK_N[0]; 0; 200000; 20000; "Block Number"; "Number of Events/10Block"; 
