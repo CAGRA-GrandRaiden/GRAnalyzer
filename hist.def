@@ -90,7 +90,7 @@
   3. com   Drift time to distance
   4  com   GR
   6  def   GR_WTDC_FILE = "gr_wtdc.hst"
-  6  def   GR_WTDC_X1 = {153,372}
+  6  def   GR_WTDC_X1 = {153,373}
   6  def   GR_WTDC_U1 = {152,373}
   6  def   GR_WTDC_X2 = {153,371}
   6  def   GR_WTDC_U2 = {153,371}
