@@ -238,8 +238,8 @@
   3  def   GR_TDC[2] = GR_FERA_TDC[0x11]
   3  def   GR_TDC[3] = GR_FERA_TDC[0x12]
   3  def   GR_TDC[4] = GR_FERA_TDC[0x13]
-  3  def   GR_TDC[5] = GR_FERA_TDC[0x20]
-  3  def   GR_TDC[6] = GR_FERA_TDC[0x28]
+  3  def   GR_TDC[5] = GR_FERA_TDC[0x17]
+  3  def   GR_TDC[6] = GR_FERA_TDC[0x1C]
   3  def   GR_RF = GR_FERA_TDC[0x14]
   3  def   GR_TLAS = GR_FERA_TDC[0x15]
   3  def   GR_TPOS[1] = GR_TDC[2]-GR_TDC[1]
@@ -392,7 +392,7 @@
   2  com   Event Selection
   3  def   EVENT_TRUE = TRUE
  -1  com   Definition of Histograms
-  2. com   Analysis
+ -2. com   Analysis
   3  hist1 BLK; "Block Number"; BLOCK_N[0]; 0; 200000; 20000; "Block Number"; "Number of Events/10Block"; 
   3  hist2 BLKT; "Block Number vs Time (Hour)"; TIME[0]; int(TIME[0]); int(TIME[0])+4; 240; "Time (Hour)"; BLOCK_N[0] % 10000; 0; 10000; 200; "Block Number (mod 10000)"; 
   3  hist2 AR; "Analyzing Ratio vs Time (Hour)"; TIME[0]; int(TIME[0]); int(TIME[0])+4; 120; "Time (Hour)"; BLOCK_ANA[0]/BLOCK_N[0]*100; 0; 110; 110; "Analyzing Ratio (%) per Child Process"; 
